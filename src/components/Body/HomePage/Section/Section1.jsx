@@ -2,7 +2,7 @@ import React from "react";
 import './Section.css';
 import Fade from 'react-reveal/Fade';
 
-const Section = ({ title, description, buttonText, imageSrc, onClick }) => {
+const Section = ({ title, description, buttonText, imageSrc, onClick ,customStyle }) => {
   return (
     <div className="mainContainer">
       <div className="container">
@@ -11,7 +11,7 @@ const Section = ({ title, description, buttonText, imageSrc, onClick }) => {
           <Fade left>
             <p className="paragraph">{description}</p>
           </Fade>
-          <button className="btnDark" onClick={onClick}>
+          <button className="btnDark" onClick={onClick} style={customStyle}>
             {buttonText}
             <div className="icon">
             <span class="material-symbols-outlined">

@@ -3,9 +3,9 @@ import './Section2.css';
 import AddImg from '/Add.png';
 import Fade from 'react-reveal/Fade';
 
-const Section2 = ({ title, description, buttonText, imageSrc, onClick }) => {
+const Section2 = ({ title, description, buttonText, imageSrc, onClick  ,customStyle  }) => {
   return (
-    <div className="mainContainer">
+    <div className="mainContainer" >
       <div className="container2">
         <div className="img">
         <Fade left>
@@ -26,7 +26,7 @@ const Section2 = ({ title, description, buttonText, imageSrc, onClick }) => {
           <Fade right>
           <p className="paragraph2">{description}</p>
           </Fade>
-          <button className="btnDark2" onClick={onClick}>
+          <button className="btnDark2" onClick={onClick} style={customStyle}>
             {buttonText}
             <div className="icon2">
             <span class="material-symbols-outlined">
