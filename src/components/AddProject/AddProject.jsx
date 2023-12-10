@@ -67,21 +67,7 @@ export default function AddProject() {
                 autoComplete="project description"
               />
               <TextArea text = "hi"/>
-{/* 
-              <TextareaAutosize
-                rowsMin={3}
-                placeholder="Additional Input (three rows)"
-                style={{ width: '100%', padding: '10px', marginTop: '10px' }}
-                name="additionalInput"
-              />
 
-      
-              <TextareaAutosize
-                rowsMin={6}  // Adjust the number of rows as needed
-                placeholder="Another Textarea (six rows)"
-                style={{ width: '100%', padding: '10px', marginTop: '10px' }}
-                name="anotherTextarea"
-              /> */}
             </Box>
           </Box>
         </Container>
