@@ -7,6 +7,7 @@ import Cards from './components/Cards'
 import Menu from './components/Body/menu';
 import HomePage from './components/Body/HomePage/HomePage';
 import AddProject from './components/AddProject/AddProject'
+import About from './components/About'
 
 
 import '../src/index.css'
@@ -29,6 +30,7 @@ export default function App() {
          <Route path='/Cards' element={<Cards/>}/>
          <Route path="/HomePage" element={<HomePage/>} /> 
          <Route path="/AddProject" element={<AddProject/>} /> 
+         <Route path="/About" element={<About/>} /> 
          
       </Routes> 
 

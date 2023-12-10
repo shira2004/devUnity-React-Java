@@ -1,31 +1,36 @@
 import React from 'react';
-import Section from './Section/Section1';
-import Section2 from './Section/Section2';
-import AddImg from '/Add.png';
-import teamImage from '/team.png';
-import website from '/website.png';
+import Section from '../components/Body/HomePage/Section/Section1';
+import Section2 from '../components/Body/HomePage/Section/Section2';
+import Server from '/server.png';
+import feeling_proud from '/feeling_proud.png';
+import Friends_online from '/Friends_online.png';
+import Community from '/Community.png';
+import Business_deal from '/Business_deal.png';
+import collaboration from '/collaboration.png';
 import { useNavigate } from 'react-router-dom';
 
-export default function HomePage() {
+export default function About() {
   const nav = useNavigate();
   return (
     <>
+     <br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/>
     
     <Section
-        title="Join Our Community"
-        description="Explore the realm of developers and programmers at DevUnity. Join our dynamic community and leverage your unique skills to contribute, learn, and collaborate with experts from around the world. Opportunities are limitless - dive in now!"
-        buttonText="Join DevUnity"
-        imageSrc={teamImage}
-        onClick={() => nav('/SignUp')}
-        
-      />
+  title="Empowering Innovators, Uniting Creators"
+  description="At the heart of the digital realm, DevUnity stands as a beacon for innovators, creators, and developers seeking a collaborative and passionate community. More than a platform, DevUnity is an ecosystem meticulously crafted to elevate the world of open-source and creative development."
+  buttonText=""
+  imageSrc={collaboration}
+  onClick={() => nav('/SignUp')}
+/>
+
     <br/><br/><br/><br/><br/><br/>
     <br/><br/><br/>
     <Section2
-        title="Add Your Latest Project to the DevUnity"
-        description="Calling all existing members! Elevate your profile by uploading your latest project to the repository. Showcase your skills, contribute to our growing community, and keep the innovation flowing. Add your project now and make your mark in the DevUnity database!"
-        buttonText="Add a new project"
-        imageSrc={AddImg}
+        title="Our Purpose:"
+        description="DevUnity was born from a vision to create a space where technological enthusiasts, developers, and visionaries could converge, collaborate, and push the boundaries of what's possible. Our mission is to empower individuals to contribute, learn, and make a positive impact on the world of coding and development."
+        buttonText=""
+        imageSrc={feeling_proud}
         onClick={() => nav('/AddProject')}
 
       />
@@ -33,11 +38,47 @@ export default function HomePage() {
     <br/><br/><br/><br/><br/><br/>
     <br/><br/><br/>
     <Section
-        title="Discover the Heart of DevUnity"
-        description="Discover the heart of DevUnity! Delve into the story of our vibrant community, where innovation meets collaboration. Learn about the mission driving developers, creators, and collaborators worldwide. Join us in shaping the future of open-source and creative development. Explore 'About' now to uncover the essence of DevUnity."
-        buttonText="Explore DevUnity"
-        imageSrc={website}
+        title="Key Objectives:"
+        description="Fostering Collaboration: DevUnity serves as a hub for collaboration, connecting like-minded individuals with diverse talents and skills. By fostering a collaborative environment, we believe in the collective power to shape cutting-edge projects.
+        Knowledge-Sharing: Our platform is a repository of knowledge where learning is a continuous journey. DevUnity encourages the sharing of insights, experiences, and skills, creating a dynamic space for personal and professional growth.
+        Innovation Without Bounds: Breaking free from conventional constraints, DevUnity is committed to fostering innovation without bounds. We believe in pushing the limits of what technology can achieve and encouraging our community to think outside the box."
+        buttonText=""
+        imageSrc={Business_deal}
         onClick={() => nav('/AddProject')}
+      />
+    
+
+
+    <br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/>
+    <Section2
+        title="Our Community:"
+        description="DevUnity thrives on the diversity of its community. From developers and tech enthusiasts to creatives and visionaries, our members come together to form a rich tapestry of talents. The collective drive of our community members shapes the technological landscape and drives advancements in various fields."
+        buttonText=""
+        imageSrc={Friends_online}
+        onClick={() => nav('/AddProject')}
+
+      />
+
+    <br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/>
+    <Section
+        title="Why DevUnity?"
+        description="DevUnity thrives on the diversity of its community. From developers and tech enthusiasts to creatives and visionaries, our members come together to form a rich tapestry of talents. The collective drive of our community members shapes the technological landscape and drives advancements in various fields."
+        buttonText=""
+        imageSrc={Community}
+        onClick={() => nav('/AddProject')}
+      />
+
+    <br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/>
+    <Section2
+        title="Join DevUnity:"
+        description="Whether you're a seasoned developer, a creative mind, or a tech enthusiast, DevUnity welcomes you to join this dynamic community. Together, let's redefine the landscape of coding and development. Welcome to DevUnity – where innovation knows no bounds!"
+        buttonText=""
+        imageSrc={Server}
+        onClick={() => nav('/AddProject')}
+
       />
     
     </>

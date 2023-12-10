@@ -44,7 +44,7 @@ export default function HomePage() {
         description="Discover the heart of DevUnity! Delve into the story of our vibrant community, where innovation meets collaboration. Learn about the mission driving developers, creators, and collaborators worldwide. Join us in shaping the future of open-source and creative development. Explore 'About' now to uncover the essence of DevUnity."
         buttonText="Explore DevUnity"
         imageSrc={website}
-        onClick={() => nav('/AddProject')}
+        onClick={() => nav('/About')}
       />
     
     </>
