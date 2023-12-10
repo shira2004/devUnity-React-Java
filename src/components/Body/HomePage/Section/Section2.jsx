@@ -29,7 +29,9 @@ const Section2 = ({ title, description, buttonText, imageSrc, onClick }) => {
           <button className="btnDark2" onClick={onClick}>
             {buttonText}
             <div className="icon2">
-              <i className="fas fa-arrow-right"></i>
+            <span class="material-symbols-outlined">
+            arrow_right_alt
+            </span>
             </div>
           </button>
         </div>

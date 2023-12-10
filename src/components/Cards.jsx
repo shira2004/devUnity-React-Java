@@ -14,6 +14,7 @@ import img3 from '../assets/page.jpeg';
 
 const data = [
   {
+    id:1,
     title: 'Enhancing Accessibility in React Components',
     content: 'The goal of this project is to enhance the accessibility features of common React components used in web development. I have identified several areas where improvements can be made, such as ensuring proper ARIA roles, keyboard navigation, and screen reader compatibility.',
     image: img1,
@@ -29,20 +30,20 @@ const data = [
   image: img3,
 },
 
-{title: 'Lizard 2',
+{title: 'izard 2',
   content: 'Lizards are a widespread group of squamate reptiles...',
   image: '/static/images/cards/contemplative-reptile.jpg',
 },
 
-{title: 'Lizard 2',
+{title: 'Lzard 2',
+  content: 'Lizards are a widespread group of reptiles...',
+  image: '/static/images/cards/contemplative-reptile.jpg',
+},
+{title: 'Lizar 2',
   content: 'Lizards are a widespread group of squamate reptiles...',
   image: '/static/images/cards/contemplative-reptile.jpg',
 },
-{title: 'Lizard 2',
-  content: 'Lizards are a widespread group of squamate reptiles...',
-  image: '/static/images/cards/contemplative-reptile.jpg',
-},
-{title: 'Lizard 2',
+{title: 'Lizard ',
   content: 'Lizards are a widespread group of squamate reptiles...',
   image: '/static/images/cards/contemplative-reptile.jpg',
 },
@@ -62,7 +63,7 @@ const Cards = ({ objects }) => {
     <Header/>
     <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
       {objects.map((object, index) => (
-        <Card key={index} sx={{ maxWidth: 345, margin: 2 }}>
+        <Card key={object.title} sx={{ maxWidth: 345, margin: 2 }}>
           <CardMedia sx={{ height: 300 }} image={object.image} title={object.title} />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
