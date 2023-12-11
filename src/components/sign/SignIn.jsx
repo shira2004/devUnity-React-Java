@@ -38,6 +38,7 @@ function SignIn() {
   const handlePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   const checkSignIn = (mail,password) => {
    console.log('Checking')
     axios.get(`http://localhost:8585/api/users/getUserByMail/${mail}`)
@@ -52,6 +53,7 @@ function SignIn() {
     .catch((error) => {
       if(error.response.status === 404)
         nav('/SignUp');
+        alert('You do not have an account yet, please register')
     });
   }
   const handleEmailFocus = () => {
