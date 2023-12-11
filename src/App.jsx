@@ -9,7 +9,7 @@ import HomePage from './components/Pages/HomePage';
 import AddProject from './components/Feature/AddProject/AddProject'
 import About from './components/Pages/About'
 import axios from 'axios'
-
+import MyAccount from './components/Pages/MyAccount'
 
 import '../src/index.css'
 import { useEffect } from 'react';
@@ -30,6 +30,7 @@ export default function App() {
     <>
 
       <Menu/>
+    
      
     
          <Routes> 
@@ -40,6 +41,7 @@ export default function App() {
          <Route path="/HomePage" element={<HomePage/>} /> 
          <Route path="/AddProject" element={<AddProject/>} /> 
          <Route path="/About" element={<About/>} /> 
+         <Route path="/MyAccount" element={<MyAccount/>} />
          
       </Routes> 
 

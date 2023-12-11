@@ -1,76 +1,79 @@
-import { useNavigate } from 'react-router-dom';
-import * as React from 'react';
+import { useContext, useRef, useState } from 'react';
 
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Header from '../../Header/Header';
-import TextArea from '../TextArea';
 
-function Copyright(props) {}
+import images from '../assets/images.js';
 
-const defaultTheme = createTheme();
+export default function NewChallenge({ onDone }) {
+  const title = useRef();
+  const description = useRef();
+  const deadline = useRef();
 
-export default function AddProject() {
-  const handleSubmit = (event) => {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const { addChallenge } = useContext(ChallengesContext);
+
+  function handleSelectImage(image) {
+    setSelectedImage(image);
+  }
+
+  function handleSubmit(event) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      title: data.get('title'),
-      description: data.get('description'),
-      additionalInput: data.get('additionalInput'),
-    });
-  };
+    const challenge = {
+      title: title.current.value,
+      description: description.current.value,
+      deadline: deadline.current.value,
+      image: selectedImage,
+    };
 
-  const nav = useNavigate();
+    if (
+      !challenge.title.trim() ||
+      !challenge.description.trim() ||
+      !challenge.deadline.trim() ||
+      !challenge.image
+    ) {
+      return;
+    }
+
+    onDone();
+    addChallenge(challenge);
+  }
 
   return (
-    <>
-      <Header />
-      <ThemeProvider theme={defaultTheme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Typography component="h1" variant="h5">
-              Add project
-            </Typography>
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="title"
-                label="Project Title"
-                name="title"
-                autoComplete="project title"
-                autoFocus
-              />
+    
+      <form id="new-challenge" onSubmit={handleSubmit}>
+        <p>
+          <label htmlFor="title">Title</label>
+          <input ref={title} type="text" name="title" id="title" />
+        </p>
 
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="description"
-                label="Project Description"
-                name="description"
-                autoComplete="project description"
-              />
-              <TextArea text = "hi"/>
+        <p>
+          <label htmlFor="description">Description</label>
+          <textarea ref={description} name="description" id="description" />
+        </p>
 
-            </Box>
-          </Box>
-        </Container>
-      </ThemeProvider>
-    </>
+        <p>
+          <label htmlFor="deadline">Deadline</label>
+          <input ref={deadline} type="date" name="deadline" id="deadline" />
+        </p>
+
+        <ul id="new-challenge-images">
+          {images.map((image) => (
+            <li
+              key={image.alt}
+              onClick={() => handleSelectImage(image)}
+              className={selectedImage === image ? 'selected' : undefined}
+            >
+              <img {...image} />
+            </li>
+          ))}
+        </ul>
+
+        <p className="new-challenge-actions">
+          <button type="button" onClick={onDone}>
+            Cancel
+          </button>
+          <button>Add Challenge</button>
+        </p>
+      </form>
+   
   );
 }
