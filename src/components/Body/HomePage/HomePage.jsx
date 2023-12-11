@@ -8,12 +8,13 @@ import AddImg from '/Add.png';
 import teamImage from '/team.png';
 import website from '/website.png';
 import { useNavigate } from 'react-router-dom';
+import ScrollToTopOnMount from '../ScrollToTopOnMount';
 
 export default function HomePage() {
   const nav = useNavigate();
   return (
     <>
-    
+    <ScrollToTopOnMount/>
     <Carusel/>
     <Quotes/>
     <Video/>

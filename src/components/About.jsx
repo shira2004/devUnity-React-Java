@@ -9,11 +9,13 @@ import Business_deal from '/Business_deal.png';
 import collaboration from '/collaboration.png';
 import Type  from '/Type.png';
 import { useNavigate } from 'react-router-dom';
+import ScrollToTopOnMount from './Body/ScrollToTopOnMount';
 
 export default function About() {
   const nav = useNavigate();
   return (
     <>
+    <ScrollToTopOnMount/>
      <br/><br/><br/><br/><br/><br/>
     <br/><br/><br/>
     

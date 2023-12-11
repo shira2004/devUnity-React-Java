@@ -9,4 +9,4 @@ const ScrollToTopOnMount = () => {
   return null; // This component doesn't render anything, it's just for handling the scroll effect
 };
 
-export default ScrollToTopOnMount;
+export default ScrollToTopOnMount
