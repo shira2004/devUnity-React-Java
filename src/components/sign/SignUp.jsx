@@ -25,12 +25,13 @@ function isEmailValid(email) {
 }
 
 function isPasswordValid(password) {
-  // בדיקה שהסיסמה מכילה לפחות 8 תווים, אותיות ומספרים
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  return passwordRegex.test(password);
-  //add
-}
+  // Regular expression to check that the password contains at least 8 characters,
+  // including at least one letter, one digit, and special characters.
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%])[A-Za-z\d@#$%]{8,}$/;
 
+  // Test if the provided password matches the regular expression
+  return passwordRegex.test(password);
+}
 function SignUp() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
