@@ -27,13 +27,13 @@ export default function menu() {
       <span class="material-symbols-outlined">
       account_circle
             </span></ToggleButton>
-      <ToggleButton value="ios" onClick={()=>{nav('/SignIn')}}>sign in</ToggleButton>
-      <ToggleButton value="ios" onClick={()=>{nav('/SignUp')}}>sign up</ToggleButton>
+      <ToggleButton value="ios" onClick={()=>{nav('/SignIn')}}>sign</ToggleButton>
       <ToggleButton value="ios" onClick={()=>{nav('/AddProject')}}>
       add project
       <span class="material-symbols-outlined">
       library_add
       </span></ToggleButton>
+      <ToggleButton value="ios" onClick={()=>{nav('/About')}}>About</ToggleButton>
     </ToggleButtonGroup>
     </AppBar>
   );
