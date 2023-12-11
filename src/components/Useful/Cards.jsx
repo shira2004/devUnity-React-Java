@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './Body/Header/Header';
+import Header from '../Header/Header';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,9 +7,9 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import img1 from '../assets/app_code.jpg';
-import img2 from '../assets/app_phone.webp';
-import img3 from '../assets/page.jpeg';
+import img1 from '../../assets/app_code.jpg';
+import img2 from '../../assets/app_phone.webp';
+import img3 from '../../assets/page.jpeg';
 
 
 const data = [

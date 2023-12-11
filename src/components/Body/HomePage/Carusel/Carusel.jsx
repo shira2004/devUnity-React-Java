@@ -7,7 +7,7 @@ import code_review from '../Media/Code_review.png';
 import Dev_productivity from '../Media/Dev_productivity.png'
 import mobile_content from '../Media/mobile_content.png'
 
-import Header from '../../Header/Header'
+import Header from '../../../Header/Header'
 
 const AutoMoveCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);

@@ -7,9 +7,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Header from '../Body/Header/Header';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import TextArea from './TextArea';
+import Header from '../../Header/Header';
+import TextArea from '../TextArea';
 
 function Copyright(props) {}
 

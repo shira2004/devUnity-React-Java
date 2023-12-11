@@ -1,13 +1,13 @@
 import React,{useState} from 'react'
-import SignUp from './components/sign/SignUp'
-import Footer from './components/Body/Footer'
-import SignIn from './components/sign/SignIn';
+import SignUp from './components/Pages/sign/SignUp'
+import Footer from './components/Footer'
+import SignIn from './components/Pages/sign/SignIn'
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Cards from './components/Cards'
-import Menu from './components/Body/menu';
-import HomePage from './components/Body/HomePage/HomePage';
-import AddProject from './components/AddProject/AddProject'
-import About from './components/About'
+import Cards from './components/Useful/Cards'
+import Menu from './components/Menu/menu';
+import HomePage from './components/Pages/HomePage';
+import AddProject from './components/Feature/AddProject/AddProject'
+import About from './components/Pages/About'
 import axios from 'axios'
 
 
@@ -29,10 +29,6 @@ export default function App() {
   return (
     <>
 
-
-    
-
-    {/* <AddProject/> */}
       <Menu/>
      
     

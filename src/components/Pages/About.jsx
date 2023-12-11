@@ -1,15 +1,14 @@
 import React from 'react';
-import Section from '../components/Body/HomePage/Section/Section1';
-import Section2 from '../components/Body/HomePage/Section/Section2';
+import Section from '../Useful/Section/Section1';
+import Section2 from '../Useful/Section/Section2';
 import Server from '/server.png';
 import feeling_proud from '/feeling_proud.png';
 import Friends_online from '/Friends_online.png';
-import Community from '/Community.png';
 import Business_deal from '/Business_deal.png';
 import collaboration from '/collaboration.png';
 import Type  from '/Type.png';
 import { useNavigate } from 'react-router-dom';
-import ScrollToTopOnMount from './Body/ScrollToTopOnMount';
+import ScrollToTopOnMount from '../Useful/ScrollToTopOnMount';
 
 export default function About() {
   const nav = useNavigate();

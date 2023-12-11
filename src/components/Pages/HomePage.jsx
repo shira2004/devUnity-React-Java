@@ -1,14 +1,14 @@
 import React from 'react';
-import Carusel from './Carusel/Carusel'
-import Quotes from './Quotes'
-import Video from './Video'
-import Section from './Section/Section1';
-import Section2 from './Section/Section2';
+import Carusel from '../Body/HomePage/Carusel/Carusel'
+import Quotes from '../Body/HomePage/Quotes'
+import Video from '../Body/HomePage/Video'
+import Section from '../Useful/Section/Section1';
+import Section2 from '../Useful/Section/Section2';
 import AddImg from '/Add.png';
 import teamImage from '/team.png';
 import website from '/website.png';
 import { useNavigate } from 'react-router-dom';
-import ScrollToTopOnMount from '../ScrollToTopOnMount';
+import ScrollToTopOnMount from '../Useful/ScrollToTopOnMount';
 
 export default function HomePage() {
   const nav = useNavigate();
