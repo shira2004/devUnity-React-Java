@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import SignUp from './components/sign/SignUp'
 import Footer from './components/Body/Footer'
 import SignIn from './components/sign/SignIn';
@@ -8,11 +8,24 @@ import Menu from './components/Body/menu';
 import HomePage from './components/Body/HomePage/HomePage';
 import AddProject from './components/AddProject/AddProject'
 import About from './components/About'
+import axios from 'axios'
 
 
 import '../src/index.css'
+import { useEffect } from 'react';
 
 export default function App() {
+  const [users, setUsers] = useState();
+  useEffect(() => {
+    axios.get('http://localhost:8585/api/users/getUsers')
+      .then((usersRes) => {
+        setUsers(usersRes.data); // Assuming the data is stored in the 'data' property
+        console.log(usersRes.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+      });
+  }, []); // Make the request only once when the component mounts
   return (
     <>
 

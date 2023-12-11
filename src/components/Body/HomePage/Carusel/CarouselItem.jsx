@@ -10,7 +10,7 @@ export const CarouselItem = ({ item, width }) => {
   className="carousel-item-text"
   variant="body1"
   paragraph
-  sx={{ whiteSpace: 'pre-line' }}
+  sx={{ whiteSpace: 'pre-line',fontFamily:'Poppins' }}
 >
   {item.description}
 </Typography>

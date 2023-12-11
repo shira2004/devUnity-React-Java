@@ -17,6 +17,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import axios from 'axios'
 
 function isEmailValid(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -34,11 +35,25 @@ function SignIn() {
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const nav = useNavigate();
-
   const handlePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
+  const checkSignIn = (mail,password) => {
+   console.log('Checking')
+    axios.get(`http://localhost:8585/api/users/getUserByMail/${mail}`)
+    .then((passwordFromServer) => {
+       if(password == passwordFromServer.data){
+            nav('/HomePage');       
+          }
+       else{
+        console.log('password mismatch');
+       }
+    })
+    .catch((error) => {
+      if(error.response.status === 404)
+        nav('/SignUp');
+    });
+  }
   const handleEmailFocus = () => {
     setEmailError(false);
   };
@@ -71,9 +86,9 @@ function SignIn() {
       email: email,
       password: password,
     });
-
+    checkSignIn(email,password);
     // Redirect to /HomePage after successful submission
-    nav('/HomePage');
+
   };
 
   const defaultTheme = createTheme();
