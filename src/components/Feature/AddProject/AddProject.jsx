@@ -18,15 +18,18 @@ export default function NewChallenge({ onDone }) {
 
       <ThemeProvider theme={theme}>
 
-        <Container component="main" maxWidth="md">
+      <Container component="main" maxWidth="400px">
           <CssBaseline />
           <Box
-            sx={{
-              marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
+              sx={{
+                width: '100%',
+                maxWidth: '400px', // Adjust this value as needed
+                margin: 'auto',    // Center the box horizontally
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
           >
             <Typography component="h1" variant="h5">
               Add Project
@@ -59,22 +62,25 @@ export default function NewChallenge({ onDone }) {
 
 
                 <Grid item xs={12}>
-                  <TextField fullWidth type="date" label="Deadline" name="deadline" id="deadline" />
+                  <TextField fullWidth type="url"  />
                 </Grid>
-
                 <Grid item xs={12}>
-                  <ul id="new-challenge-images">
-                    {images.map((image) => (
-                      <li key={image.alt}>
-                        <img {...image} />
-                      </li>
-                    ))}
-                  </ul>
-                </Grid>
+  <ul id="new-challenge-images">
+    {images.map((image) => (
+      <li key={image.alt}>
+        <Typography variant="body2" color="textSecondary" fontSize="0.8rem" gutterBottom>
+          {image.alt}
+        </Typography>
+        <img {...image} />
+      </li>
+    ))}
+  </ul>
+</Grid>
+
 
                 <Grid item xs={12}>
                   <Button variant="contained" color="primary" onClick={onDone}>
-                    Add Challenge
+                    Add Project
                   </Button>
                 </Grid>
               </Grid>
