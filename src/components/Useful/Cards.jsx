@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import logo from '/logo_git_r.png'; // Adjust the path accordingly
 import { useLocation } from 'react-router-dom';
 
+
 const Cards = () => {
   const location = useLocation();
   const projects = location.state?.projects || [];
