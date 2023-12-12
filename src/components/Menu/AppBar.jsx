@@ -1,3 +1,4 @@
+// MyMenu.js
 import React, { useState, useEffect } from 'react';
 import Box from '@mui/joy/Box';
 import IconButton from '@mui/joy/IconButton';
@@ -10,22 +11,19 @@ import ModalClose from '@mui/joy/ModalClose';
 import Search from '@mui/icons-material/Search';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { useNavigate, Route, Routes } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Cards from '../Useful/Cards';
 
 export default function MyMenu() {
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [projects, setProjects] = useState([]);
   const nav = useNavigate();
 
   const fetchProjectsByCategory = async (categoryId) => {
     try {
       const response = await axios.get(`http://localhost:8585/api/projects/getByCategory/${categoryId}`);
       console.log('Projects Response:', response);
-      setProjects(response.data);
       nav(`/Cards/${categoryId}`);
     } catch (error) {
       console.error('Error fetching projects:', error);
@@ -132,10 +130,6 @@ export default function MyMenu() {
           </List>
         </Drawer>
       </React.Fragment>
-
-      <Routes>
-        <Route path="/Cards/:categoryId" element={<Cards projects={projects} />} />
-      </Routes>
     </>
   );
 }
