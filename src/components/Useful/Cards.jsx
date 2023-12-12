@@ -8,7 +8,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import logo from '/logo_git_r.png'; // Adjust the path accordingly
+import logo from '/logo_git_r.png'; 
 import { useLocation } from 'react-router-dom';
 
 

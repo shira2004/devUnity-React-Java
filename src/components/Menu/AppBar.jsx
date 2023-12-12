@@ -23,9 +23,9 @@ export default function MyMenu() {
     try {
       const response = await axios.get(`http://localhost:8585/api/projects/getByCategory/${categoryId}`);
       console.log('Projects Response:', response.data);
-  
+
       setProjects(response.data);
-  
+
       // Navigate to the /Cards route and pass projects as a state
       nav(`/Cards/${categoryId}`, { state: { projects: response.data } });
     } catch (error) {
@@ -46,6 +46,12 @@ export default function MyMenu() {
 
     fetchCategories();
   }, []);
+
+  const handleCategoryClick = (categoryId) => {
+    setSelectedCategory(categoryId);
+    fetchProjectsByCategory(categoryId);
+    setOpen(false); // Close the Drawer after clicking a category
+  };
 
   return (
     <>
@@ -121,10 +127,7 @@ export default function MyMenu() {
               <Button
                 key={category.id}
                 variant="text"
-                onClick={() => {
-                  setSelectedCategory(category.id);
-                  fetchProjectsByCategory(category.id);
-                }}
+                onClick={() => handleCategoryClick(category.id)}
               >
                 <span className="material-symbols-outlined">{category.icon}</span>
                 <ListItemButton>{category.name}</ListItemButton>
