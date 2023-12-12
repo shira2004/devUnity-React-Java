@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/joy/Box';
 import IconButton from '@mui/joy/IconButton';
 import Drawer from '@mui/joy/Drawer';
@@ -10,37 +10,39 @@ import ModalClose from '@mui/joy/ModalClose';
 import Search from '@mui/icons-material/Search';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
+import Cards from '../Useful/Cards';
 
 export default function MyMenu() {
-  const [open, setOpen] = React.useState(false);
-  const [categories, setCategories] = React.useState([]);
+  const [open, setOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [projects, setProjects] = useState([]);
   const nav = useNavigate();
 
   const fetchProjectsByCategory = async (categoryId) => {
     try {
       const response = await axios.get(`http://localhost:8585/api/projects/getByCategory/${categoryId}`);
       console.log('Projects Response:', response);
-
-      // Handle the projects data as needed, e.g., update state or dispatch an action
-      // Example: setProjects(response.data);
+      setProjects(response.data);
+      nav(`/Cards/${categoryId}`);
     } catch (error) {
       console.error('Error fetching projects:', error);
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get('http://localhost:8585/api/categories/getCategoris');
-        console.log('Response:', response);
+        console.log('Categories Response:', response);
         setCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
     };
-    
+
     fetchCategories();
   }, []);
 
@@ -119,10 +121,8 @@ export default function MyMenu() {
                 key={category.id}
                 variant="text"
                 onClick={() => {
-                  console.log('Clicked Category:', category);
+                  setSelectedCategory(category.id);
                   fetchProjectsByCategory(category.id);
-                  // Uncomment the line below if you want to navigate to the category page
-                  // nav(`/Cards/${category.id}`);
                 }}
               >
                 <span className="material-symbols-outlined">{category.icon}</span>
@@ -132,6 +132,10 @@ export default function MyMenu() {
           </List>
         </Drawer>
       </React.Fragment>
+
+      <Routes>
+        <Route path="/Cards/:categoryId" element={<Cards projects={projects} />} />
+      </Routes>
     </>
   );
 }
