@@ -18,6 +18,18 @@ export default function MyMenu() {
   const [categories, setCategories] = React.useState([]);
   const nav = useNavigate();
 
+  const fetchProjectsByCategory = async (categoryId) => {
+    try {
+      const response = await axios.get(`http://localhost:8585/api/projects/getByCategory/${categoryId}`);
+      console.log('Projects Response:', response);
+
+      // Handle the projects data as needed, e.g., update state or dispatch an action
+      // Example: setProjects(response.data);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    }
+  };
+
   React.useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -107,7 +119,10 @@ export default function MyMenu() {
                 key={category.id}
                 variant="text"
                 onClick={() => {
-                  nav(`/Cards/${category.id}`); // Assuming you have a route for each category
+                  console.log('Clicked Category:', category);
+                  fetchProjectsByCategory(category.id);
+                  // Uncomment the line below if you want to navigate to the category page
+                  // nav(`/Cards/${category.id}`);
                 }}
               >
                 <span className="material-symbols-outlined">{category.icon}</span>
