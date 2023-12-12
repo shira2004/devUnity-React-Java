@@ -1,5 +1,5 @@
-
-import logo from '../../assets/logo_git_r.png'
+import React from 'react';
+import logo from '/logo_git_r.png'; 
 import './Header.css'
 import { useNavigate } from 'react-router-dom';
 export default function Header() {
