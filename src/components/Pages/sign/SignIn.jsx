@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -16,7 +17,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import axios from 'axios'
+import axios from 'axios';
 
 function isEmailValid(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -24,40 +25,39 @@ function isEmailValid(email) {
 }
 
 function isPasswordValid(password) {
-  // Regular expression to check that the password contains at least 8 characters,
-  // including at least one letter, one digit, and special characters.
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%])[A-Za-z\d@#$%]{8,}$/;
-
-  // Test if the provided password matches the regular expression
+  // Check that the password contains at least 8 characters, letters, and numbers
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[\x21-\x7E]{8,}$/;
   return passwordRegex.test(password);
 }
-
 function SignIn() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const nav = useNavigate();
+
   const handlePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const checkSignIn = (mail,password) => {
-   console.log('Checking')
+  const checkSignIn = (mail, password) => {
+    console.log('Checking');
     axios.get(`http://localhost:8585/api/users/getUserByMail/${mail}`)
-    .then((passwordFromServer) => {
-       if(password == passwordFromServer.data){
-            nav('/HomePage');       
-          }
-       else{
-        console.log('password mismatch');
-       }
-    })
-    .catch((error) => {
-      if(error.response.status === 404)
-        nav('/SignUp');
-        alert('You do not have an account yet, please register')
-    });
-  }
+      .then((response) => {
+        const passwordFromServer = response.data;
+        if (password === passwordFromServer) {
+          nav('/HomePage');
+        } else {
+          console.log('Password mismatch');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        if (error.response?.status === 404) {
+          nav('/SignUp');
+        }
+      });
+  };
+
   const handleEmailFocus = () => {
     setEmailError(false);
   };
@@ -90,9 +90,7 @@ function SignIn() {
       email: email,
       password: password,
     });
-    checkSignIn(email,password);
-    // Redirect to /HomePage after successful submission
-
+    checkSignIn(email, password);
   };
 
   const defaultTheme = createTheme();

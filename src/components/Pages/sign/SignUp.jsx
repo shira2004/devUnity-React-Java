@@ -23,11 +23,8 @@ function isEmailValid(email) {
 }
 
 function isPasswordValid(password) {
-  // Regular expression to check that the password contains at least 8 characters,
-  // including at least one letter, one digit, and special characters.
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%])[A-Za-z\d@#$%]{8,}$/;
-
-  // Test if the provided password matches the regular expression
+  // Check that the password contains at least 6 characters, letters, and numbers
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[\x21-\x7E]{6,}$/;
   return passwordRegex.test(password);
 }
 function SignUp() {
