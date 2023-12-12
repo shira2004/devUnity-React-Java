@@ -1,4 +1,3 @@
-// MyMenu.js
 import React, { useState, useEffect } from 'react';
 import Box from '@mui/joy/Box';
 import IconButton from '@mui/joy/IconButton';
@@ -9,7 +8,6 @@ import ListItemButton from '@mui/joy/ListItemButton';
 import Typography from '@mui/joy/Typography';
 import ModalClose from '@mui/joy/ModalClose';
 import Search from '@mui/icons-material/Search';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -18,13 +16,18 @@ export default function MyMenu() {
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [projects, setProjects] = useState([]);
   const nav = useNavigate();
 
   const fetchProjectsByCategory = async (categoryId) => {
     try {
       const response = await axios.get(`http://localhost:8585/api/projects/getByCategory/${categoryId}`);
-      console.log('Projects Response:', response);
-      nav(`/Cards/${categoryId}`);
+      console.log('Projects Response:', response.data);
+  
+      setProjects(response.data);
+  
+      // Navigate to the /Cards route and pass projects as a state
+      nav(`/Cards/${categoryId}`, { state: { projects: response.data } });
     } catch (error) {
       console.error('Error fetching projects:', error);
     }

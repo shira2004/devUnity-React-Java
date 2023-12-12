@@ -1,51 +1,61 @@
-import React,{useState} from 'react'
-import SignUp from './components/Pages/sign/SignUp'
-import Footer from './components/Footer'
-import SignIn from './components/Pages/sign/SignIn'
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Cards from './components/Useful/Cards'
+// App.jsx
+import React, { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Menu from './components/Menu/menu';
 import HomePage from './components/Pages/HomePage';
-import AddProject from './components/Feature/AddProject/AddProject'
-import About from './components/Pages/About'
-import axios from 'axios'
+import SignIn from './components/Pages/sign/SignIn';
+import SignUp from './components/Pages/sign/SignUp';
+import Cards from './components/Useful/Cards';
+import AddProject from './components/Feature/AddProject/AddProject';
+import About from './components/Pages/About';
+import Footer from './components/Footer';
+import axios from 'axios';
 
-import '../src/index.css'
-import { useEffect } from 'react';
+import '../src/index.css';
 
 export default function App() {
   const [users, setUsers] = useState();
+  const [projects, setProjects] = useState([]);
+
   useEffect(() => {
-    axios.get('http://localhost:8585/api/users/getUsers')
+    axios
+      .get('http://localhost:8585/api/users/getUsers')
       .then((usersRes) => {
-        setUsers(usersRes.data); // Assuming the data is stored in the 'data' property
-        console.log(usersRes.data);
+        setUsers(usersRes.data);
+        console.log('Users:', usersRes.data);
       })
       .catch((error) => {
-        console.error("Error fetching users:", error);
+        console.error('Error fetching users:', error);
       });
-  }, []); // Make the request only once when the component mounts
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8585/api/projects/getAllProjects')
+      .then((projectsRes) => {
+        setProjects(projectsRes.data);
+        console.log('Projects:', projectsRes.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching projects:', error);
+      });
+  }, []);
+
   return (
     <>
+      <Menu />
 
-      <Menu/>
-    
-     
-    
-         <Routes> 
-         <Route path="/" element={<HomePage/>} /> 
-         <Route path="/SignIn" element={<SignIn/>}/> 
-         <Route path= "/SignUp" element={<SignUp/> }/> 
-         <Route path='/Cards/:categoryId' element={<Cards/>}/>
-         <Route path="/HomePage" element={<HomePage/>} /> 
-         <Route path="/AddProject" element={<AddProject/>} /> 
-         <Route path="/About" element={<About/>} /> 
-         
-         
-      </Routes> 
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/SignIn" element={<SignIn />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/Cards/:categoryId" element={<Cards projects={projects} />} />
+        <Route path="/HomePage" element={<HomePage />} />
+        <Route path="/AddProject" element={<AddProject />} />
+        <Route path="/About" element={<About />} />
+      </Routes>
 
-      <Footer/> 
-      
+      <Footer />
     </>
   );
 }

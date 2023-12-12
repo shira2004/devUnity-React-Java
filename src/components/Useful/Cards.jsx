@@ -1,3 +1,4 @@
+// Cards.jsx
 import React from 'react';
 import Header from '../Header/Header';
 import Card from '@mui/material/Card';
@@ -8,20 +9,23 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import logo from '/logo_git_r.png'; // Adjust the path accordingly
+import { useLocation } from 'react-router-dom';
 
-const Cards = ({ projects }) => {
-  console.log('i am data and i am in cards:', projects);
+const Cards = () => {
+  const location = useLocation();
+  const projects = location.state?.projects || [];
+
+  console.log('Projects:', projects);
+
   return (
     <>
-    
       <Header />
       <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-        {projects && projects.map((project) => (
+        {projects.map((project) => (
           <Card key={project.id} sx={{ maxWidth: 345, margin: 2 }}>
-            {/* Use the correct property names */}
             <CardMedia
               sx={{ height: 300 }}
-              image={project.url || logo} // Assuming 'url' contains the image URL
+              image={project.url || logo}
               title={project.title}
             />
             <CardContent>
