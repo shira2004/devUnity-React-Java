@@ -77,3 +77,9 @@ INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATE
 2023-12-12 12:46:53.550206+02:00 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "'Hello DevUnity!  I''ve built a React-Redux app that connects to an external API... (266)"; SQL statement:
 INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22001-224]
+2023-12-13 19:07:01.808336+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXT CHARACTER VARYING(255)": "'Ensure that Dark Mode is visually appealing and functional across all component... (267)"; SQL statement:
+INSERT INTO "PUBLIC"."CONTENT"("ID","NUM_ROW","TEXT","PROJECT_ID","TITLE")VALUES(?,?,?,?,?) [22001-224]
+2023-12-13 19:07:01.827372+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXT CHARACTER VARYING(255)": "'Ensure that Dark Mode is visually appealing and functional across all component... (267)"; SQL statement:
+INSERT INTO "PUBLIC"."CONTENT"("ID","NUM_ROW","TEXT","PROJECT_ID","TITLE")VALUES(?,?,?,?,?) [22001-224]

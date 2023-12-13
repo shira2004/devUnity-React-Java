@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/categories")
 @CrossOrigin
 public class CategoryController {
+
     private CategoryRepository categoryRepository;
 
     @Autowired
