@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,22 +8,24 @@ public class Content {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-   private String text;
-   private int numRow;
+    private String text;
+    private String title;
+    private int numRow;
 
-   @ManyToOne
+    @ManyToOne
     private Project project;
 
     public Content() {
+
     }
 
-    public Content(Long id, String text, int numRow, Project project) {
+    public Content(Long id, String text, String title, int numRow, Project project) {
         this.id = id;
         this.text = text;
+        this.title = title;
         this.numRow = numRow;
         this.project = project;
     }
-
     public Long getId() {
         return id;
     }
@@ -39,6 +40,15 @@ public class Content {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getNumRow() {
