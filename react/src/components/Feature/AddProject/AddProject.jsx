@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, TextField, TextareaAutosize, Button } from '@mui/material';
 import './AddProject.css';
 import images from './image/images';
@@ -12,24 +12,31 @@ import Typography from '@mui/material/Typography';
 const theme = createTheme();
 
 export default function NewChallenge({ onDone }) {
+  const [description, setDescription] = useState('');
+  const maxCharacters = 240;
+
+  const handleDescriptionChange = (event) => {
+    const enteredText = event.target.value;
+    setDescription(enteredText.slice(0, maxCharacters));
+  };
+
   return (
-    <> 
+    <>
       <Header />
 
       <ThemeProvider theme={theme}>
-
-      <Container component="main" maxWidth="400px">
+        <Container component="main" maxWidth="400px">
           <CssBaseline />
           <Box
-              sx={{
-                width: '100%',
-                maxWidth: '400px', // Adjust this value as needed
-                margin: 'auto',    // Center the box horizontally
-                marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
+            sx={{
+              width: '100%',
+              maxWidth: '400px', // Adjust this value as needed
+              margin: 'auto', // Center the box horizontally
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
           >
             <Typography component="h1" variant="h5">
               Add Project
@@ -47,36 +54,39 @@ export default function NewChallenge({ onDone }) {
                     placeholder="Description"
                     name="description"
                     id="description"
+                    onChange={handleDescriptionChange}
+                    value={description}
                   />
+                  <Typography variant="body2" color="textSecondary" fontSize="0.8rem">
+                    {description.length}/{maxCharacters}
+                  </Typography>
                 </Grid>
 
                 <Grid item xs={12}>
                   <TextareaAutosize
                     fullWidth
                     minRows={3}
-                    placeholder="where you want help"
+                    placeholder="Where you want help"
                     name="description"
                     id="description"
                   />
                 </Grid>
 
-
                 <Grid item xs={12}>
-                  <TextField fullWidth type="url"  />
+                  <TextField fullWidth type="url" />
                 </Grid>
                 <Grid item xs={12}>
-  <ul id="new-challenge-images">
-    {images.map((image) => (
-      <li key={image.alt}>
-        <Typography variant="body2" color="textSecondary" fontSize="0.8rem" gutterBottom>
-          {image.alt}
-        </Typography>
-        <img {...image} />
-      </li>
-    ))}
-  </ul>
-</Grid>
-
+                  <ul id="new-challenge-images">
+                    {images.map((image) => (
+                      <li key={image.alt}>
+                        <Typography variant="body2" color="textSecondary" fontSize="0.8rem" gutterBottom>
+                          {image.alt}
+                        </Typography>
+                        <img {...image} />
+                      </li>
+                    ))}
+                  </ul>
+                </Grid>
 
                 <Grid item xs={12}>
                   <Button variant="contained" color="primary" onClick={onDone}>
