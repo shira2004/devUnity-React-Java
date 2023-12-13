@@ -56,3 +56,10 @@ body {
   padding: 20px;
 }
 
+div#NagishLiTrigger{
+  filter: grayscale(100%);
+
+}
+.nagishli-menu-header{
+  background: linear-gradient(#fff 0%, #fff 100%);
+}
