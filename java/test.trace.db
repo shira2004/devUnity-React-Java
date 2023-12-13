@@ -1,0 +1,79 @@
+2023-12-11 18:26:43.053705+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM CATEGORY CONTENT [*]COMMENT USERS"; SQL statement:
+SELECT * FROM CATEGORY CONTENT COMMENT USERS [42000-224]
+2023-12-11 21:00:05.152014+02:00 jdbc[35]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-224]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:218)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:135)
+	at org.h2.Driver.connect(Driver.java:59)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:733)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:712)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1589)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection was not closed by the application and is garbage collected [90018-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 16 more
+2023-12-11 21:00:31.286894+02:00 jdbc[34]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "'Hey DevUnity enthusiasts!  I''m excited to share my real-time chat application ... (436)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22001-224]
+2023-12-11 21:00:31.286894+02:00 jdbc[34]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "'Hey DevUnity enthusiasts!  I''m excited to share my real-time chat application ... (436)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22001-224]
+2023-12-11 21:21:18.709497+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "'I''m excited to share my real-time chat application built with React and Socket... (409)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22001-224]
+2023-12-11 21:21:18.714455+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "'I''m excited to share my real-time chat application built with React and Socket... (409)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22001-224]
+2023-12-11 21:25:59.484742+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'' (PROJECT: ""ID"" BIGINT NOT NULL)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22018-224]
+2023-12-11 21:25:59.488729+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'' (PROJECT: ""ID"" BIGINT NOT NULL)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22018-224]
+2023-12-11 21:26:29.283679+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "'I''m excited to share my real-time chat application built with React and Socket... (409)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22001-224]
+2023-12-11 21:26:29.283679+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "'I''m excited to share my real-time chat application built with React and Socket... (409)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22001-224]
+2023-12-11 21:32:33.714823+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM PROJECT ALTER [*]TABLE PROJECT MODIFY COLUMN DESCRIPTION VARCHAR(1000)"; SQL statement:
+SELECT * FROM PROJECT ALTER TABLE PROJECT MODIFY COLUMN DESCRIPTION VARCHAR(1000) [42000-224]
+2023-12-11 21:32:46.454353+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE PROJECT [*]MODIFY COLUMN DESCRIPTION VARCHAR(1000)"; expected "., ADD, SET, RENAME, DROP, ALTER"; SQL statement:
+ALTER TABLE PROJECT MODIFY COLUMN DESCRIPTION VARCHAR(1000) [42001-224]
+2023-12-12 12:04:14.998587+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "'Excited to share my real-time chat app using React and Socket.io. Core function... (272)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22001-224]
+2023-12-12 12:04:15.018511+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "'Excited to share my real-time chat app using React and Socket.io. Core function... (272)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22001-224]
+2023-12-12 12:20:05.056238+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'' (PROJECT: ""CATEGORY_ID"" BIGINT)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22018-224]
+2023-12-12 12:20:05.057253+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'' (PROJECT: ""CATEGORY_ID"" BIGINT)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22018-224]
+2023-12-12 12:23:50.619667+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "'Greetings, DevUnity community!  I''m excited to introduce my open-source initia... (298)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22001-224]
+2023-12-12 12:23:50.619842+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "'Greetings, DevUnity community!  I''m excited to introduce my open-source initia... (298)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22001-224]
+2023-12-12 12:46:53.543485+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "'Hello DevUnity!  I''ve built a React-Redux app that connects to an external API... (266)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22001-224]
+2023-12-12 12:46:53.550206+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "'Hello DevUnity!  I''ve built a React-Redux app that connects to an external API... (266)"; SQL statement:
+INSERT INTO "PUBLIC"."PROJECT"("ID","LEVEL","SCORE","TITLE","URL","VIEWER","CATEGORY_ID","USER_ID","DESCRIPTION")VALUES(?,?,?,?,?,?,?,?,?) [22001-224]
