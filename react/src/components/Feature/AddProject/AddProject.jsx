@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Grid, TextField, TextareaAutosize, Button } from '@mui/material';
 import './AddProject.css';
 import images from './image/images';
@@ -12,12 +12,27 @@ import Typography from '@mui/material/Typography';
 const theme = createTheme();
 
 export default function NewChallenge({ onDone }) {
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [helpDescription, setHelpDescription] = useState('');
+  const [projectUrl, setProjectUrl] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const fileInputRef = useRef(null);
+
   const maxCharacters = 240;
 
   const handleDescriptionChange = (event) => {
     const enteredText = event.target.value;
     setDescription(enteredText.slice(0, maxCharacters));
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(file);
+  };
+
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
   };
 
   return (
@@ -30,8 +45,8 @@ export default function NewChallenge({ onDone }) {
           <Box
             sx={{
               width: '100%',
-              maxWidth: '400px', // Adjust this value as needed
-              margin: 'auto', // Center the box horizontally
+              maxWidth: '400px',
+              margin: 'auto',
               marginTop: 8,
               display: 'flex',
               flexDirection: 'column',
@@ -44,7 +59,14 @@ export default function NewChallenge({ onDone }) {
             <form id="new-challenge">
               <Grid container spacing={3}>
                 <Grid item xs={12}>
-                  <TextField fullWidth label="Title" name="title" id="title" />
+                  <TextField
+                    fullWidth
+                    label="Title"
+                    name="title"
+                    id="title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
                 </Grid>
 
                 <Grid item xs={12}>
@@ -67,25 +89,45 @@ export default function NewChallenge({ onDone }) {
                     fullWidth
                     minRows={3}
                     placeholder="Where you want help"
-                    name="description"
-                    id="description"
+                    name="helpDescription"
+                    id="helpDescription"
+                    value={helpDescription}
+                    onChange={(e) => setHelpDescription(e.target.value)}
                   />
                 </Grid>
 
                 <Grid item xs={12}>
-                  <TextField fullWidth type="url" />
+                  <TextField
+                    fullWidth
+                    type="url"
+                    label="Project URL"
+                    name="projectUrl"
+                    id="projectUrl"
+                    value={projectUrl}
+                    onChange={(e) => setProjectUrl(e.target.value)}
+                  />
                 </Grid>
+
                 <Grid item xs={12}>
-                  <ul id="new-challenge-images">
-                    {images.map((image) => (
-                      <li key={image.alt}>
-                        <Typography variant="body2" color="textSecondary" fontSize="0.8rem" gutterBottom>
-                          {image.alt}
-                        </Typography>
-                        <img {...image} />
-                      </li>
-                    ))}
-                  </ul>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    ref={fileInputRef}
+                    onChange={handleImageChange}
+                  />
+                  <Button variant="outlined" color="primary" onClick={handleButtonClick}>
+                  <span class="material-symbols-outlined">
+                  add_photo_alternate
+                  </span>
+                  </Button>
+                  {selectedImage && (
+                    <img
+                      src={URL.createObjectURL(selectedImage)}
+                      alt="Selected Image"
+                      style={{ marginTop: '10px', maxWidth: '100%', maxHeight: '200px' }}
+                    />
+                  )}
                 </Grid>
 
                 <Grid item xs={12}>
