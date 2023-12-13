@@ -10,6 +10,7 @@ import AddProject from './components/Feature/AddProject/AddProject';
 import About from './components/Pages/About';
 import Footer from './components/Footer';
 import axios from 'axios';
+import HorizontalLinearStepper from './components/Feature/AddProject/steps/managerSteps'
 
 import '../src/index.css';
 
@@ -51,7 +52,7 @@ export default function App() {
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/Cards/:categoryId" element={<Cards projects={projects} />} />
         <Route path="/HomePage" element={<HomePage />} />
-        <Route path="/AddProject" element={<AddProject />} />
+        <Route path="/AddProject" element={<HorizontalLinearStepper />} />
         <Route path="/About" element={<About />} />
       </Routes>
 

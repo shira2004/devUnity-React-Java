@@ -1,0 +1,34 @@
+#new-challenge-images {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #new-challenge-images li {
+    display: inline-block;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    border: 0px solid transparent;
+    overflow: hidden;
+  }
+  
+  #new-challenge-images li img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  #new-challenge-images {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Set the width to 100% to center it within the container */
+  }
+  

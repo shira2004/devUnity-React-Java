@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Grid, TextField, TextareaAutosize, Button } from '@mui/material';
-import './AddProject.css';
-import Header from '../../Header/Header';
+import '../AddProject.css';
+
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
@@ -36,8 +36,7 @@ export default function NewChallenge({ onDone }) {
 
   return (
     <>
-      <Header />
-
+     
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="400px">
           <CssBaseline />
@@ -52,9 +51,7 @@ export default function NewChallenge({ onDone }) {
               alignItems: 'center',
             }}
           >
-            <Typography component="h1" variant="h5">
-              Add Project
-            </Typography>
+            
             <form id="new-challenge">
               <Grid container spacing={3}>
                 <Grid item xs={12}>
@@ -95,18 +92,7 @@ export default function NewChallenge({ onDone }) {
                   />
                 </Grid>
 
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    type="url"
-                    label="Project URL"
-                    name="projectUrl"
-                    id="projectUrl"
-                    value={projectUrl}
-                    onChange={(e) => setProjectUrl(e.target.value)}
-                  />
-                </Grid>
-
+               
                 <Grid item xs={12}>
                   <input
                     type="file"
@@ -129,11 +115,7 @@ export default function NewChallenge({ onDone }) {
                   )}
                 </Grid>
 
-                <Grid item xs={12}>
-                  <Button variant="contained" color="primary" onClick={onDone}>
-                    Add Project
-                  </Button>
-                </Grid>
+               
               </Grid>
             </form>
           </Box>

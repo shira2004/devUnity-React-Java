@@ -7,8 +7,8 @@ import romanticWalkImg from './analytics.png';
 
 export default [
   { src: Web_developer, alt: 'Web Development.' },
-  { src: Safe, alt: 'Data Science & Analytics.' },
-  { src: game, alt: 'UI/UX Design.' },
-  { src: Design, alt: 'Game Development.' },
-  { src: romanticWalkImg, alt: 'Cybersecurity.' },
+  { src: Safe, alt: 'Cybersecurity.' },
+  { src: game, alt: 'Game Development.' },
+  { src: Design, alt: 'UI/UX Design.' },
+  { src: romanticWalkImg, alt: 'Data Science & Analytics.' },
 ];
