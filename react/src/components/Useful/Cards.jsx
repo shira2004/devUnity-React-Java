@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import logo from '/logo_git_r.png'; 
 import { useLocation } from 'react-router-dom';
+// import { Rating } from '@mui/material';
 
 
 const Cards = () => {
@@ -40,6 +41,7 @@ const Cards = () => {
             <CardActions>
               <Button size="small">Learn More</Button>
               <span className="material-symbols-outlined">visibility</span>
+              {/* <Rating/> */}
             </CardActions>
           </Card>
         ))}
