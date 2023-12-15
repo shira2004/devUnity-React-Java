@@ -2,22 +2,28 @@ import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 
-const UrlStep = ({ onFinish }) => {
-  const [projectUrl, setProjectUrl] = useState('');
+const PasteUrlStep = ({ onNext, onInputChange }) => {
+  const [url, setUrl] = useState('');
+
+  const handleUrlChange = (event) => {
+    const urlValue = event.target.value;
+    setUrl(urlValue);
+    onInputChange('url', urlValue);
+  };
 
   return (
     <Grid item xs={12}>
       <TextField
         fullWidth
         type="url"
-        label="Project URL"
-        name="projectUrl"
-        id="projectUrl"
-        value={projectUrl}
-        onChange={(e) => setProjectUrl(e.target.value)}
+        label="Paste URL"
+        name="url"
+        id="url"
+        value={url}
+        onChange={handleUrlChange}
       />
     </Grid>
   );
 };
 
-export default UrlStep;
+export default PasteUrlStep;
