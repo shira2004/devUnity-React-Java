@@ -1,20 +1,15 @@
 import React from 'react';
+import Typography from '@mui/material/Typography';
 
 const NewChallenge = ({ onDone, inputData }) => {
-  const handleSubmit = () => {
-
-    console.log('Submitting data:', inputData);
-    onDone();
-  };
-
   return (
     <div>
-      <h2>New Challenge Summary</h2>
-      <p>Category: {inputData.category}</p>
-      <p>Title: {inputData.title}</p>
-      <p>Description: {inputData.description}</p>
-      <p>URL: {inputData.url}</p>
-      <button onClick={handleSubmit}>Submit</button>
+      <Typography variant="h7" align="left">New Challenge Summary</Typography>
+      <Typography variant="body1" align="left">Category:  {inputData.category}</Typography>
+      <Typography variant="body1" align="left">URL: <br/> {inputData.url}</Typography>
+      <Typography variant="body1" align="left">Title:<br/>  {inputData.title}</Typography>
+      <Typography variant="body1" align="left">Description:<br/>  {inputData.description}</Typography>
+      <Typography variant="body1" align="left">Information:<br/>  {inputData.title}</Typography>
     </div>
   );
 };
