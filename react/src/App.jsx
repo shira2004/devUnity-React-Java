@@ -6,7 +6,6 @@ import HomePage from './components/Pages/HomePage';
 import SignIn from './components/Pages/sign/SignIn';
 import SignUp from './components/Pages/sign/SignUp';
 import Cards from './components/Useful/Cards';
-import AddProject from './components/Feature/AddProject/AddProject';
 import About from './components/Pages/About';
 import Footer from './components/Footer';
 import axios from 'axios';

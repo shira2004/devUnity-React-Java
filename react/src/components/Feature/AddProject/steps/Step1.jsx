@@ -1,40 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 
-const CategorySelectionStep = ({ onNext, onInputChange }) => {
-  const [category, setCategory] = useState('');
+const CategorySelectionStep = ({ onSubmit, onInputChange }) => {
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [categoryError, setCategoryError] = useState(false);
+
+  useEffect(() => {
+    // Fetch categories from the server or any data source
+    // For example, you can use the Fetch API or a library like Axios
+    // Replace the URL with your actual endpoint
+    fetch('https://your-server-api/categories')
+      .then((response) => response.json())
+      .then((data) => setCategories(data))
+      .catch((error) => console.error('Error fetching categories:', error));
+  }, []);
+
+  const handleNext = () => {
+    // Validate the selected category
+    if (!selectedCategory) {
+      setCategoryError(true);
+      return;
+    }
+
+    setCategoryError(false);
+    onInputChange('category', selectedCategory);
+    onSubmit();
+  };
 
   const handleCategoryChange = (event) => {
     const categoryValue = event.target.value;
-    onInputChange('category', categoryValue);
-    setCategory(categoryValue);
+    setSelectedCategory(categoryValue);
     setCategoryError(!categoryValue);
   };
 
   return (
-    <TextField
-      fullWidth
-      label="Category"
-      name="category"
-      error={categoryError}
-      helperText={categoryError ? 'Please choose a category' : ''}
-      onChange={handleCategoryChange}
-      style={{ border: categoryError ? '2px solid red' : '1px solid #ced4da' }}
-      value={category}
-      select
-      SelectProps={{
-        native: false, // Set to false to use a custom dropdown button
-        renderValue: (value) => value, // Render the selected value in the input
-      }}
-    >
-      <MenuItem value="">Select a category</MenuItem>
-      <MenuItem value="category1">Category 1</MenuItem>
-      <MenuItem value="category2">Category 2</MenuItem>
-      {/* Add more MenuItem elements for each category option */}
-    </TextField>
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <TextField
+          fullWidth
+          select
+          label="Category"
+          name="category"
+          value={selectedCategory}
+          onChange={handleCategoryChange}
+          error={categoryError}
+          helperText={categoryError ? 'Please choose a category' : ''}
+          sx={{ marginBottom: 2, width: '100%', maxWidth: '100%' }}
+        >
+          {categories.map((category) => (
+            <MenuItem key={category.id} value={category.name}>
+              {category.name}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
+      <Grid item xs={12}>
+        <Button onClick={handleNext} variant="contained" color="primary" sx={{ marginTop: 2 }}>
+          Next
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 
