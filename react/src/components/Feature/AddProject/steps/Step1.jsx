@@ -3,7 +3,8 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import MenuItem from '@mui/material/MenuItem';
-import Tooltip from '@mui/material/Tooltip';
+import axios from 'axios';
+
 
 const CategorySelectionStep = ({ onSubmit, onInputChange }) => {
   const [categories, setCategories] = useState([]);
@@ -11,36 +12,30 @@ const CategorySelectionStep = ({ onSubmit, onInputChange }) => {
   const [categoryError, setCategoryError] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:8585/api/categories/getCategoris')
-      .then((response) => response.json())
-      .then((data) => setCategories(data))
-      .catch((error) => console.error('Error fetching categories:', error));
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get('http://localhost:8585/api/categories/getCategoris');
+        console.log('Categories Response:', response);
+        setCategories(response.data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
   }, []);
-
-  // const handleNext = () => {
-  //   // Validate the selected category
-  //   if (!selectedCategory) {
-  //     setCategoryError(true);
-  //     console.error('Please choose a category');
-  //     return;
-  //   }
-
-  //   setCategoryError(false);
-  //   onInputChange('category', selectedCategory);
-  //   onSubmit();
-  // };
 
   const handleCategoryChange = (event) => {
     const categoryValue = event.target.value;
     setSelectedCategory(categoryValue);
     setCategoryError(!categoryValue);
-    onInputChange('category', categoryValue); // וודא שכאן יש שורה כמו זו
+    onInputChange('category', categoryValue);
   };
   
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Tooltip title="Add" arrow>
+
           <TextField
             fullWidth
             select
@@ -58,7 +53,7 @@ const CategorySelectionStep = ({ onSubmit, onInputChange }) => {
               </MenuItem>
             ))}
           </TextField>
-        </Tooltip>
+
       </Grid>
     </Grid>
   );

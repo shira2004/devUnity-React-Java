@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 
 const maxCharacters = 240;
 
 const AddContentStep = ({ onSubmit, onInputChange }) => {
   // State variables for form fields and errors
   const [title, setTitle] = useState('');
-  const [information, setInformation] = useState('');
-  const [description, setDescription] = useState('');
-  const [url, setUrl] = useState('');
-  const [titleError, setTitleError] = useState(false);
-  const [informationError, setInformationError] = useState(false);
-  const [descriptionError, setDescriptionError] = useState(false);
-  const [urlError, setUrlError] = useState(false);
-  const [image, setImage] = useState(null);
+const [information, setInformation] = useState(['']); // Initialize with an empty string for the first field
+const [description, setDescription] = useState('');
+const [url, setUrl] = useState('');
+const [titleError, setTitleError] = useState(false);
+const [informationError, setInformationError] = useState([false]); // Initialize with false for the first field
+const [descriptionError, setDescriptionError] = useState(false);
+const [urlError, setUrlError] = useState(false);
+const [image, setImage] = useState(null);
+const [infoFieldsCount, setInfoFieldsCount] = useState(1);
 
   // Constants for minimum input lengths
-  const minTitleLength = 50;
+  const minTitleLength = 5;
   const minDescriptionLength = 50;
   const minInformationLength = 50;
 
@@ -43,13 +44,21 @@ const AddContentStep = ({ onSubmit, onInputChange }) => {
   };
 
   // Event handler for information change
-  const handleInformationChange = (event) => {
-    const enteredText = event.target.value;
-    setInformation(enteredText);
-    setInformationError(!enteredText || enteredText.length < minInformationLength);
-    onInputChange('information', enteredText);
-  };
-
+ // Event handler for information change
+const handleInformationChange = (event, index) => {
+  const enteredText = event.target.value;
+  setInformation((prevInfo) => {
+    const updatedInfo = [...prevInfo];
+    updatedInfo[index] = enteredText;
+    return updatedInfo;
+  });
+  setInformationError((prevErrors) => {
+    const updatedErrors = [...prevErrors];
+    updatedErrors[index] = !enteredText || enteredText.length < minInformationLength;
+    return updatedErrors;
+  });
+  onInputChange('information', information);
+};
   // Event handler for URL change
   const handleUrlChange = (event) => {
     const enteredUrl = event.target.value;
@@ -81,10 +90,10 @@ const AddContentStep = ({ onSubmit, onInputChange }) => {
 
   // Event handler for form submission
   const handleSubmit = () => {
-    if (!title || !description || !information || !isValidUrl(url)) {
+    if (!title || !description || !information.some((info) => info) || !isValidUrl(url)) {
       setTitleError(!title || title.length < minTitleLength);
       setDescriptionError(!description || description.length < minDescriptionLength);
-      setInformationError(!information || information.length < minInformationLength);
+      setInformationError((prevErrors) => prevErrors.map((error, index) => !information[index] || information[index].length < minInformationLength));
       setUrlError(!isValidUrl(url));
       console.error('Please enter valid input for all fields');
       return;
@@ -94,7 +103,11 @@ const AddContentStep = ({ onSubmit, onInputChange }) => {
     console.log('Submitting data:', { title, description, information, url, image });
   };
 
-  // JSX for rendering the component
+  // Event handler for adding more text fields
+  const handleAddTextField = () => {
+    setInfoFieldsCount((prevCount) => prevCount + 1);
+  };
+
   return (
     <Grid container spacing={2}>
       {/* Title Input */}
@@ -156,25 +169,33 @@ const AddContentStep = ({ onSubmit, onInputChange }) => {
         </Typography>
       </Grid>
 
-
       {/* Information Input */}
       <Grid item xs={12}>
         <Tooltip
           title={`Clearly list ways in which contributors can help. Minimum ${minInformationLength} characters required.`}
           arrow
         >
-          <TextField
-            fullWidth
-            multiline
-            rows={6}
-            label="Information"
-            name="information"
-            onChange={handleInformationChange}
-            value={information}
-            error={informationError}
-            helperText={informationError ? `Please enter information with at least ${minInformationLength} characters` : ''}
-            style={{ marginTop: '20px', border: informationError ? '2px solid red' : '1px solid #ced4da' }}
-          />
+          {/* Render the specified number of information text fields */}
+          {[...Array(infoFieldsCount)].map((_, index) => (
+            <TextField
+              key={index}
+              fullWidth
+              multiline
+              rows={6}
+              label={`Information ${index + 1}`}
+              name={`information-${index}`}
+              onChange={(event) => handleInformationChange(event, index)}
+              value={information[index] || ''}
+              error={informationError[index]}
+              helperText={informationError[index] ? `Please enter information with at least ${minInformationLength} characters` : ''}
+              style={{ marginTop: '20px', border: informationError[index] ? '2px solid red' : '1px solid #ced4da' }}
+            />
+          ))}
+
+          {/* Button to add more text fields */}
+          <Button variant="outlined" onClick={handleAddTextField} style={{ marginTop: '10px' }}>
+            Add Information Field
+          </Button>
         </Tooltip>
       </Grid>
 
@@ -205,7 +226,12 @@ const AddContentStep = ({ onSubmit, onInputChange }) => {
         </Grid>
       )}
 
-    
+      {/* Submit Button */}
+      <Grid item xs={12}>
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
+          Submit
+        </Button>
+      </Grid>
     </Grid>
   );
 };
