@@ -11,8 +11,12 @@ import Search from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {getCategories} from '../../Redux/reducers/ItemReducer';
+import {useDispatch} from 'react-redux';
 
 export default function MyMenu() {
+
+  const dispatch=useDispatch();
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -39,12 +43,15 @@ export default function MyMenu() {
         const response = await axios.get('http://localhost:8585/api/categories/getCategoris');
         console.log('Categories Response:', response);
         setCategories(response.data);
+        dispatch(getCategories(response.data))
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
     };
 
     fetchCategories();
+    
+    
   }, []);
 
   const handleCategoryClick = (categoryId) => {
