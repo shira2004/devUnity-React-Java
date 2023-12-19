@@ -66,6 +66,39 @@ public class ProjectController {
     }
 
 
+    @PutMapping("/updateProject/{id}")
+    public ResponseEntity<Project> updateProject(@PathVariable long id,@RequestBody Project project){
+        Project p =projectRepository.findById(id).orElse(null);
+        if(p!=null){
+          p.setCategory(project.getCategory());
+          p.setContents(project.getContents());
+          p.setDescription(project.getDescription());
+          p.setUrl(project.getUrl());
+          p.setDate(project.getDate());
+          p.setLevel(project.getLevel());
+          p.setViewer(project.getViewer());
+
+            projectRepository.save(p);
+            return new ResponseEntity<>(p, HttpStatus.OK);
+        }
+        else//שגיאה 404
+
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/deleteProject/{id}")
+    public ResponseEntity deleteProject(@PathVariable long id){
+        try{
+            projectRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        catch(Exception e ) {
+            System.out.println(e);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 
 
