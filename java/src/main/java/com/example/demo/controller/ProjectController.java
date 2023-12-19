@@ -40,11 +40,11 @@ public class ProjectController {
     }
     @GetMapping("/get/{id}")
     public ResponseEntity<Project> getProjectById(@PathVariable long id ){
-        Project p =projectRepository.findById(id).orElse(null);
-        if(p!=null){
-            return new ResponseEntity<>(p,HttpStatus.OK);
+        Project project =projectRepository.findById(id).orElse(null);
+        if(project!=null){
+            return new ResponseEntity<>(project,HttpStatus.OK);
         }
-        else
+        else//שגיאה 404
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
@@ -64,6 +64,7 @@ public class ProjectController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
 
 

@@ -16,6 +16,7 @@ import java.util.Optional;
 @RequestMapping("/api/users")
 @CrossOrigin
 public class UsersController {
+    @Autowired
     private UsersRepository usersRepository;
     @Autowired
     public UsersController(UsersRepository usersRepository) {
@@ -56,7 +57,20 @@ public class UsersController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-}
+
+    @PostMapping("/createUser")
+    public ResponseEntity<Users> createUser(@RequestBody Users user) {
+        try {
+            Users newUser = usersRepository.save(user);  // Use the instance variable
+            return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    }
+
 
 
 

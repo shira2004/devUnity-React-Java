@@ -2,6 +2,9 @@ package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -22,6 +25,8 @@ public class Project {
     private int viewer;
     private int score;
 
+    private LocalDate date;
+
     @ManyToOne
     private Users user;
 
@@ -36,7 +41,7 @@ public class Project {
         this.id = id;
     }
 
-    public Project(Long id, String title, List<Content> contents, String level, String url, int viewer, int score, Users user, Category category, List<Comment> commentList) {
+    public Project(Long id, String title, List<Content> contents, String level, String url, int viewer, int score, Users user, Category category, List<Comment> commentList )  {
         this.id = id;
         this.title = title;
         this.contents = contents;
@@ -47,11 +52,15 @@ public class Project {
         this.user = user;
         this.category = category;
         this.commentList = commentList;
+        this.date = LocalDate.now();
     }
 
     public Project() {
 
     }
+    public LocalDate getDate (){return date;}
+
+
     public String getDescription(){return Description;}
 
     public void setDescription(String description){this.Description=description;}
@@ -136,5 +145,4 @@ public class Project {
         this.commentList = commentList;
     }
 }
-
 
