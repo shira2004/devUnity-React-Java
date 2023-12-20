@@ -212,8 +212,8 @@ const handleInformationChange = (event, index) => {
           <Button
             variant="outlined"
             component="span"
-            startIcon={<AddPhotoAlternateIcon />}
           >
+            <img src="/icons-upload-image.png"  />
             Upload Image
           </Button>
         </label>
@@ -226,12 +226,7 @@ const handleInformationChange = (event, index) => {
         </Grid>
       )}
 
-      {/* Submit Button */}
-      <Grid item xs={12}>
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-          Submit
-        </Button>
-      </Grid>
+     
     </Grid>
   );
 };

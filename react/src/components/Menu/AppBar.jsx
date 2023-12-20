@@ -11,16 +11,14 @@ import Search from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {getCategories} from '../../Redux/reducers/ItemReducer';
-import {useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategories } from '../../Redux/reducers/ItemReducer';
 
 export default function MyMenu() {
-
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.myItem.categories);
   const [open, setOpen] = useState(false);
-  const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [projects, setProjects] = useState([]);
   const nav = useNavigate();
 
   const fetchProjectsByCategory = async (categoryId) => {
@@ -28,7 +26,8 @@ export default function MyMenu() {
       const response = await axios.get(`http://localhost:8585/api/projects/getByCategory/${categoryId}`);
       console.log('Projects Response:', response.data);
 
-      setProjects(response.data);
+      // Dispatch the action to update the Redux state with categories
+      dispatch(getCategories(response.data));
 
       // Navigate to the /Cards route and pass projects as a state
       nav(`/Cards/${categoryId}`, { state: { projects: response.data } });
@@ -41,30 +40,26 @@ export default function MyMenu() {
     const fetchCategories = async () => {
       try {
         const response = await axios.get('http://localhost:8585/api/categories/getCategoris');
-        console.log('Categories Response:', response);
-        setCategories(response.data);
-        dispatch(getCategories(response.data))
+        // Dispatch the action to update the Redux state with categories
+        dispatch(getCategories(response.data));
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
     };
 
     fetchCategories();
-    
-    
-  }, []);
+  }, [dispatch]);
 
   const handleCategoryClick = (categoryId) => {
     setSelectedCategory(categoryId);
     fetchProjectsByCategory(categoryId);
     setOpen(false); // Close the Drawer after clicking a category
   };
-
   return (
     <>
       <React.Fragment>
         <IconButton variant="outlined" color="neutral" onClick={() => setOpen(true)}>
-          <span className="material-symbols-outlined">menu_open</span>
+        <img src="/icons-menu-16.png"  />
         </IconButton>
         <Drawer open={open} onClose={() => setOpen(false)}>
           <Box
@@ -79,7 +74,7 @@ export default function MyMenu() {
           >
             <Typography
               component="label"
-              htmlFor="close-icon"
+              htmlFor={<img src="/icons-x.gif" />}
               fontSize="sm"
               fontWeight="lg"
               sx={{ cursor: 'pointer' }}
@@ -92,7 +87,7 @@ export default function MyMenu() {
             size="sm"
             placeholder="Search"
             variant="plain"
-            endDecorator={<Search />}
+            endDecorator={<img src="/icons-search-32.png"  />}
             slotProps={{
               input: {
                 'aria-label': 'Search anything',
@@ -137,7 +132,7 @@ export default function MyMenu() {
                 onClick={() => handleCategoryClick(category.id)}
               >
                 <span className="material-symbols-outlined">{category.icon}</span>
-                <ListItemButton>{category.name}</ListItemButton>
+                <ListItemButton sx={{ textAlign: 'left' }}>{category.name}</ListItemButton>
               </Button>
             ))}
           </List>

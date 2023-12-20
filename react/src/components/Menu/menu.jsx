@@ -4,6 +4,9 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import MyMenu from './AppBar'
 import { useNavigate } from 'react-router-dom';
+
+
+
 export default function menu() {
   const [alignment, setAlignment] = React.useState('web');
 
@@ -22,18 +25,24 @@ export default function menu() {
       aria-label="Platform"
     >
       <ToggleButton value="web">
-     <MyMenu/></ToggleButton>
-      <ToggleButton value="android">My account
-      <span class="material-symbols-outlined">
-      account_circle
-            </span></ToggleButton>
-      <ToggleButton value="ios" onClick={()=>{nav('/SignIn')}}>sign</ToggleButton>
+     <MyMenu/>
+     </ToggleButton>
+      <ToggleButton value="ios" onClick={()=>{nav('/MyAccount')}}>
+        My account
+        <img src="/icons-avatar-16.png" alt="Add Project" />
+        </ToggleButton>
       <ToggleButton value="ios" onClick={()=>{nav('/AddProject')}}>
       add project
-      <span class="material-symbols-outlined">
-      library_add
-      </span></ToggleButton>
-      <ToggleButton value="ios" onClick={()=>{nav('/About')}}>About</ToggleButton>
+      <img src="/icons-add-16.png"  />
+      </ToggleButton>
+      <ToggleButton value="ios" onClick={()=>{nav('/About')}}>
+        About
+        <img src="/icons-about-16.png"  />
+        </ToggleButton>
+        <ToggleButton value="ios" onClick={()=>{nav('/SignIn')}}>
+        sign
+        <img src="/icons-sign-in-16.png"  />
+        </ToggleButton>
     </ToggleButtonGroup>
     </AppBar>
   );

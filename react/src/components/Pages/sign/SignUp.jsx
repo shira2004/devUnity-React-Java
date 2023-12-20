@@ -16,6 +16,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Header from '../../Header/Header';
+import axios from 'axios';
 
 function isEmailValid(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -36,15 +37,15 @@ function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
-    const email = data.get('email');
+  
+    const email = data.get('email').trim(); // Trim leading and trailing spaces
     if (!isEmailValid(email)) {
       setEmailError(true);
       console.error('Invalid email address');
       return;
     }
     setEmailError(false);
-
+  
     const password = data.get('password');
     if (!isPasswordValid(password)) {
       setPasswordError(true);
@@ -52,17 +53,31 @@ function SignUp() {
       return;
     }
     setPasswordError(false);
-
-    console.log({
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      email: email,
-      password: password,
-    });
-
-    // Redirect to /HomePage after successful submission
-    nav('/HomePage');
+  
+    axios
+      .post('http://localhost:8585/api/users/createUser', {
+        firstName: data.get('firstName'),
+        lastName: data.get('lastName'),
+        email: data.get('email'),
+        password: data.get('password'),
+      })
+      .then((response) => {
+        // Check the response status or any other indicator of successful user creation
+        if (response.status === 200) {
+          console.log('User created successfully:', response.data);
+          // Redirect to /HomePage after successful submission
+          nav('/HomePage');
+        } else {
+          console.error('Error creating user:', response.data);
+          // Handle error, show user feedback, etc.
+        }
+      })
+      .catch((error) => {
+        console.error('An error occurred during the user creation request:', error);
+        // Handle error, show user feedback, etc.
+      });
   };
+  
 
   const handleEmailFocus = () => {
     setEmailError(false);
@@ -137,7 +152,7 @@ function SignUp() {
                     required
                     fullWidth
                     name="password"
-                    label="Password"
+                    label="password"
                     type={showPassword ? 'text' : 'password'}
                     id="password"
                     autoComplete="new-password"
