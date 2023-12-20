@@ -24,6 +24,8 @@ public class Project {
     private String url;
     private int viewer;
     private int score;
+    //נתיב התמונה
+    private String image;
 
     private LocalDate date;
 
@@ -41,7 +43,7 @@ public class Project {
         this.id = id;
     }
 
-    public Project(Long id, String title, List<Content> contents, String level, String url, int viewer, int score, Users user, Category category, List<Comment> commentList )  {
+    public Project(String image , Long id, String title, List<Content> contents, String level, String url, int viewer, int score, Users user, Category category, List<Comment> commentList )  {
         this.id = id;
         this.title = title;
         this.contents = contents;
@@ -53,6 +55,7 @@ public class Project {
         this.category = category;
         this.commentList = commentList;
         this.date = LocalDate.now();
+        this.image=image;
     }
 
     public Project() {
@@ -60,7 +63,10 @@ public class Project {
     }
     public LocalDate getDate (){return date;}
 
+    public void setDate(LocalDate date){this.date=date;}
 
+    public String getImage(){return image;}
+    public void setImage(String image){this.image = image;}
     public String getDescription(){return Description;}
 
     public void setDescription(String description){this.Description=description;}
