@@ -25,7 +25,17 @@ public class ProjectDTO {
     private String url;
     private int viewer;
     private int score;
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     //נתיב התמונה
+    private String imagePath;
     private byte[] image;
     private LocalDate date;
     private Users user;

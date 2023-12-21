@@ -10,6 +10,9 @@ public class Content {
     private Long id;
 
    private String text;
+
+
+    private String title;
    private int numRow;
 
    @ManyToOne
@@ -18,7 +21,8 @@ public class Content {
     public Content() {
     }
 
-    public Content(Long id, String text, int numRow, Project project) {
+    public Content(Long id, String title ,String text, int numRow, Project project) {
+        this.title=title;
         this.id = id;
         this.text = text;
         this.numRow = numRow;
@@ -49,6 +53,14 @@ public class Content {
         this.numRow = numRow;
     }
 
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
     public Project getProject() {
         return project;
     }

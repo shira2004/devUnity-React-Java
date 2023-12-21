@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,7 +146,6 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
             System.out.println(e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 //    נרצה ךהחזיר אובייקט זהה אבל שהתמונה תוצג כביטים
     @GetMapping("/getdto/{id}")
@@ -156,6 +156,20 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
         else
             return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+    }
+
+
+    @PostMapping("/createProject")
+    public ResponseEntity<Project> createProject(@RequestBody Project project) {
+        try {
+            project.setDate(LocalDate.now());
+            Project newProject = projectRepository.save(project);
+
+            return new ResponseEntity<>(newProject, HttpStatus.CREATED);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 

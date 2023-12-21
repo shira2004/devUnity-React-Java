@@ -10,6 +10,7 @@ public class Comment {//http://localhost:8585/h2-console
         private Long id;
 
         private LocalDate date;
+        @Column(length = 1000)
         private String content;
         private String Score;
         @ManyToOne
