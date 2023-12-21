@@ -48,11 +48,11 @@ public class UsersController {
         }
     }
     @GetMapping("/getUserByMail/{mail}")
-    public ResponseEntity<String> getUserByMail(@PathVariable String mail) {
-        Optional<Users> userOptional = usersRepository.findByMail(mail);
+    public ResponseEntity<String> getUserByMail(@PathVariable String email) {
+        Optional<Users> userOptional = usersRepository.findByEmail(email);
         if (userOptional.isPresent()) {
             Users user = userOptional.get();
-            return new ResponseEntity<>(user.getPasswod(), HttpStatus.OK);
+            return new ResponseEntity<>(user.getPassword(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -61,10 +61,10 @@ public class UsersController {
     @PostMapping("/createUser")
     public ResponseEntity<Users> createUser(@RequestBody Users user) {
         try {
-            Users newUser = usersRepository.save(user);  // Use the instance variable
+            Users newUser = usersRepository.save(user);
             return new ResponseEntity<>(newUser, HttpStatus.CREATED);
         } catch (Exception e) {
-            System.out.println(e);
+           System.out.println(e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

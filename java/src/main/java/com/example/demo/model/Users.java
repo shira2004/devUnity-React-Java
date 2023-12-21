@@ -10,11 +10,11 @@ Users {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String mail;
-    private String passwod;
+    private String email;
+    private String password;
     private String firstName;
-    private String lassName;
-    private String phoneNumber;
+    private String lastName;
+
     private int status;
 
     @JsonIgnore
@@ -58,20 +58,20 @@ Users {
         this.id = id;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getPasswod() {
-        return passwod;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswod(String passwod) {
-        this.passwod = passwod;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -82,21 +82,15 @@ Users {
         this.firstName = firstName;
     }
 
-    public String getLassName() {
-        return lassName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLassName(String lassName) {
-        this.lassName = lassName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 
     public int getStatus() {
         return status;
@@ -106,5 +100,14 @@ Users {
         this.status = status;
     }
 
-
+    public Users(Long id, String email, String password, String firstName, String lastName,  List<Project> projectList, List<Comment> commentList) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        //this.status = status;
+        this.projectList = projectList;
+        this.commentList = commentList;
+    }
 }

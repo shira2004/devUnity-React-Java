@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface UsersRepository extends JpaRepository<Users ,Long> {
 
-    Users findFirstByFirstNameContainsAndLassNameContains(String txt,String txt2);
-    Optional<Users> findByMail(String mail);}
+    Users findFirstByFirstNameContainsAndLastNameNotContains(String txt,String txt2);
+    Optional<Users> findByEmail(String mail);}
