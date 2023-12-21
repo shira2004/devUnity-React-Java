@@ -15,51 +15,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../Redux/reducers/ItemReducer';
 
 export default function MyMenu() {
+  const categories = useSelector((state) => state.categories.ListCategories);
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.myItem.categories);
-  const [open, setOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
   const nav = useNavigate();
 
-  const fetchProjectsByCategory = async (categoryId) => {
-    try {
-      const response = await axios.get(`http://localhost:8585/api/projects/getByCategory/${categoryId}`);
-      console.log('Projects Response:', response.data);
-
-      // Dispatch the action to update the Redux state with categories
-      dispatch(getCategories(response.data));
-
-      // Navigate to the /Cards route and pass projects as a state
-      nav(`/Cards/${categoryId}`, { state: { projects: response.data } });
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-    }
+  const handleCategoryClick = async (categoryId) => {
+    dispatch({ type: 'GET_CATEGORY', payload: { categoryId } });
+    setOpen(false);
   };
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get('http://localhost:8585/api/categories/getCategoris');
-        // Dispatch the action to update the Redux state with categories
-        dispatch(getCategories(response.data));
-      } catch (error) {
-        console.error('Error fetching categories:', error);
-      }
-    };
+  const [open, setOpen] = useState(false);
 
-    fetchCategories();
-  }, [dispatch]);
-
-  const handleCategoryClick = (categoryId) => {
-    setSelectedCategory(categoryId);
-    fetchProjectsByCategory(categoryId);
-    setOpen(false); // Close the Drawer after clicking a category
-  };
   return (
     <>
       <React.Fragment>
-        <IconButton variant="outlined" color="neutral" onClick={() => setOpen(true)}>
-        <img src="/icons-menu-16.png"  />
+        <IconButton variant="outlined" color="neutral" onClick={() => {
+          dispatch({ type: 'GET_CATEGORY' });
+          setOpen(true);
+        }}>
+          <img src="/icons-menu-16.png" />
         </IconButton>
         <Drawer open={open} onClose={() => setOpen(false)}>
           <Box

@@ -1,20 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    ListProjects:[],
-}
-export const projectSlice = createSlice({
-    name : 'project',
-    initialState,
-    reducers:{
-        getPtojects:(state , action) =>{
-            state.ListProjects=(action.payload);
-        },
-        addProject:(state , action) =>{
-            state.ListProjects.push(action.payload);
-        },
-    },
-})
+  listProjects: [],
+};
 
-export const {getPtojects , addProject} = projectSlice.actions
-export default projectSlice.reducer
+export const projectSlice = createSlice({
+  name: 'project',
+  initialState,
+  reducers: {
+    getProjectsByCategory: (state, action) => {
+      const { categoryId, projects } = action.payload;
+      // both categoryId and projects
+      state.listProjects = projects;
+    },
+    addProject: (state, action) => {
+      state.listProjects.push(action.payload);
+    },
+  },
+});
+
+export const { getProjectsByCategory, addProject } = projectSlice.actions;
+export default projectSlice.reducer;
