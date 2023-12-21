@@ -30,7 +30,17 @@ public class ProjectDTO {
     private LocalDate date;
     private Users user;
     private Category category;
-    //private List<Comment> commentList;
+
+    public String getContents() {
+        return contents;
+    }
+
+    public void setContents(String contents) {
+        this.contents = contents;
+    }
+
+    private String contents;
+
 
     public Long getId() {
         return id;
