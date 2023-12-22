@@ -73,7 +73,7 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
             List<Project> projects = new ArrayList<>();
             projectRepository.findProjectByCategoryId(categoryId).forEach(e -> {
                 projects.add(e);
-                System.out.println("Description: " + e.getDescription()); // Add this line
+
             });
             return new ResponseEntity<>(projects, HttpStatus.OK);
         } catch (Exception e) {
@@ -81,6 +81,11 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+
+
+
 //    @GetMapping("/getProjects/{id}")
 //    public ResponseEntity<List<Project>> getProjectsByUser(@PathVariable long userId) {
 //        try {

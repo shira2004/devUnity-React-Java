@@ -17,6 +17,8 @@ public interface ProjectRepository extends JpaRepository<Project,Long> {
 
     List<Project> findProjectByTitleContains (String title);
 
+
+
     List<Project> findProjectByScore (int score);
 
     List<Project> findProjectByLevel (String level);
