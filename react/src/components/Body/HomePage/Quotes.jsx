@@ -9,7 +9,9 @@ const Quotes = () => {
             <Grid item xs={12} md={8}>
                 <Fade left>
                     <Typography variant="h4" align="center" fontWeight="bold" fontFamily="'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" color="#617d98" sx={{ fontSize: { xs: '3vw', md: '2vw' } }}>
-                        "Open Source, Open Minds – DevUnity, your space to contribute, learn, and make a difference in the world of coding."
+                        <img src ="/icons8-quote-u.png"/>
+                        Open Source, Open Minds – DevUnity, your space to contribute, learn, and make a difference in the world of coding.
+                        <img src ="/icons8-quote-d.png"/>
                     </Typography>
                 </Fade>
             </Grid>

@@ -10,7 +10,6 @@ export const projectSlice = createSlice({
   reducers: {
     getProjectsByCategory: (state, action) => {
       const { categoryId, projects } = action.payload;
-      // both categoryId and projects
       state.listProjects = projects;
     },
     addProject: (state, action) => {

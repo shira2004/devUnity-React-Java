@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/joy/Box';
 import IconButton from '@mui/joy/IconButton';
 import Drawer from '@mui/joy/Drawer';
@@ -7,7 +7,6 @@ import List from '@mui/joy/List';
 import ListItemButton from '@mui/joy/ListItemButton';
 import Typography from '@mui/joy/Typography';
 import ModalClose from '@mui/joy/ModalClose';
-import Search from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -18,13 +17,18 @@ export default function MyMenu() {
   const categories = useSelector((state) => state.categories.ListCategories);
   const dispatch = useDispatch();
   const nav = useNavigate();
+  const [open, setOpen] = useState(false);
 
   const handleCategoryClick = async (categoryId) => {
-    dispatch({ type: 'GET_CATEGORY', payload: { categoryId } });
-    setOpen(false);
+    try {
+      const response = await axios.get(`http://localhost:8585/api/projects/getByCategory/${categoryId}`);
+      dispatch({ type: 'GET_PROJECTS', payload: { categoryId } });
+      setOpen(false);
+      nav(`/Cards/${categoryId}`, { state: { projects: response.data } });
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    }
   };
-
-  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -33,7 +37,7 @@ export default function MyMenu() {
           dispatch({ type: 'GET_CATEGORY' });
           setOpen(true);
         }}>
-          <img src="/icons-menu-16.png" />
+          <img src="/icons-menu-16.png" alt="Menu" />
         </IconButton>
         <Drawer open={open} onClose={() => setOpen(false)}>
           <Box
@@ -48,7 +52,7 @@ export default function MyMenu() {
           >
             <Typography
               component="label"
-              htmlFor={<img src="/icons-x.gif" />}
+              htmlFor="close-icon"
               fontSize="sm"
               fontWeight="lg"
               sx={{ cursor: 'pointer' }}
@@ -61,7 +65,7 @@ export default function MyMenu() {
             size="sm"
             placeholder="Search"
             variant="plain"
-            endDecorator={<img src="/icons-search-32.png"  />}
+            endDecorator={<img src="/icons-search-32.png" alt="Search" />}
             slotProps={{
               input: {
                 'aria-label': 'Search anything',
