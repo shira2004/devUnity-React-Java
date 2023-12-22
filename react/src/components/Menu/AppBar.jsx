@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories } from '../../Redux/reducers/ItemReducer';
+//import { getCategories } from '../../Redux/reducers/ItemReducer';
 
 export default function MyMenu() {
   const categories = useSelector((state) => state.categories.ListCategories);

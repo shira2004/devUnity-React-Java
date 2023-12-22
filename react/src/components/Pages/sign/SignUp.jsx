@@ -17,6 +17,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Header from '../../Header/Header';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 
 function isEmailValid(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,30 +54,43 @@ function SignUp() {
       return;
     }
     setPasswordError(false);
-  
-    axios
-      .post('http://localhost:8585/api/users/createUser', {
+
+
+    dispatch({
+      type: 'ADD_USER',
+      payload: {
         firstName: data.get('firstName'),
         lastName: data.get('lastName'),
         email: data.get('email'),
         password: data.get('password'),
-      })
-      .then((response) => {
-        // Check the response status or any other indicator of successful user creation
-        if (response.status === 200) {
-          console.log('User created successfully:', response.data);
-          // Redirect to /HomePage after successful submission
-          nav('/HomePage');
-        } else {
-          console.error('Error creating user:', response.data);
-          // Handle error, show user feedback, etc.
-        }
-      })
-      .catch((error) => {
-        console.error('An error occurred during the user creation request:', error);
-        // Handle error, show user feedback, etc.
-      });
-  };
+      }
+  })
+
+
+  
+  //   axios
+  //     .post('http://localhost:8585/api/users/createUser', {
+  //       firstName: data.get('firstName'),
+  //       lastName: data.get('lastName'),
+  //       email: data.get('email'),
+  //       password: data.get('password'),
+  //     })
+  //     .then((response) => {
+  //       // Check the response status or any other indicator of successful user creation
+  //       if (response.status === 200) {
+  //         console.log('User created successfully:', response.data);
+  //         // Redirect to /HomePage after successful submission
+  //         nav('/HomePage');
+  //       } else {
+  //         console.error('Error creating user:', response.data);
+  //         // Handle error, show user feedback, etc.
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error('An error occurred during the user creation request:', error);
+  //       // Handle error, show user feedback, etc.
+  //     });
+   };
   
 
   const handleEmailFocus = () => {
@@ -93,6 +107,7 @@ function SignUp() {
 
   const defaultTheme = createTheme();
 
+  const dispatch = useDispatch();
   return (
     <>
       <Header />
