@@ -54,8 +54,7 @@ function SignUp() {
       return;
     }
     setPasswordError(false);
-
-
+    
     dispatch({
       type: 'ADD_USER',
       payload: {
@@ -65,31 +64,6 @@ function SignUp() {
         password: data.get('password'),
       }
   })
-
-
-  
-  //   axios
-  //     .post('http://localhost:8585/api/users/createUser', {
-  //       firstName: data.get('firstName'),
-  //       lastName: data.get('lastName'),
-  //       email: data.get('email'),
-  //       password: data.get('password'),
-  //     })
-  //     .then((response) => {
-  //       // Check the response status or any other indicator of successful user creation
-  //       if (response.status === 200) {
-  //         console.log('User created successfully:', response.data);
-  //         // Redirect to /HomePage after successful submission
-  //         nav('/HomePage');
-  //       } else {
-  //         console.error('Error creating user:', response.data);
-  //         // Handle error, show user feedback, etc.
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('An error occurred during the user creation request:', error);
-  //       // Handle error, show user feedback, etc.
-  //     });
    };
   
 
