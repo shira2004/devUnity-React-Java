@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   currentUser: null,
+  userAdded: false,
 };
 
 export const usersSlice = createSlice({
@@ -13,10 +14,13 @@ export const usersSlice = createSlice({
       console.log(action.payload);
       state.currentUser = action.payload;
     },
-    // ... other reducers
+    addUser: (state, action) => {
+      state.currentUser = action.payload;
+      state.userAdded = true;
+    },
   },
 });
 
-export const { setUser } = usersSlice.actions;
+export const { setUser, addUser } = usersSlice.actions;
 
 export default usersSlice.reducer;

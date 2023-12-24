@@ -16,8 +16,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Header from '../../Header/Header';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+
+import { useDispatch } from 'react-redux';
 
 function isEmailValid(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,13 +33,17 @@ function SignUp() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [user,setUser] = useState({firstName: '',
+  lastName: '',
+  email: '',
+  password: ''});
   const nav = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   
-    const email = data.get('email').trim(); // Trim leading and trailing spaces
+    const email = data.get('email').trim(); 
     if (!isEmailValid(email)) {
       setEmailError(true);
       console.error('Invalid email address');
@@ -55,6 +59,7 @@ function SignUp() {
     }
     setPasswordError(false);
     
+    
     dispatch({
       type: 'ADD_USER',
       payload: {
@@ -64,6 +69,7 @@ function SignUp() {
         password: data.get('password'),
       }
   })
+  nav("/Success")
    };
   
 
@@ -78,10 +84,13 @@ function SignUp() {
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
-
+const userChange = (e) => {
+setUser((prevUser)=>({...prevUser,[e.target.name]: e.target.value}))
+}
   const defaultTheme = createTheme();
 
   const dispatch = useDispatch();
+  // nav('/Success')
   return (
     <>
       <Header />
@@ -133,6 +142,7 @@ function SignUp() {
                     autoComplete="email"
                     error={emailError}
                     onFocus={handleEmailFocus}
+                    onChange={(e)=>userChange(e)}
                     helperText={emailError ? 'Invalid email address' : ''}
                   />
                 </Grid>
