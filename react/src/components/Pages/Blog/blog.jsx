@@ -3,8 +3,12 @@ import React from "react";
 import detailsImage from '/feeling_proud.png';
 import postImage from '/feeling_proud.png';
 import Rightbar from './rightbar';
+import CommentList from '../../Useful/CommentList'
+import ScrollToTopOnMount from '../../Useful/ScrollToTopOnMount';
 const Details = () => {
   return (
+    <>
+    <ScrollToTopOnMount/>
     <Box>
       <Box
         sx={{
@@ -17,8 +21,8 @@ const Details = () => {
         <Typography
           align="center"
           color={"black"}
-          variant="h2"
-          sx={{ fontWeight: 900, padding: 10 }}
+          //variant="h2"
+          //sx={{ fontWeight: 900, padding: 10 }}
         >
           Clicked Poste Title
         </Typography>
@@ -34,9 +38,9 @@ const Details = () => {
             <Typography
               m={4}
               align="center"
-              color={"gray"}
-              variant="body1"
-              sx={{ fontWeight: 900 }}
+              //color={"gray"}
+              //variant="body1"
+              //sx={{ fontWeight: 900 }}
             >
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut
               laudantium voluptates quaerat, excepturi soluta quos repudiandae
@@ -49,35 +53,40 @@ const Details = () => {
               image={postImage}
               alt="green iguana"
             />
-            <Typography align="center" variant="h4" mt={2}>
-              wait for it wait
+            <Typography align="center" variant="h8" mt={2}>
+              lets start
             </Typography>
             <Typography
               m={4}
               color={"gray"}
               variant="body1"
-              sx={{ fontWeight: 900 }}
+              //sx={{ fontWeight: 900 }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut
-              laudantium voluptates quaerat, excepturi soluta quos repudiandae
-              consequuntur? Magnam labore blanditiis enim, laborum atque nulla
-              veniam impedit necessitatibus totam, sed quibusdam? Lorem ipsum
-              dolor sit amet, consectetur adipisicing elit. Aut laudantium
-              voluptates quaerat, excepturi soluta quos repudiandae
-              consequuntur? Magnam labore blanditiis enim, laborum atque nulla
-              veniam impedit necessitatibus totam, sed quibusdam? Lorem ipsum
-              dolor sit amet, consectetur adipisicing elit. Aut laudantium
-              voluptates quaerat, excepturi soluta quos repudiandae
-              consequuntur? Magnam labore blanditiis enim, laborum atque nulla
-              veniam impedit necessitatibus totam, sed quibusdam?
+              hank you for considering a contribution! Follow these simple steps:<br/>
+
+1.Fork & Clone: Fork the repository, clone it to your local machine.<br/>
+
+2.Create a Branch: Make a new branch for your contribution.<br/>
+
+3.Make Changes: Implement your changes, adhering to coding standards.<br/>
+
+4.Commit & Push: Commit changes, push to your forked repo.<br/>
+
+5.Submit Pull Request: Open a pull request, explaining your changes.<br/>
+
+That's it! Your contribution will be reviewed and merged.<br/>
+
+Happy coding!
             </Typography>
           </Box>
           <Box flex={1}>
-            <Rightbar />
+          
           </Box>
         </Stack>
       </Container>
     </Box>
+    <CommentList />
+    </>
   );
 };
 
