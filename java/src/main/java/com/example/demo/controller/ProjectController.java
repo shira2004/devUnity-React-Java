@@ -67,40 +67,7 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
     }
 
 
-    @GetMapping("/getByCategory/{categoryId}")
-    public ResponseEntity<List<Project>> getProjectsByCategory(@PathVariable long categoryId) {
-        try {
-            List<Project> projects = new ArrayList<>();
-            projectRepository.findProjectByCategoryId(categoryId).forEach(e -> {
-                projects.add(e);
 
-            });
-            return new ResponseEntity<>(projects, HttpStatus.OK);
-        } catch (Exception e) {
-            // Handle exceptions, return appropriate HTTP status code
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-
-
-
-
-//    @GetMapping("/getProjects/{id}")
-//    public ResponseEntity<List<Project>> getProjectsByUser(@PathVariable long userId) {
-//        try {
-//            // Assuming userId is valid and corresponds to an existing user
-//            List<Project> userProjects = projectRepository.findProjectByUser(userId);
-//            if (userProjects.isEmpty()) {
-//                return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-//            } else {
-//                return new ResponseEntity<>(userProjects, HttpStatus.OK);
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e);
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
     @PutMapping("/updateProject/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable long id,@RequestBody Project project){
         Project p =projectRepository.findById(id).orElse(null);
@@ -133,6 +100,11 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
         }
     }
 
+//    @GetMapping("/search")
+//    public List<Project> searchProjectsByTitle(@RequestParam String title) {
+//        return projectRepository.findProjectsByTitleContainsIgnoreCase(title);
+//    }
+
     //מעלה פרויקט עם תמונה
     @PostMapping("/UploadProject")
     public  ResponseEntity uploadProjectWithImage(@RequestPart("image")
@@ -162,6 +134,45 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
             return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
+
+
+    @GetMapping("/getByCategory/{categoryId}")
+    public ResponseEntity<List<Project>> getProjectsByCategory(@PathVariable long categoryId) {
+        try {
+            List<Project> projects = new ArrayList<>();
+            projectRepository.findProjectByCategoryId(categoryId).forEach(e -> {
+                projects.add(e);
+
+            });
+            return new ResponseEntity<>(projects, HttpStatus.OK);
+        } catch (Exception e) {
+            // Handle exceptions, return appropriate HTTP status code
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/getByCategoryDTO/{categoryId}")
+    public ResponseEntity<List<ProjectDTO>> getProjectsByCategoryDTO(@PathVariable long categoryId) {
+        try {
+            List<ProjectDTO> projects = new ArrayList<>();
+            projectRepository.findProjectByCategoryId(categoryId).forEach(e ->{
+                try {
+                    projects.add(mapper.projectToDto(e));
+
+                }
+                catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }});
+
+            return new ResponseEntity<>(projects, HttpStatus.OK);
+        } catch (Exception e) {
+            // Handle exceptions, return appropriate HTTP status code
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
 
 
     @PostMapping("/createProject")

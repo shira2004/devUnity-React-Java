@@ -12,12 +12,7 @@ public interface ProjectRepository extends JpaRepository<Project,Long> {
     Project findProjectByTitle (String txt);
 
     //@Override
-    List<Project> findProjectByCategory(Category c);
-//    List<Project> findProjectByUser(long id);
-
-    List<Project> findProjectByTitleContains (String title);
-
-
+//    List<Project> findProjectsByTitleContainsIgnoreCase(String title);
 
     List<Project> findProjectByScore (int score);
 
