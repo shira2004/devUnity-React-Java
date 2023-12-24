@@ -35,12 +35,27 @@ public class CommentController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Comment> getRecipeById(@PathVariable long id) {
+    public ResponseEntity<Comment> getCommentById(@PathVariable long id) {
         Comment e = commentRepository.findById(id).orElse(null);
         if (e != null) {
             return new ResponseEntity<>(e, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @GetMapping("/getByProject/{projectId}")
+    public ResponseEntity<List<Comment>> getCommentsByProject(@PathVariable long projectId) {
+        try {
+            List<Comment> comments = new ArrayList<>();
+            commentRepository.findByProjectId(projectId).forEach(e -> {
+                comments.add(e);
+            });
+            return new ResponseEntity<>(comments, HttpStatus.OK);
+        } catch (Exception e) {
+            // Handle exceptions, return appropriate HTTP status code
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

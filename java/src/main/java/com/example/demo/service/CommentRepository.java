@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    List<Comment> findCommentByProject(Project project);
+
+   List<Comment> findByProjectId(long projectId);
+
 }
