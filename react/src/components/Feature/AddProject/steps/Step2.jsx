@@ -62,9 +62,9 @@ const AddContentStep = ({ onSubmit, onInputChange }) => {
   };
 
   const isValidUrl = (url) => {
-    const githubUrlRegex = /^https:\/\/github\.com\/[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+$/;
-    return urlRegex.test(url);
-  };
+       const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
+       return urlRegex.test(url);
+     };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];

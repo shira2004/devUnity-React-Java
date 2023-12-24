@@ -5,15 +5,17 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import MyMenu from './AppBar'
 import { useNavigate } from 'react-router-dom';
 
-
+import {  useSelector } from 'react-redux';
 
 export default function menu() {
   const [alignment, setAlignment] = React.useState('web');
+
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
   const nav=useNavigate()
+  const user = useSelector((state) =>state.user.currentUser)
 
   return (
     <AppBar sx={{ marginTop: '7px', backgroundColor: 'white', boxShadow: 'none' }}>
@@ -31,7 +33,7 @@ export default function menu() {
         My account
         <img src="/icons-avatar-16.png" alt="Add Project" />
         </ToggleButton>
-      <ToggleButton value="ios" onClick={()=>{nav('/AddProject')}}>
+      <ToggleButton value="ios" onClick={()=>{if(user!=null){nav('/AddProject')} else {nav('/signin')}}}>
       add project
       <img src="/icons-add-16.png"  />
       </ToggleButton>

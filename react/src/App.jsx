@@ -8,47 +8,18 @@ import SignUp from './components/Pages/sign/SignUp';
 import Cards from './components/Useful/Cards';
 import About from './components/Pages/About';
 import Footer from './components/Footer';
-import axios from 'axios';
 import MyAccount from './components/Pages/MyAccount';
 import HorizontalLinearStepper from './components/Feature/AddProject/steps/managerSteps'
 import Details from './components/Pages/Blog/blog'
-
-
+import Success from './components/Pages/SuccessPage'
+import CommentList from './components/Useful/CommentList'
 import '../src/index.css';
 
 export default function App() {
-  const [users, setUsers] = useState();
   const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8585/api/users/getUsers')
-      .then((usersRes) => {
-        setUsers(usersRes.data);
-        console.log('Users:', usersRes.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching users:', error);
-      });
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8585/api/projects/getAllProjects')
-      .then((projectsRes) => {
-        setProjects(projectsRes.data);
-        console.log('Projects:', projectsRes.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching projects:', error);
-      });
-  }, []);
-
   return (
     <>
- 
       <Menu />
-
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/SignIn" element={<SignIn />} />
@@ -59,6 +30,9 @@ export default function App() {
         <Route path="/About" element={<About />} />
         <Route path="/MyAccount" element={<MyAccount />} />
         <Route path="/Details" element={<Details />} />
+        <Route path="/Success" element={<Success />} />
+        <Route path="/CommentList" element={<CommentList />} />
+        
         
       </Routes>
 

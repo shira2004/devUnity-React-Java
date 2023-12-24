@@ -10,10 +10,12 @@ import AddContentStep from './Step2';
 import PasteUrlStep from './Step3';
 import NewChallenge from './NewChallenge';
 import axios from 'axios';
-
+import {  useSelector } from 'react-redux';
 const steps = ['Choose Category', 'Add Content', 'Submit'];
+import { useNavigate } from 'react-router-dom';
 
 const HorizontalLinearStepper = () => {
+  const nav = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   
   const [inputData, setInputData] = useState({
@@ -24,7 +26,8 @@ const HorizontalLinearStepper = () => {
     image: '',
     url: '',
   });
-
+  const userId = useSelector((state) =>state.user.currentUser.id)
+console.log(userId);
   const handleNext = () => {
     if (!validateStep()) {
       return;
@@ -68,10 +71,10 @@ const HorizontalLinearStepper = () => {
   
 
 
-  const isValidUrl = (url) => {
-    const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
-    return urlRegex.test(url);
-  };
+  // const isValidUrl = (url) => {
+  //   const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
+  //   return urlRegex.test(url);
+  // };
   
 
   const handleInputChange = (fieldName, value) => {
@@ -97,20 +100,25 @@ const HorizontalLinearStepper = () => {
     }
   };
 
-  const handleSubmit=() => {
-    axios
-      .post('http://localhost:8585/api/projects//UploadProject', {
-        title: data.get('title'),
-        Description: data.get('Description'),
-        url: data.get('url'),
-        category: data.get('category'),
+  const handleSubmit=async() => {
+    console.log(userId);
+    await axios
+      .post('http://localhost:8585/api/projects/createProject', {
+        title: inputData.title,
+        description:inputData.description,
+        url: inputData.url,
+        user:{id: userId
+        },
+        category:{id:inputData.category},
       })
       .then((response) => {
-        // Check the response status or any other indicator of successful user creation
-        if (response.status === 200) {
+
+        console.log("😊");
+        console.log(response.status);
+        if (response.status === 201) {
           console.log('project created successfully:', response.data);
           // Redirect to /HomePage after successful submission
-          nav('/HomePage');
+          nav('/Success');
         } else {
           console.error('Error creating user:', response.data);
           // Handle error, show user feedback, etc.
@@ -118,7 +126,7 @@ const HorizontalLinearStepper = () => {
       })
       .catch((error) => {
         console.error('An error occurred during the user creation request:', error);
-        // Handle error, show user feedback, etc.
+        
       });
 
   }
@@ -152,6 +160,7 @@ const HorizontalLinearStepper = () => {
             )}
             {activeStep === steps.length - 1 && (
               <>
+              {/* navigate to secces page */}
                 <Button onClick={handleSubmit} sx={{ mr: 1 }}>
                   Finish
                 </Button>

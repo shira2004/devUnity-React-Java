@@ -9,22 +9,24 @@ import Typography from '@mui/joy/Typography';
 import ModalClose from '@mui/joy/ModalClose';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-//import { getCategories } from '../../Redux/reducers/ItemReducer';
 
 export default function MyMenu() {
+  
   const categories = useSelector((state) => state.categories.ListCategories);
+
+
   const dispatch = useDispatch();
   const nav = useNavigate();
   const [open, setOpen] = useState(false);
 
   const handleCategoryClick = async (categoryId) => {
     try {
-      const response = await axios.get(`http://localhost:8585/api/projects/getByCategory/${categoryId}`);
+       //const response = await axios.get(`http://localhost:8585/api/projects/getByCategory/${categoryId}`);
       dispatch({ type: 'GET_PROJECTS', payload: { categoryId } });
+      nav(`/Cards/${categoryId}`);
+      
       setOpen(false);
-      nav(`/Cards/${categoryId}`, { state: { projects: response.data } });
     } catch (error) {
       console.error('Error fetching projects:', error);
     }

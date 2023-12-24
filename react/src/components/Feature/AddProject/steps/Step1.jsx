@@ -48,7 +48,7 @@ const CategorySelectionStep = ({ onSubmit, onInputChange }) => {
             sx={{ marginBottom: 2, width: '100%', maxWidth: '100%' }}
           >
             {categories.map((category) => (
-              <MenuItem key={category.id} value={category.name}>
+              <MenuItem key={category.id} value={category.id}>
                 {category.name}
               </MenuItem>
             ))}
