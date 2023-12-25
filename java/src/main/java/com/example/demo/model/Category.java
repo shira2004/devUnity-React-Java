@@ -32,6 +32,10 @@ public class Category {
     public Category() {
 
     }
+    // Add a constructor with an id parameter
+    public Category(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
