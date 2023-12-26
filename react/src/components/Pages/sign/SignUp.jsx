@@ -42,13 +42,10 @@ function SignUp() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [user, setUser] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-  });
-  const [showSuccessModal, setShowSuccessModal] = useState(false); // State for success modal
+  const [status, setStatus] = useState(false);
+
+  const dispatch = useDispatch();
+  const [showSuccessModal, setShowSuccessModal] = useState(false); 
   const nav = useNavigate();
 
   const handleSubmit = (event) => {
@@ -70,7 +67,7 @@ function SignUp() {
       return;
     }
     setPasswordError(false);
-
+ 
     dispatch({
       type: 'ADD_USER',
       payload: {
@@ -78,10 +75,10 @@ function SignUp() {
         lastName: data.get('lastName'),
         email: data.get('email'),
         password: data.get('password'),
+        status: status ? 1 : 0,
       },
     });
 
-    // Show the success modal
     setShowSuccessModal(true);
   };
 
@@ -97,9 +94,6 @@ function SignUp() {
     setShowPassword(!showPassword);
   };
 
-  const userChange = (e) => {
-    setUser((prevUser) => ({ ...prevUser, [e.target.name]: e.target.value }));
-  };
 
   const successButton = {
     label: 'go to home page',
@@ -108,7 +102,7 @@ function SignUp() {
 
   const defaultTheme = createTheme();
 
-  const dispatch = useDispatch();
+  
   return (
     <>
       <Header />
@@ -160,7 +154,6 @@ function SignUp() {
                     autoComplete="email"
                     error={emailError}
                     onFocus={handleEmailFocus}
-                    onChange={(e)=>userChange(e)}
                     helperText={emailError ? 'Invalid email address' : ''}
                   />
                 </Grid>
@@ -197,7 +190,7 @@ function SignUp() {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControlLabel
-                    control={<Checkbox value="allowExtraEmails" color="primary" />}
+                    control={<Checkbox value="allowExtraEmails" color="primary" onChange={(e)=>setStatus(e.target.checked)}/>}
                     label="I want to receive inspiration, marketing promotions and updates via email."
                   />
                 </Grid>
@@ -211,6 +204,18 @@ function SignUp() {
               >
                 Sign Up
               </Button>
+
+
+              {/* <Button
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                
+              >
+                add profile pic
+              </Button> */}
+
+
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Link variant="body2" onClick={() => nav('/SignIn')}>
