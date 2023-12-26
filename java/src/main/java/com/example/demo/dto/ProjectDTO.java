@@ -36,7 +36,7 @@ public class ProjectDTO {
 
     //נתיב התמונה
     private String imagePath;
-    private byte[] image;
+    private String image;
     private LocalDate date;
     private Users user;
     private Category category;
@@ -116,11 +116,11 @@ public class ProjectDTO {
         this.score = score;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

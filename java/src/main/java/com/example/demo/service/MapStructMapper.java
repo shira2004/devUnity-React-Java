@@ -42,7 +42,7 @@ public interface MapStructMapper {
         //Path fileName = Paths.get(p.getImage());
         //הופך תמונה למערך ביטיים
         byte[] byteImage=Files.readAllBytes(filename);
-        projectDTO.setImage(Base64.getEncoder().encode(byteImage));
+        projectDTO.setImage(Base64.getEncoder().encodeToString(byteImage));
 
         return projectDTO;
         //Base64.getEncoder().encode()
