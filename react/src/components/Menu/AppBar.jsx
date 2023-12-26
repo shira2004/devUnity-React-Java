@@ -12,19 +12,18 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function MyMenu() {
-  
   const categories = useSelector((state) => state.categories.ListCategories);
-
-
   const dispatch = useDispatch();
   const nav = useNavigate();
   const [open, setOpen] = useState(false);
 
-  const handleCategoryClick = async (categoryId) => {
+  
+
+  const handleCategoryClick = (id) => {
     try {
-       //const response = await axios.get(`http://localhost:8585/api/projects/getByCategory/${categoryId}`);
-      dispatch({ type: 'GET_PROJECTS', payload: { categoryId } });
-      nav(`/Cards/${categoryId}`);
+     
+      // dispatch({ type: 'GET_PROJECTS'});
+      nav('/Cards',{state:{category:id}});
       
       setOpen(false);
     } catch (error) {
@@ -36,7 +35,9 @@ export default function MyMenu() {
     <>
       <React.Fragment>
         <IconButton variant="outlined" color="neutral" onClick={() => {
-          dispatch({ type: 'GET_CATEGORY' });
+          dispatch({ type: 'GET_CATEGORY' }),
+          dispatch({ type: 'GET_PROJECTS'});
+
           setOpen(true);
         }}>
           <img src="/icons-menu-16.png" alt="Menu" />

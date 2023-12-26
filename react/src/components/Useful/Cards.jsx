@@ -1,4 +1,3 @@
-// Cards.jsx
 import React from 'react';
 import Header from '../Header/Header';
 import Card from '@mui/material/Card';
@@ -8,26 +7,30 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-// import { Rating } from '@mui/material';
-
+import { useLocation } from 'react-router-dom';
 
 const Cards = () => {
+  const cards = useSelector((state) => state.project.listProjects);
   const location = useLocation();
-  const projects = location.state?.projects || [];
-const cards = useSelector((state) =>state.project.listProjects)
+  const categoryId = location.state.category;
   const nav = useNavigate();
+  const filteredCards = cards.filter((project) => project.category.id === categoryId);
+
+  const handleCardClick = (project) => {
+    // Navigate to the Details page and pass the project as props
+    nav('/Details', { state: { project: project } });
+  };
 
   return (
     <>
       <Header />
       <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-        {cards.map((project) => (
+        {filteredCards.map((project) => (
           <Card key={project.id} sx={{ maxWidth: 345, margin: 2 }}>
             <CardMedia
-              sx={{ height: 300 }}
+              sx={{ height: 200 }}
               image={`data:image/png;base64,${project.image}`}
               title={project.title}
             />
@@ -40,10 +43,10 @@ const cards = useSelector((state) =>state.project.listProjects)
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small" onClick={() => nav('/Details')}>
-                 Learn More</Button>
+              <Button size="small" onClick={() => handleCardClick(project)}>
+                Learn More
+              </Button>
               <span className="material-symbols-outlined">visibility</span>
-              {/* <Rating/> */}
             </CardActions>
           </Card>
         ))}
