@@ -17,7 +17,6 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Header from '../../Header/Header';
 import SuccessModal from '../SuccessModal'; 
-
 import { useDispatch } from 'react-redux';
 
 
@@ -204,16 +203,6 @@ function SignUp() {
               >
                 Sign Up
               </Button>
-
-
-              {/* <Button
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                
-              >
-                add profile pic
-              </Button> */}
 
 
               <Grid container justifyContent="flex-end">

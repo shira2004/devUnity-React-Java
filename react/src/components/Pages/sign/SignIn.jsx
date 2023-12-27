@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,7 +16,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import SuccessModal from '../SuccessModal'; 
 
 function isEmailValid(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -28,35 +29,45 @@ function isPasswordValid(password) {
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[\x21-\x7E]{8,}$/;
   return passwordRegex.test(password);
 }
+
 function SignIn() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false); 
   const nav = useNavigate();
 
+  // const statusSignIn = useSelector(state => store.user.status);
+
+  // const [flagWasConnected, setFlagWasConnected] = useState(false);
+  
+  // useEffect(() => {
+  //   if (flagWasConnected) {
+  //     if (statusSignIn === 201 || statusSignIn === 202) {
+  //       console.log('problem');
+  //       nav('/signup');
+  //     } else {
+  //       setShowSuccessModal(true);
+  //     }
+  //   }
+
+  //   return () => {
+  //     // Cleanup code (if needed)
+  //   };
+  // }, [flagWasConnected, statusSignIn, nav]);
+
   const handlePasswordVisibility = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
+    setShowPassword(prevShowPassword => !prevShowPassword);
   };
 
-  const checkSignIn = (mail, password) => {
-    console.log('Checking');
-    axios.get(`http://localhost:8585/api/users/getUserByMail/${mail}`)
-      .then((response) => {
-        const passwordFromServer = response.data;
-        if (password === passwordFromServer) {
-          nav('/HomePage');
-        } else {
-          console.log('Password mismatch');
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        if (error.response?.status === 404) {
-          nav('/SignUp');
-        }
-      });
+  
+  const successButton = {
+    label: 'go to home page',
+    onClick: () => nav('/homepage'),
   };
 
+  const dispatch = useDispatch();
+  
   const handleEmailFocus = () => {
     setEmailError(false);
   };
@@ -85,15 +96,21 @@ function SignIn() {
     }
     setPasswordError(false);
 
-    console.log({
-      email: email,
-      password: password,
+    console.log(email);
+    console.log(password);
+
+    dispatch({
+      type: 'SIGN_IN',
+      payload: {
+        email: email,
+        password: password,
+      },
     });
-    checkSignIn(email, password);
+    setShowSuccessModal(true);
   };
 
   const defaultTheme = createTheme();
-
+  
   return (
     <>
       <Header />
@@ -179,6 +196,15 @@ function SignIn() {
           </Box>
         </Container>
       </ThemeProvider>
+
+      <SuccessModal
+        open={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        text1="nice to see u again here in DevUnity!"
+        imageSrc="/success.gif"
+        text2="🚀"
+        button={successButton}
+      />
     </>
   );
 }
