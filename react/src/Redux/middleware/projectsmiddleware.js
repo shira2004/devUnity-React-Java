@@ -1,19 +1,37 @@
 import axios from "axios";
-export const getProjectMidd = ({ dispatch, getState }) => next => async action => {
+import { getProjects } from "../reducers/ProjectsReducer";
+import { addProject } from "../reducers/ProjectsReducer";
+export const getProjectMidd = ({ dispatch, getState }) => next =>  action => {
     if (action.type === 'GET_PROJECTS') {
-      try {
-        const { categoryId } = action.payload;
-        console.log('Fetching projects for categoryId:', categoryId);
-  
-        const response = await axios.get(`http://localhost:8585/api/projects/getByCategory/${categoryId}`);
-        console.log('Projects Response:', response.data);
-  
-        // Dispatch the action to update the Redux state with projects
-        dispatch({ type: 'project/getProjectsByCategory', payload: { categoryId, projects: response.data } });
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-      }
+      axios
+        .get('http://localhost:8585/api/projects/getAll')
+        .then((response) =>{
+            console.log('response.data',response.data)
+            dispatch(getProjects(response.data));
+        })
+        .catch((error) =>{
+            console.log('error faching projects',error)
+
+        });
     }
+
+    else if (action.type === 'ADD_PROJECT') {
+    const newProject = action.payload;
+    console.log('newProject', newProject);
+    console.log("in function newProject");
+           axios
+          .post('http://localhost:8585/api/projects/createProject' , newProject)
+          .then((response) =>{
+            console.log('response.data',response.data)
+            dispatch(addProject(response.data));
+        })
+            
+          .catch((error) =>{
+            console.log('error adding projects',error)
+
+        });
+      };
+
   
     return next(action);
   };

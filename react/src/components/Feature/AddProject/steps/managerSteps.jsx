@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import SuccessModal from '../../../Pages/SuccessModal'; 
+import { useDispatch } from 'react-redux';
 
 const steps = ['Choose Category', 'Add Content', 'Submit'];
 
@@ -28,7 +29,8 @@ const HorizontalLinearStepper = () => {
     url: '',
   });
   const userId = useSelector((state) => state.user.currentUser.id);
-  const [showSuccessModal, setShowSuccessModal] = useState(false); // State for success modal
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const dispatch = useDispatch();
 
   const handleNext = () => {
     if (!validateStep()) {
@@ -50,26 +52,43 @@ const HorizontalLinearStepper = () => {
     setInputData((prevInputData) => ({ ...prevInputData, [fieldName]: value }));
   };
 
-  const handleSubmit = async () => {
-    await axios
-      .post('http://localhost:8585/api/projects/createProject', {
+ 
+
+
+   const handleSubmit =() => {
+    dispatch({
+      type: 'ADD_PROJECT',
+      payload: {
         title: inputData.title,
-        description: inputData.description,
-        url: inputData.url,
-        user: { id: userId },
-        category: { id: inputData.category },
-      })
-      .then((response) => {
-        if (response.status === 201) {
-          setShowSuccessModal(true);
-        } else {
-          console.error('Error creating project:', response.data);
-        }
-      })
-      .catch((error) => {
-        console.error('An error occurred during the project creation request:', error);
-      });
-  };
+           description: inputData.description,
+           url: inputData.url,
+           user: { id: userId },
+           category: { id: inputData.category },
+           date:new Date()
+      },
+    });
+    console.log('after dispatch');
+
+
+  //   await axios
+  //     .post('http://localhost:8585/api/projects/createProject', {
+  //       title: inputData.title,
+  //       description: inputData.description,
+  //       url: inputData.url,
+  //       user: { id: userId },
+  //       category: { id: inputData.category },
+  //     })
+  //     .then((response) => {
+  //       if (response.status === 201) {
+  //         setShowSuccessModal(true);
+  //       } else {
+  //         console.error('Error creating project:', response.data);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error('An error occurred during the project creation request:', error);
+  //     });
+   };
 
   const handleSuccessModalClose = () => {
     // Close success modal
