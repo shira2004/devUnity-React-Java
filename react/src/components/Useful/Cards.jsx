@@ -16,10 +16,11 @@ const Cards = () => {
   const location = useLocation();
   const categoryId = location.state.category;
   const nav = useNavigate();
+  
   const filteredCards = cards.filter((project) => project.category.id === categoryId);
 
   const handleCardClick = (project) => {
-    // Navigate to the Details page and pass the project as props
+   
     nav('/Details', { state: { project: project } });
   };
 
