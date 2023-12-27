@@ -30,6 +30,8 @@ const AddContentStep = ({ onSubmit, onInputChange }) => {
     onInputChange('title', titleValue);
   };
 
+  
+
   const handleDescriptionChange = (event) => {
     const enteredText = event.target.value;
     const truncatedText = enteredText.slice(0, maxCharacters);
@@ -66,19 +68,14 @@ const AddContentStep = ({ onSubmit, onInputChange }) => {
        return urlRegex.test(url);
      };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-  
-    if (file) {
-      const reader = new FileReader();
-  
-      reader.onload = (e) => {
-        setImage(e.target.result); // Update the image state here
-      };
-  
-      reader.readAsDataURL(file);
-    }
-  };
+     const handleImageChange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        // Update the image state
+        setImage(file);
+      onInputChange('image', file);
+      }
+    };
 
   const handleAddTextField = () => {
     setInfoFieldsCount((prevCount) => prevCount + 1);
@@ -181,8 +178,9 @@ const AddContentStep = ({ onSubmit, onInputChange }) => {
           <Button
             variant="outlined"
             component="span"
+            
           >
-            <img src="/icons-upload-image.png" alt="Upload Icon" />
+            <img src="/icons-upload-image.png" alt="Upload Icon"/>
             Upload Image
           </Button>
         </label>

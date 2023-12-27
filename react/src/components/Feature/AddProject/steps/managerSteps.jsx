@@ -16,7 +16,7 @@ import SuccessModal from '../../../Pages/SuccessModal';
 import { useDispatch } from 'react-redux';
 
 const steps = ['Choose Category', 'Add Content', 'Submit'];
-
+const formData = new FormData();
 const HorizontalLinearStepper = () => {
   const nav = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
@@ -52,44 +52,33 @@ const HorizontalLinearStepper = () => {
     setInputData((prevInputData) => ({ ...prevInputData, [fieldName]: value }));
   };
 
- 
+  const handleSubmit = () => {
+    formData.append('image', inputData.image);
+  
+    const objectToSend = {
+      title: inputData.title,
+      description: inputData.description,
+      url: inputData.url,
+      user: { id: userId },
+      category: { id: inputData.category },
+      date: new Date(),
+    };
+    console.log('this is the object to send');
+  
+    console.log(objectToSend);
+    formData.append("project", new Blob([JSON.stringify(objectToSend)], { type: 'application/json' }));
 
+    console.log('this is in formData');
 
-   const handleSubmit =() => {
+    
     dispatch({
       type: 'ADD_PROJECT',
-      payload: {
-        title: inputData.title,
-           description: inputData.description,
-           url: inputData.url,
-           user: { id: userId },
-           category: { id: inputData.category },
-           date:new Date()
-      },
+      payload: formData,
     });
+    
     console.log('after dispatch');
 
-
-  //   await axios
-  //     .post('http://localhost:8585/api/projects/createProject', {
-  //       title: inputData.title,
-  //       description: inputData.description,
-  //       url: inputData.url,
-  //       user: { id: userId },
-  //       category: { id: inputData.category },
-  //     })
-  //     .then((response) => {
-  //       if (response.status === 201) {
-  //         setShowSuccessModal(true);
-  //       } else {
-  //         console.error('Error creating project:', response.data);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('An error occurred during the project creation request:', error);
-  //     });
-   };
-
+  };
   const handleSuccessModalClose = () => {
     // Close success modal
     setShowSuccessModal(false);

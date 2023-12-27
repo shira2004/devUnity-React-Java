@@ -32,7 +32,7 @@ const Cards = () => {
           <Card key={project.id} sx={{ maxWidth: 345, margin: 2 }}>
             <CardMedia
               sx={{ height: 200 }}
-              image={`data:image/png;base64,${project.image}`}
+              image={`data:image/jpg;base64,${project.image}`}
               title={project.title}
             />
             <CardContent>
