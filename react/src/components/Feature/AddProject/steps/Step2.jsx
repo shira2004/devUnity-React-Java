@@ -188,7 +188,11 @@ const AddContentStep = ({ onSubmit, onInputChange }) => {
 
       {image && (
         <Grid item xs={12}>
-          <img src={image} alt="Uploaded" style={{ maxWidth: '100%', marginTop: '10px' }} />
+          <img
+          src={image || '/icons-sign-in-16.png'}
+          alt="Uploaded"
+          style={{ maxWidth: '100%', marginTop: '10px' }}
+          />
         </Grid>
       )}
     </Grid>

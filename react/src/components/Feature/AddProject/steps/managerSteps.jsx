@@ -9,29 +9,35 @@ import CategorySelectionStep from './Step1';
 import AddContentStep from './Step2';
 import PasteUrlStep from './Step3';
 import NewChallenge from './NewChallenge';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import SuccessModal from '../../../Pages/SuccessModal'; 
+import SuccessModal from '../../../Pages/SuccessModal';
 import { useDispatch } from 'react-redux';
 
-const steps = ['Choose Category', 'Add Content', 'Submit'];
-const formData = new FormData();
 const HorizontalLinearStepper = () => {
-  const nav = useNavigate();
+  // State variables
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [inputData, setInputData] = useState({
     category: '',
     title: '',
     description: '',
-    information: '',
     image: '',
     url: '',
   });
+
+  // Redux
   const userId = useSelector((state) => state.user.currentUser.id);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const dispatch = useDispatch();
 
+  // Steps and form data
+  const steps = ['Choose Category', 'Add Content', 'Submit'];
+  const formData = new FormData();
+
+  // Navigation
+  const nav = useNavigate();
+
+  // Event handlers
   const handleNext = () => {
     if (!validateStep()) {
       return;
@@ -54,7 +60,7 @@ const HorizontalLinearStepper = () => {
 
   const handleSubmit = () => {
     formData.append('image', inputData.image);
-  
+
     const objectToSend = {
       title: inputData.title,
       description: inputData.description,
@@ -63,26 +69,28 @@ const HorizontalLinearStepper = () => {
       category: { id: inputData.category },
       date: new Date(),
     };
-    console.log('this is the object to send');
-  
-    console.log(objectToSend);
+
     formData.append("project", new Blob([JSON.stringify(objectToSend)], { type: 'application/json' }));
 
-    console.log('this is in formData');
-
-    
     dispatch({
       type: 'ADD_PROJECT',
-      payload: formData,
-    });
-    
-    console.log('after dispatch');
+      payload: {
+        project: formData,
+        content: inputData.information,
+    }});
 
+    inputData.information.map((item,index)=>{
+      const [title, content] = item.split(':');
+      console.log(title.trim());
+      console.log(content.trim()); 
+      
+    })
+ 
+    setShowSuccessModal(true);
   };
+
   const handleSuccessModalClose = () => {
-    // Close success modal
     setShowSuccessModal(false);
-    // Redirect to /HomePage after closing modal
     nav('/HomePage');
   };
 
@@ -91,7 +99,6 @@ const HorizontalLinearStepper = () => {
     label: 'Back to Home Page',
     onClick: () => nav('/HomePage'),
   };
-
   return (
     <>
       <Header />
@@ -106,7 +113,7 @@ const HorizontalLinearStepper = () => {
           </Stepper>
         </Box>
         <Box sx={{ padding: 2 }}>
-          {/* Step content and form components */}
+         
           {activeStep === 0 && (
             <CategorySelectionStep onNext={handleNext} onInputChange={handleInputChange} />
           )}
