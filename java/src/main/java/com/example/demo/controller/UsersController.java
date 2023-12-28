@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Users;
+import com.example.demo.service.EmailService;
 import com.example.demo.service.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,8 +20,11 @@ import java.util.Optional;
 public class UsersController {
     @Autowired
     private UsersRepository usersRepository;
+    private EmailService emailService;
     @Autowired
-    public UsersController(UsersRepository usersRepository) {
+    public UsersController(UsersRepository usersRepository,EmailService emailService)
+    {
+        this.emailService=emailService;
         this.usersRepository = usersRepository;
     }
     @GetMapping("/getUsers")
@@ -62,9 +67,15 @@ public class UsersController {
     public ResponseEntity<Users> createUser(@RequestBody Users user) {
         try {
             Users newUser = usersRepository.save(user);
+
+            // Send welcome email to the user
+            String subject = "Welcome to YourWebsite!";
+            String body = "Dear " + newUser.getFirstName() + ",\n\nThank you for signing up on YourWebsite. We are excited to have you on board!";
+            emailService.sendEmail(newUser.getEmail(), subject, body);
+
             return new ResponseEntity<>(newUser, HttpStatus.CREATED);
         } catch (Exception e) {
-           System.out.println(e);
+            e.printStackTrace();  // This will print the stack trace to the console
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -101,6 +112,23 @@ public class UsersController {
         } catch (Exception e) {
             System.out.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
+    // New method for scheduled task to send emails every day at 21:27
+    @Scheduled(cron = "0 0 12 ? * SUN") // This cron expression represents "every day at 21:27"
+    public void sendDailyEmails() {
+        try {
+            List<Users> allUsers = usersRepository.findAll();
+            for (Users user : allUsers) {
+                String subject = "Daily Greetings from DevUnity!";
+                String body = "Dear " + user.getFirstName() + ",\n\nThis is your daily greeting from YourWebsite. Have a great day!";
+                emailService.sendEmail(user.getEmail(), subject, body);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();  // Handle the exception as needed
         }
     }
 }
