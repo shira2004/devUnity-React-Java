@@ -12,11 +12,12 @@ export const commentSlice = createSlice({
       
       state.listComments = (action.payload);
     },
+    
     addComment: (state, action) => {
       state.listComments.push(action.payload);
     },
   },
 });
 
-export const { getComments, addComment } = projectSlice.actions;
+export const { getComments, addComment } = commentSlice.actions;
 export default commentSlice.reducer;
