@@ -21,10 +21,7 @@ export default function MyMenu() {
 
   const handleCategoryClick = (id) => {
     try {
-     
-      // dispatch({ type: 'GET_PROJECTS'});
       nav('/Cards',{state:{category:id}});
-      
       setOpen(false);
     } catch (error) {
       console.error('Error fetching projects:', error);
@@ -37,6 +34,8 @@ export default function MyMenu() {
         <IconButton variant="outlined" color="neutral" onClick={() => {
           dispatch({ type: 'GET_CATEGORY' }),
           dispatch({ type: 'GET_PROJECTS'});
+          dispatch({ type: 'GET_COMMENTS' });
+          dispatch({ type: 'GET_CONTENTS' });
 
           setOpen(true);
         }}>

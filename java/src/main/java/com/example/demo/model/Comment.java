@@ -1,6 +1,9 @@
 package com.example.demo.model;
 
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,11 +11,12 @@ public class Comment {//http://localhost:8585/h2-console
         @Id
         @GeneratedValue
         private Long id;
-
         private LocalDate date;
         @Column(length = 1000)
         private String content;
-        private String Score;
+        private int Score;
+//        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//        @JsonIgnore
         @ManyToOne
         private Project project;
 
@@ -20,7 +24,7 @@ public class Comment {//http://localhost:8585/h2-console
         private Users user;
 
 
-        public Comment(Long id, LocalDate date, String content, String score, Project project, Users user) {
+        public Comment(Long id, LocalDate date, String content, int score, Project project, Users user) {
                 this.id = id;
                 this.date = date;
                 this.content = content;
@@ -61,11 +65,11 @@ public class Comment {//http://localhost:8585/h2-console
                 this.content = content;
         }
 
-        public String getScore() {
+        public int getScore() {
                 return Score;
         }
 
-        public void setScore(String score) {
+        public void setScore(int score) {
                 Score = score;
         }
 

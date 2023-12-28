@@ -16,7 +16,7 @@ const Cards = () => {
   const location = useLocation();
   const categoryId = location.state.category;
   const nav = useNavigate();
-  
+
   const filteredCards = cards.filter((project) => project.category.id === categoryId);
 
   const handleCardClick = (project) => {
@@ -32,7 +32,7 @@ const Cards = () => {
           <Card key={project.id} sx={{ maxWidth: 345, margin: 2 }}>
             <CardMedia
               sx={{ height: 200 }}
-              image={`data:image/jpg;base64,${project.image}`}
+              image={`data:image/*;base64,${project.image}`}
               title={project.title}
             />
             <CardContent>

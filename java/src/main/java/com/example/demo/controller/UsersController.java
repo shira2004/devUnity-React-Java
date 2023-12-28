@@ -69,7 +69,50 @@ public class UsersController {
         }
     }
 
+    @PostMapping("/signUp")
+    public ResponseEntity<Object> signUp(@RequestBody Users user) {
+        try {
+            Optional<Users> existingUser = usersRepository.findByEmail(user.getEmail());
+
+            if (existingUser.isPresent()) {
+                return new ResponseEntity<>("Email already registered", HttpStatus.CONFLICT);
+            } else {
+                Users newUser = usersRepository.save(user);
+                return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+            }
+        } catch (Exception e) {
+            // Log the exception using SLF4J
+            System.out.println(e);
+            return new ResponseEntity<>("Internal Server Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
+
+    @PostMapping("/signIn")
+    public ResponseEntity<Users> signIn(@RequestBody Users user) {
+        try {
+            Optional<Users> existingUser = usersRepository.findUsersByEmailAndPassword(user.getEmail(), user.getPassword());
+
+            if (existingUser.isPresent()) {
+                return new ResponseEntity<>(existingUser.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null , HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
 
 
 

@@ -7,4 +7,7 @@ import java.util.Optional;
 public interface UsersRepository extends JpaRepository<Users ,Long> {
 
     Users findFirstByFirstNameContainsAndLastNameNotContains(String txt,String txt2);
-    Optional<Users> findByEmail(String mail);}
+    Optional<Users> findByEmail(String mail);
+
+    Optional <Users> findUsersByEmailAndPassword(String email , String password);
+}

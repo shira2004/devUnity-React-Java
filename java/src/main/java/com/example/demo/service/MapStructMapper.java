@@ -33,6 +33,7 @@ public interface MapStructMapper {
         projectDTO.setId(p.getId());
         projectDTO.setTitle(p.getTitle());
         projectDTO.setScore(p.getScore());
+        projectDTO.setUser(p.getUser());
         Path filename= Paths.get(p.getImage());
 
         StringBuilder builder = new StringBuilder();
@@ -48,4 +49,10 @@ public interface MapStructMapper {
         //Base64.getEncoder().encode()
    }
 
+
+
+
 }
+
+
+

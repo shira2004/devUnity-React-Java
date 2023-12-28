@@ -37,10 +37,9 @@ export default function Menu() {
 
   const handleAddProjectClick = () => {
     if (user != null) {
-      
       nav('/addProject')
     } else {
-      // Open the modal for unauthenticated user
+      
       setOpenModal(true);
     }
   };
@@ -50,9 +49,7 @@ export default function Menu() {
   };
 
   const handleSuccessModalClose = () => {
-    // Close the success modal
     setShowSuccessModal(false);
-    // Redirect to /HomePage after closing modal
     nav('/HomePage');
   };
 

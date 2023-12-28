@@ -24,12 +24,12 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/Cards/:categoryId" element={<Cards projects={projects} />} />
+        <Route path="/Cards" element={<Cards  />} />
         <Route path="/HomePage" element={<HomePage />} />
         <Route path="/AddProject" element={<HorizontalLinearStepper />} />
         <Route path="/About" element={<About />} />
         <Route path="/MyAccount" element={<MyAccount />} />
-        <Route path="/Details" element={<Details />} />
+        <Route path="/Details" element={<Details  />} />
         <Route path="/Success" element={<Success />} />
         <Route path="/CommentList" element={<CommentList />} />
         

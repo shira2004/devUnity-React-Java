@@ -42,7 +42,7 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
 
     //דרך מדויקת
 
-    @GetMapping("/get")
+    @GetMapping("/getAll")
     public ResponseEntity<List<Project>> getProjects2 (){
         try {
            List<Project> projects = new ArrayList<>();
@@ -52,6 +52,27 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
         }
         catch (Exception e){
             //שגיאה 500
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
+    //לא מחזיר את כל האוביקט
+    @GetMapping("/getAllDTO")
+    public ResponseEntity<List<ProjectDTO>> getProjectsDTO() {
+        try {
+            List<ProjectDTO> projects = new ArrayList<>();
+            projectRepository.findAll().forEach(e ->{
+                try {
+                    projects.add(mapper.projectToDto(e));
+                }
+                catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }});
+            return new ResponseEntity<>(projects, HttpStatus.OK);
+        } catch (Exception e) {
+            // Handle exceptions, return appropriate HTTP status code
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -100,10 +121,6 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
         }
     }
 
-//    @GetMapping("/search")
-//    public List<Project> searchProjectsByTitle(@RequestParam String title) {
-//        return projectRepository.findProjectsByTitleContainsIgnoreCase(title);
-//    }
 
     //מעלה פרויקט עם תמונה
     @PostMapping("/UploadProject")
@@ -124,6 +141,9 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+
 //    נרצה ךהחזיר אובייקט זהה אבל שהתמונה תוצג כביטים
     @GetMapping("/getdto/{id}")
     public  ResponseEntity <ProjectDTO> getDTO(@PathVariable long  id) throws IOException {
@@ -177,6 +197,7 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
 
     @PostMapping("/createProject")
     public ResponseEntity<Project> createProject(@RequestBody Project project) {
+
         try {
             project.setDate(LocalDate.now());
             Project newProject = projectRepository.save(project);

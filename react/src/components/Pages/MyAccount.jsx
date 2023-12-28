@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import AccountCircle from '/account-circle.png';
+import {Typography} from '@mui/material';
 import BasicCard from '../Useful/BasicCard';
 import { Grid } from '@mui/material';
 
@@ -33,10 +34,14 @@ export default function MyAccount() {
     setFavoriteProjects(fakeFavoriteProjects);
   }, []); // Fetch data on component mount
 
+
   return (
     <>
       <Header  />
-      {/* additionalPicture={AccountCircle} */}
+      <Typography>
+        
+      <img src="/icons8-avatar.gif" alt="About" />
+      </Typography>
       <Grid container spacing={8} justifyContent="center">
         <Grid item xs={10} sm={6} md={3}>
           <BasicCard title="My Projects" projects={userProjects} />
