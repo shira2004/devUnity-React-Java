@@ -13,10 +13,11 @@ import HorizontalLinearStepper from './components/Feature/AddProject/steps/manag
 import Details from './components/Pages/Blog/blog'
 import Success from './components/Pages/SuccessPage'
 import CommentList from './components/Useful/CommentList'
+import SearchCards from './components/Useful/searchCards';
 import '../src/index.css';
 
 export default function App() {
-  const [projects, setProjects] = useState([]);
+ // const [projects, setProjects] = useState([]);
   return (
     <>
       <Menu />
@@ -32,6 +33,7 @@ export default function App() {
         <Route path="/Details" element={<Details  />} />
         <Route path="/Success" element={<Success />} />
         <Route path="/CommentList" element={<CommentList />} />
+        <Route path="/SearchCards" element={<SearchCards />} />
         
         
       </Routes>

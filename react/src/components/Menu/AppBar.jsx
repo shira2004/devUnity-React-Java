@@ -12,10 +12,15 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function MyMenu() {
+
+
   const categories = useSelector((state) => state.categories.ListCategories);
+  const projects  = useSelector((state) => state.project.listProjects);
+
   const dispatch = useDispatch();
   const nav = useNavigate();
   const [open, setOpen] = useState(false);
+  const[searchQuery,setSearchQuery] = useState('')
 
   
 
@@ -27,6 +32,20 @@ export default function MyMenu() {
       console.error('Error fetching projects:', error);
     }
   };
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSearchIconClick = () => {
+    setOpen(false);
+    const filteredProjects = projects.filter((project) =>
+    project.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    console.log(filteredProjects);
+    nav('/SearchCards',{state:filteredProjects});
+
+  }
 
   return (
     <>
@@ -66,8 +85,13 @@ export default function MyMenu() {
           <Input
             size="sm"
             placeholder="Search"
+            onChange={handleSearchChange}
             variant="plain"
-            endDecorator={<img src="/icons-search-32.png" alt="Search" />}
+            endDecorator={<img
+              src="/icons-search-32.png"
+              alt="Search"
+              onClick={handleSearchIconClick}
+            />}
             slotProps={{
               input: {
                 'aria-label': 'Search anything',
