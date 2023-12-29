@@ -26,7 +26,7 @@ const style = {
 export default function Menu() {
   const [alignment, setAlignment] = useState('web');
   const [openModal, setOpenModal] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false); // State for success modal
+  const [showSuccessModal, setShowSuccessModal] = useState(false); 
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);

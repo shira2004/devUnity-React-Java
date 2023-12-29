@@ -8,19 +8,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 const Cards = () => {
-  const cards = useSelector((state) => state.project.listProjects);
   const location = useLocation();
-  const categoryId = location.state.category;
+  const filteredProjects = location.state
   const nav = useNavigate();
 
-  const filteredCards = cards.filter((project) => project.category.id === categoryId);
-
   const handleCardClick = (project) => {
-   
     nav('/Details', { state: { project: project } });
   };
 
@@ -28,7 +23,7 @@ const Cards = () => {
     <>
       <Header />
       <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-        {filteredCards.map((project) => (
+        {filteredProjects.map((project) => (
           <Card key={project.id} sx={{ maxWidth: 345, margin: 2 }}>
             <CardMedia
               sx={{ height: 200 }}
