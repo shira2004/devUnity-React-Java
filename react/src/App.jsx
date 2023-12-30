@@ -1,6 +1,6 @@
-// App.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Menu from './components/Menu/menu';
 import HomePage from './components/Pages/HomePage';
 import SignIn from './components/Pages/sign/SignIn';
@@ -9,15 +9,23 @@ import Cards from './components/Useful/Cards';
 import About from './components/Pages/About';
 import Footer from './components/Footer';
 import MyAccount from './components/Pages/MyAccount';
-import HorizontalLinearStepper from './components/Feature/AddProject/steps/managerSteps'
-import Details from './components/Pages/Blog/blog'
-import Success from './components/Pages/SuccessPage'
-import CommentList from './components/Useful/CommentList'
-import SearchCards from './components/Useful/searchCards';
+import HorizontalLinearStepper from './components/Feature/AddProject/steps/managerSteps';
+import Details from './components/Pages/Blog/blog';
+import Success from './components/Pages/SuccessPage';
+import CommentList from './components/Useful/CommentList';
+import Edit from './components/Pages/Edit';
 import '../src/index.css';
 
 export default function App() {
- // const [projects, setProjects] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+   
+    dispatch({ type: 'GET_CATEGORY' });
+    dispatch({ type: 'GET_PROJECTS' });
+    dispatch({ type: 'GET_COMMENTS' });
+    dispatch({ type: 'GET_CONTENTS' });
+  }, [dispatch]);
   return (
     <>
       <Menu />
@@ -33,11 +41,9 @@ export default function App() {
         <Route path="/Details" element={<Details  />} />
         <Route path="/Success" element={<Success />} />
         <Route path="/CommentList" element={<CommentList />} />
-        <Route path="/SearchCards" element={<SearchCards />} />
-        
-        
-      </Routes>
+        <Route path="/Edit" element={<Edit />} />
 
+      </Routes>
       <Footer />
     </>
   );

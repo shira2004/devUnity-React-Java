@@ -21,12 +21,12 @@ export default function MyMenu() {
   const nav = useNavigate();
   const [open, setOpen] = useState(false);
   const[searchQuery,setSearchQuery] = useState('')
-
   
 
   const handleCategoryClick = (id) => {
     try {
-      nav('/Cards',{state:{category:id}});
+      const filteredProjects = projects.filter((project) => project.category.id === id);
+      nav('/Cards',{state:filteredProjects});
       setOpen(false);
     } catch (error) {
       console.error('Error fetching projects:', error);
@@ -43,7 +43,7 @@ export default function MyMenu() {
     project.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
     console.log(filteredProjects);
-    nav('/SearchCards',{state:filteredProjects});
+    nav('/Cards',{state:filteredProjects});
 
   }
 
@@ -51,11 +51,6 @@ export default function MyMenu() {
     <>
       <React.Fragment>
         <IconButton variant="outlined" color="neutral" onClick={() => {
-          dispatch({ type: 'GET_CATEGORY' }),
-          dispatch({ type: 'GET_PROJECTS'});
-          dispatch({ type: 'GET_COMMENTS' });
-          dispatch({ type: 'GET_CONTENTS' });
-
           setOpen(true);
         }}>
           <img src="/icons-menu-16.png" alt="Menu" />
