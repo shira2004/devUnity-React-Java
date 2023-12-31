@@ -15,8 +15,13 @@ export const contentSlice = createSlice({
     addContent: (state, action) => {
       state.listContents.push(action.payload);
     },
+
+    deleteContent: (state, action) => {
+      const deletedContentId = action.payload;
+      state.listContents = state.listContents.filter(content => content.id !== deletedContentId);
+    },
   },
 });
 
-export const { getContents, addContent } = contentSlice.actions;
+export const { getContents, addContent , deleteContent } = contentSlice.actions;
 export default contentSlice.reducer;

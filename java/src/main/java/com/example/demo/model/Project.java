@@ -24,6 +24,7 @@ public class Project {
     private String url;
     private int viewer;
     private int score;
+
     //נתיב התמונה
     private String image;
 
@@ -43,14 +44,14 @@ public class Project {
         this.id = id;
     }
 
-    public Project(String image , Long id, String title, List<Content> contents, String level, String url, int viewer, int score, Users user, Category category, List<Comment> commentList )  {
+    public Project(String image , Long id, String title, List<Content> contents, String level, String url,  Users user, Category category, List<Comment> commentList )  {
         this.id = id;
         this.title = title;
         this.contents = contents;
         this.level = level;
         this.url = url;
-        this.viewer = viewer;
-        this.score = score;
+        this.viewer = 0;
+        this.score = 0;
         this.user = user;
         this.category = category;
         this.commentList = commentList;

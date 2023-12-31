@@ -1,10 +1,9 @@
 import axios from "axios";
-import { getProjects, addProject } from "../reducers/ProjectsReducer";
+import { getProjects, addProject , incrementViewerCount } from "../reducers/ProjectsReducer";
 import { addContent } from "../reducers/ContentReducer";
 
 export const getProjectMidd = ({ dispatch, getState }) => next => action => {
   if (action.type === 'GET_PROJECTS') {
-    console.log('I am in middleware');
     axios
       .get('http://localhost:8585/api/projects/getAllDTO')
       .then((response) => {
@@ -37,7 +36,7 @@ export const getProjectMidd = ({ dispatch, getState }) => next => action => {
             numRow: index,
             project: {id: good_id},
           };
-console.log(objectToSend);
+          console.log(objectToSend);
           axios
             .post('http://localhost:8585/api/content/postContent', objectToSend)
             .then((response) => {
@@ -53,7 +52,20 @@ console.log(objectToSend);
       .catch((error) => {
         console.log('Error adding projects', error);
       });
+  }else if (action.type === 'INCREMENT_VIEWER_COUNT') {
+    axios
+      .put(`http://localhost:8585/api/projects/incrementViewerCount/${action.payload.id}`)
+      .then((response) => {
+        console.log('response.data', response.data);
+        dispatch(incrementViewerCount({ id: action.payload.id }));
+      })
+      .catch((error) => {
+        console.log('I am in middleware catch😢');
+        console.error('Error incrementing viewer count', error);
+      });
   }
+
+  
 
   return next(action);
 };

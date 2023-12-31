@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 
 const maxCharacters = 500;
 
-const AddContentStep = ({ onSubmit, onInputChange }) => {
+const AddContentStep = ({ onInputChange }) => {
   const [title, setTitle] = useState('');
   const [information, setInformation] = useState(['']);
   const [description, setDescription] = useState('');
@@ -124,7 +124,7 @@ const AddContentStep = ({ onSubmit, onInputChange }) => {
           <TextField
             fullWidth
             multiline
-            rows={4}
+            rows={5}
             label="Description"
             name="description"
             onChange={handleDescriptionChange}
@@ -150,7 +150,7 @@ const AddContentStep = ({ onSubmit, onInputChange }) => {
           key={index}
           fullWidth
           multiline
-          rows={6}
+          rows={3}
           label={`Information ${index + 1}`}
           name={`information-${index}`}
           onChange={(event) => handleInformationChange(event, index)}

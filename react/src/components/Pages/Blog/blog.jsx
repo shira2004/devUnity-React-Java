@@ -59,7 +59,7 @@ const Details = () => {
   };
 
   const successButton = {
-    label: 'Back to Home Page',
+    label: 'go to sign in',
     onClick: () => nav('/Signin'),
   };
 
@@ -115,7 +115,7 @@ const Details = () => {
             </Typography>
 
             {filteredContent.map((item) => (
-              <Typography key={item.id} variant="body2" sx={{ textAlign: 'left' }}>
+              <Typography key={item.id} variant="body2" sx={{ textAlign: 'left' , mb: '8px'}}>
                 <strong>{item.title}</strong>  {item.text}
               </Typography>
             ))}

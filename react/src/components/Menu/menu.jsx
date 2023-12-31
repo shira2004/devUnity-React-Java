@@ -44,6 +44,15 @@ export default function Menu() {
     }
   };
 
+  const handleMyAccountClick = () => {
+    if (user != null) {
+      nav('/MyAccount')
+    } else {
+      
+      setOpenModal(true);
+    }
+  };
+
   const handleCloseModal = () => {
     setOpenModal(false);
   };
@@ -72,7 +81,7 @@ export default function Menu() {
           <ToggleButton value="web">
             <MyMenu />
           </ToggleButton>
-          <ToggleButton value="ios" onClick={() => nav('/MyAccount')}>
+          <ToggleButton value="ios" onClick={handleMyAccountClick}>
             My account
             <img src="/icons-avatar-16.png" alt="My Account" />
           </ToggleButton>

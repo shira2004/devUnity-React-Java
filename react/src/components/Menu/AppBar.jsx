@@ -17,7 +17,6 @@ export default function MyMenu() {
   const categories = useSelector((state) => state.categories.ListCategories);
   const projects  = useSelector((state) => state.project.listProjects);
 
-  const dispatch = useDispatch();
   const nav = useNavigate();
   const [open, setOpen] = useState(false);
   const[searchQuery,setSearchQuery] = useState('')

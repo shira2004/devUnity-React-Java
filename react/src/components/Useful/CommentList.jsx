@@ -30,6 +30,7 @@ export default function CommentList(props) {
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {format(comment.date , 'dd/MM/yy')}
             </Typography>
+            {/* {user.name} has contributed to {user.contributions.length} projects */}
 
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
               <img src="/icons-avatar-16.png" alt="Add Project" />

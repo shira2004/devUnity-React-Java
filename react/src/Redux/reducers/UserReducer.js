@@ -18,6 +18,7 @@ export const usersSlice = createSlice({
       state.currentUser = action.payload;
       state.userAdded = true;
     },
+
   },
 });
 

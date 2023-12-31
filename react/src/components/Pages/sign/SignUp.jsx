@@ -31,9 +31,7 @@ function isPasswordValid(password) {
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   const isValid = passwordRegex.test(password);
 
-  console.log('Is Valid:', isValid);
-  console.log('i am here ');
-
+  
   return isValid;
 }
 
@@ -54,7 +52,6 @@ function SignUp() {
     const email = data.get('email').trim();
     if (!isEmailValid(email)) {
       setEmailError(true);
-      console.error('Invalid email address');
       return;
     }
     setEmailError(false);
@@ -62,7 +59,6 @@ function SignUp() {
     const password = data.get('password');
     if (!isPasswordValid(password)) {
       setPasswordError(true);
-      console.error('Invalid password');
       return;
     }
     setPasswordError(false);

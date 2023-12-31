@@ -192,9 +192,6 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
     }
 
 
-
-
-
     @PostMapping("/createProject")
     public ResponseEntity<Project> createProject(@RequestBody Project project) {
 
@@ -208,6 +205,22 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/incrementViewerCount/{id}")
+    public ResponseEntity<Project> incrementViewerCount(@PathVariable long id) {
+        Project project = projectRepository.findById(id).orElse(null);
+
+        if (project != null) {
+            project.setViewer(project.getViewer() + 1);
+
+            Project updatedProject = projectRepository.save(project);
+
+            return new ResponseEntity<>(updatedProject, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 
 

@@ -79,12 +79,12 @@ const HorizontalLinearStepper = () => {
         content: inputData.information,
     }});
 
-    inputData.information.map((item,index)=>{
+    inputData.information.map((item, index) => {
       const [title, content] = item.split(':');
-      console.log(title.trim());
-      console.log(content.trim()); 
-      
-    })
+      const trimmedTitle = title ? title.trim() : item.trim();
+      console.log(trimmedTitle);
+      console.log(content ? content.trim() : ''); 
+    });
  
     setShowSuccessModal(true);
   };

@@ -25,7 +25,6 @@ function isEmailValid(email) {
 }
 
 function isPasswordValid(password) {
-  // Check that the password contains at least 8 characters, letters, and numbers
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[\x21-\x7E]{8,}$/;
   return passwordRegex.test(password);
 }
@@ -36,26 +35,6 @@ function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false); 
   const nav = useNavigate();
-
-  // const statusSignIn = useSelector(state => store.user.status);
-
-  // const [flagWasConnected, setFlagWasConnected] = useState(false);
-  
-  // useEffect(() => {
-  //   if (flagWasConnected) {
-  //     if (statusSignIn === 201 || statusSignIn === 202) {
-  //       console.log('problem');
-  //       nav('/signup');
-  //     } else {
-  //       setShowSuccessModal(true);
-  //     }
-  //   }
-
-  //   return () => {
-  //     // Cleanup code (if needed)
-  //   };
-  // }, [flagWasConnected, statusSignIn, nav]);
-
   const handlePasswordVisibility = () => {
     setShowPassword(prevShowPassword => !prevShowPassword);
   };
@@ -106,6 +85,7 @@ function SignIn() {
         password: password,
       },
     });
+    
     setShowSuccessModal(true);
   };
 

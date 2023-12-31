@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Project;
 import com.example.demo.model.Users;
 import com.example.demo.service.EmailService;
+import com.example.demo.service.ProjectRepository;
 import com.example.demo.service.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,38 +22,39 @@ import java.util.Optional;
 public class UsersController {
     @Autowired
     private UsersRepository usersRepository;
+
+    private ProjectRepository projectRepository;
     private EmailService emailService;
+
     @Autowired
-    public UsersController(UsersRepository usersRepository,EmailService emailService)
-    {
-        this.emailService=emailService;
+    public UsersController(UsersRepository usersRepository, EmailService emailService, ProjectRepository projectRepository) {
+        this.emailService = emailService;
         this.usersRepository = usersRepository;
+        this.projectRepository = projectRepository;
     }
+
     @GetMapping("/getUsers")
-    public ResponseEntity<List<Users>> getUsers(){
-        try{
-            List<Users> users=new ArrayList<>();
-            usersRepository.findAll().forEach(e->users.add(e));
+    public ResponseEntity<List<Users>> getUsers() {
+        try {
+            List<Users> users = new ArrayList<>();
+            usersRepository.findAll().forEach(e -> users.add(e));
             return new ResponseEntity<>(users, HttpStatus.OK);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             //שגיאה 500
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/getUser/{id}")
-    public ResponseEntity<Users> getUserById(@PathVariable long id){
-        Users e=usersRepository.findById(id).orElse(null);
-        if(e!=null){
-            return new ResponseEntity<>(e,HttpStatus.OK);
-        }
-        else
-        {
+    public ResponseEntity<Users> getUserById(@PathVariable long id) {
+        Users e = usersRepository.findById(id).orElse(null);
+        if (e != null) {
+            return new ResponseEntity<>(e, HttpStatus.OK);
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @GetMapping("/getUserByMail/{mail}")
     public ResponseEntity<String> getUserByMail(@PathVariable String email) {
         Optional<Users> userOptional = usersRepository.findByEmail(email);
@@ -69,32 +72,14 @@ public class UsersController {
             Users newUser = usersRepository.save(user);
 
             // Send welcome email to the user
-            String subject = "Welcome to YourWebsite!";
-            String body = "Dear " + newUser.getFirstName() + ",\n\nThank you for signing up on YourWebsite. We are excited to have you on board!";
+            String subject = "Welcome to DevUnity!";
+            String body = "Dear " + newUser.getFirstName() + ",\n\nThank you for signing up on DevUnity. We are excited to have you on board!";
             emailService.sendEmail(newUser.getEmail(), subject, body);
 
             return new ResponseEntity<>(newUser, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();  // This will print the stack trace to the console
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @PostMapping("/signUp")
-    public ResponseEntity<Object> signUp(@RequestBody Users user) {
-        try {
-            Optional<Users> existingUser = usersRepository.findByEmail(user.getEmail());
-
-            if (existingUser.isPresent()) {
-                return new ResponseEntity<>("Email already registered", HttpStatus.CONFLICT);
-            } else {
-                Users newUser = usersRepository.save(user);
-                return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-            }
-        } catch (Exception e) {
-            // Log the exception using SLF4J
-            System.out.println(e);
-            return new ResponseEntity<>("Internal Server Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -107,7 +92,7 @@ public class UsersController {
             if (existingUser.isPresent()) {
                 return new ResponseEntity<>(existingUser.get(), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(null , HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -116,25 +101,53 @@ public class UsersController {
     }
 
 
-
     // New method for scheduled task to send emails every day at 21:27
-    @Scheduled(cron = "0 0 12 ? * SUN") // This cron expression represents "every day at 21:27"
+    @Scheduled(cron = "0 27 1 ? * SUN")
+    //@Scheduled(cron = "0 0 0 * * SUN")
     public void sendDailyEmails() {
         try {
-            List<Users> allUsers = usersRepository.findAll();
-            for (Users user : allUsers) {
-                String subject = "Daily Greetings from DevUnity!";
-                String body = "Dear " + user.getFirstName() + ",\n\nThis is your daily greeting from YourWebsite. Have a great day!";
+            // Fetch the 5 latest projects
+            List<Project> latestProjects = projectRepository.findTop5ByOrderByDateDesc();
+
+            // Iterate over all active users (status = 1)
+            List<Users> activeUsers = usersRepository.findByStatus(1);
+            for (Users user : activeUsers) {
+                String subject = "Unlock the Latest: Weekly Project News!\"";
+                String body = "Dear " + user.getFirstName() + ",\n\nWe hope this email finds you well. It's time for our weekly update on the exciting happenings in our community and projects. Let's dive in!:\n"
+                        + "Latest Projects:\n" + formatLatestProjects(latestProjects);
+
                 emailService.sendEmail(user.getEmail(), subject, body);
             }
         } catch (Exception e) {
-            e.printStackTrace();  // Handle the exception as needed
+            e.printStackTrace();
+        }
+    }
+
+    private String formatLatestProjects(List<Project> latestProjects) {
+        StringBuilder builder = new StringBuilder();
+        for (Project project : latestProjects) {
+            builder.append(" - Project: ").append(project.getTitle()).append("\n")
+                    .append("   Description: ").append(project.getDescription()).append("\n")
+                    .append("   Created by: ").append(project.getUser().getFirstName()).append("\n\n");
+        }
+        return builder.toString();
+    }
+
+    @PutMapping("/incrementDonationTax/{id}")
+    public ResponseEntity<Users> incrementDonationTax(@PathVariable long id) {
+        Users user = usersRepository.findById(id).orElse(null);
+
+        if (user != null) {
+            user.setDonationTax(user.getDonationTax() + 1);
+
+            Users updatedUser = usersRepository.save(user);
+
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 }
-
-
-
 
 
 

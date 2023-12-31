@@ -1,55 +1,84 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
-import AccountCircle from '/account-circle.png';
-import {Typography} from '@mui/material';
-import BasicCard from '../Useful/BasicCard';
-import { Grid } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Slider from 'react-slick';  
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { useNavigate } from 'react-router-dom';
+import ScrollToTopOnMount from '../Useful/ScrollToTopOnMount';
 
-// Fake data for demonstration purposes
-const fakeProjects = [
-  { id: 1, title: 'Project 1', subtitle: 'Subtitle 1', description: 'Description 1' },
-  { id: 2, title: 'Project 2', subtitle: 'Subtitle 2', description: 'Description 2' },
-  // Add more projects as needed
-];
 
-const fakeFavoriteProjects = [
-  { id: 3, title: 'Favorite Project 1', subtitle: 'Favorite Subtitle 1', description: 'Favorite Description 1' },
-  { id: 4, title: 'Favorite Project 2', subtitle: 'Favorite Subtitle 2', description: 'Favorite Description 2' },
-  // Add more favorite projects as needed
-];
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function MyAccount() {
-  const [userProjects, setUserProjects] = useState([]);
-  const [favoriteProjects, setFavoriteProjects] = useState([]);
+  const projects  = useSelector((state) => state.project.listProjects);
+  const user = useSelector((state) => state.user.currentUser);
+  const filteredProjects = projects.filter((project) => project.user.id === user.id);
+  console.log('i in my account', filteredProjects);
+  console.log(filteredProjects);
+  const nav = useNavigate();
 
-  useEffect(() => {
-    // Fetch user projects from the server
-    // Replace the following line with your actual API call
-    // getProjectsByUser(userId).then((projects) => setUserProjects(projects));
-    setUserProjects(fakeProjects);
 
-    // Fetch favorite projects from the server
-    // Replace the following line with your actual API call
-    // getFavoriteProjectsByUser(userId).then((favoriteProjects) => setFavoriteProjects(favoriteProjects));
-    setFavoriteProjects(fakeFavoriteProjects);
-  }, []); // Fetch data on component mount
-
+  const settings = {
+    dots: true,
+    infinite: true,
+    // slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 3000,
+    autoplaySpeed: 3000,
+    cssEase: "linear"
+}
+const handleCardClick = (project) => {
+  nav('/Edit', { state: { project: project } });
+};
 
   return (
     <>
+     <ScrollToTopOnMount/>
       <Header  />
       <Typography>
-        
-      <img src="/icons8-avatar.gif" alt="About" />
+      <img src="/icons-avatar-80.png" alt="my account" />
       </Typography>
-      <Grid container spacing={8} justifyContent="center">
-        <Grid item xs={10} sm={6} md={3}>
-          <BasicCard title="My Projects" projects={userProjects} />
-        </Grid>
-        <Grid item xs={10} sm={6} md={3}>
-          <BasicCard title="Favorite Projects" projects={favoriteProjects} />
-        </Grid>
-      </Grid>
+      <Typography>
+       {user.firstName}   {user.lastName}
+      </Typography>
+       
+
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+      {/* <Slider {...settings}> */}
+        {filteredProjects.map((project) => (
+          <Card key={project.id} sx={{ maxWidth: 345, margin: 2 }}>
+            <CardMedia
+              sx={{ height: 200 }}
+              image={`data:image/*;base64,${project.image}`}
+              title={project.title}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {project.title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {project.description}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small" onClick={() => handleCardClick(project)}>
+                edit project
+              </Button>
+             
+            </CardActions>
+          </Card>
+        ))}
+        {/* </Slider> */}
+      </Box>
+
     </>
   );
 }

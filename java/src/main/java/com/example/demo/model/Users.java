@@ -25,6 +25,16 @@ Users {
     @OneToMany(mappedBy = "user")
     private List<Comment> commentList;
 
+    private int donationTax;
+
+    public int getDonationTax() {
+        return donationTax;
+    }
+
+    public void setDonationTax(int donationTax) {
+        this.donationTax = donationTax;
+    }
+
 
     public List<Project> getProjectList() {
         return projectList;
@@ -100,12 +110,13 @@ Users {
         this.status = status;
     }
 
-    public Users(Long id, String email, String password, String firstName, String lastName,  List<Project> projectList, List<Comment> commentList) {
+    public Users(Long id, String email, String password, String firstName, String lastName,  List<Project> projectList, List<Comment> commentList ,int donationTax) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.donationTax=0;
         //this.status = status;
         this.projectList = projectList;
         this.commentList = commentList;

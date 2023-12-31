@@ -21,5 +21,7 @@ public interface ProjectRepository extends JpaRepository<Project,Long> {
 
     List<Project> findProjectByCategoryId (Long categoryId);
 
+    List<Project> findTop5ByOrderByDateDesc();
+
 
 }
