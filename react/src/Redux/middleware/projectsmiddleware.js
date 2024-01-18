@@ -7,25 +7,17 @@ export const getProjectMidd = ({ dispatch, getState }) => next => action => {
     axios
       .get('http://localhost:8585/api/projects/getAllDTO')
       .then((response) => {
-        console.log('response.data', response.data);
         dispatch(getProjects(response.data));
       })
       .catch((error) => {
-        console.log('I am in middleware catch');
         console.error('Error fetching projects', error);
       });
   } else if (action.type === 'ADD_PROJECT') {
     const newProject = action.payload.project;
-    console.log('newProject', newProject);
     axios
       .post('http://localhost:8585/api/projects/UploadProject', newProject)
       .then((response) => {
-        console.log('response.data', response.data);
-
-
         const good_id =response.data.id;
-        console.log('try to console proj id:');
-        console.log(good_id);
         dispatch(addProject(response.data));
 
         action.payload.content.map((item, index) => {
@@ -36,16 +28,12 @@ export const getProjectMidd = ({ dispatch, getState }) => next => action => {
             numRow: index,
             project: {id: good_id},
           };
-          console.log(objectToSend);
           axios
             .post('http://localhost:8585/api/content/postContent', objectToSend)
             .then((response) => {
-              console.log('response.data', response.data);
               dispatch(addContent(response.data));
             })
             .catch((error) => {
-              console.log('In catch...');
-              console.error('Error', error);
             });
         });
       })
@@ -56,11 +44,9 @@ export const getProjectMidd = ({ dispatch, getState }) => next => action => {
     axios
       .put(`http://localhost:8585/api/projects/incrementViewerCount/${action.payload.id}`)
       .then((response) => {
-        console.log('response.data', response.data);
         dispatch(incrementViewerCount({ id: action.payload.id }));
       })
       .catch((error) => {
-        console.log('I am in middleware catch😢');
         console.error('Error incrementing viewer count', error);
       });
   }

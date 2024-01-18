@@ -75,9 +75,6 @@ function SignIn() {
     }
     setPasswordError(false);
 
-    console.log(email);
-    console.log(password);
-
     dispatch({
       type: 'SIGN_IN',
       payload: {

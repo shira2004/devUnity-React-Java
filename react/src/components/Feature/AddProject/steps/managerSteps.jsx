@@ -15,7 +15,7 @@ import SuccessModal from '../../../Pages/SuccessModal';
 import { useDispatch } from 'react-redux';
 
 const HorizontalLinearStepper = () => {
-  // State variables
+
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [inputData, setInputData] = useState({
@@ -26,18 +26,13 @@ const HorizontalLinearStepper = () => {
     url: '',
   });
 
-  // Redux
   const userId = useSelector((state) => state.user.currentUser.id);
   const dispatch = useDispatch();
-
-  // Steps and form data
   const steps = ['Choose Category', 'Add Content', 'Submit'];
   const formData = new FormData();
 
-  // Navigation
   const nav = useNavigate();
 
-  // Event handlers
   const handleNext = () => {
     if (!validateStep()) {
       return;
@@ -50,7 +45,7 @@ const HorizontalLinearStepper = () => {
   };
 
   const validateStep = () => {
-    // Validation logic here...
+  
     return true;
   };
 
@@ -82,8 +77,7 @@ const HorizontalLinearStepper = () => {
     inputData.information.map((item, index) => {
       const [title, content] = item.split(':');
       const trimmedTitle = title ? title.trim() : item.trim();
-      console.log(trimmedTitle);
-      console.log(content ? content.trim() : ''); 
+      
     });
  
     setShowSuccessModal(true);
@@ -94,7 +88,6 @@ const HorizontalLinearStepper = () => {
     nav('/HomePage');
   };
 
-  // Define the successButton object
   const successButton = {
     label: 'Back to Home Page',
     onClick: () => nav('/HomePage'),

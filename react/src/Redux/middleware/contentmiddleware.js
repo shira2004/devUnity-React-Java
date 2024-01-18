@@ -6,7 +6,6 @@ export const getContentMidd = ({ dispatch, getState }) => next =>  action => {
       axios
         .get('http://localhost:8585/api/content/getContents')
         .then((response) =>{
-            console.log('response.data',response.data)
             dispatch(getContents(response.data));
         })
         .catch((error) =>{
@@ -16,18 +15,13 @@ export const getContentMidd = ({ dispatch, getState }) => next =>  action => {
     }
   else if(action.type === 'POST_CONTENTS') {
     const newTask = action.payload;
-    console.log('entered newTask', newTask);
-    console.log('i am in middleware')
 
     axios.post('http://localhost:8585/api/content/postContent', newTask)
       .then((response) => {
-        console.log('response.data', response.data);
-        console.log('before dispatch');
         dispatch(addContent(response.data));  
-        console.log('after dispatch');
+
       })
       .catch((error) => {
-        console.log('in catch ...');
         console.error('Error', error);
       });
   }
@@ -36,7 +30,6 @@ export const getContentMidd = ({ dispatch, getState }) => next =>  action => {
     
     axios.delete(`http://localhost:8585/api/content/deleteTask/${contentId}`)
       .then(() => {
-        console.log('Deleted content with id:', contentId);
         dispatch(deleteContent(contentId));
       })
       .catch((error) => {

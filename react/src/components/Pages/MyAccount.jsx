@@ -20,15 +20,14 @@ export default function MyAccount() {
   const projects  = useSelector((state) => state.project.listProjects);
   const user = useSelector((state) => state.user.currentUser);
   const filteredProjects = projects.filter((project) => project.user.id === user.id);
-  console.log('i in my account', filteredProjects);
-  console.log(filteredProjects);
+
   const nav = useNavigate();
 
 
   const settings = {
     dots: true,
     infinite: true,
-    // slidesToShow: 1,
+
     slidesToScroll: 1,
     autoplay: true,
     speed: 3000,

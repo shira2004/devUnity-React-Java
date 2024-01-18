@@ -10,8 +10,7 @@ const BasicCard = ({ title, projects }) => {
   const [additionalData, setAdditionalData] = useState(null);
 
   useEffect(() => {
-    // You can perform additional data fetching here if needed
-    // For example, fetch additional data for each project
+
   }, [projects]);
 
   return (

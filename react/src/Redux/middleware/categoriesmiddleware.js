@@ -6,7 +6,6 @@ export const getCategoriesMidd=({dispatch,getstate}) =>next =>action=>{
         axios
         .get('http://localhost:8585/api/categories/getCategoris')
         .then((response) =>{
-            console.log('response.data',response.data)
             dispatch(getCategories(response.data));
         })
         .catch((error) =>{

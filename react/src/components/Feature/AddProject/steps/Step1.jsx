@@ -15,7 +15,6 @@ const CategorySelectionStep = ({ onSubmit, onInputChange }) => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get('http://localhost:8585/api/categories/getCategoris');
-        console.log('Categories Response:', response);
         setCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);

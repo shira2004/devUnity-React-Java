@@ -27,7 +27,6 @@ function isEmailValid(email) {
 }
 
 function isPasswordValid(password) {
-  //Check that the password contains at least 8 characters, letters, and numbers
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   const isValid = passwordRegex.test(password);
 

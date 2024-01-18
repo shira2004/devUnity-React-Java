@@ -41,7 +41,7 @@ export default function MyMenu() {
     const filteredProjects = projects.filter((project) =>
     project.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    console.log(filteredProjects);
+    
     nav('/Cards',{state:filteredProjects});
 
   }

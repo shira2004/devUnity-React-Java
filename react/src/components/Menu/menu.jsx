@@ -62,7 +62,6 @@ export default function Menu() {
     nav('/HomePage');
   };
 
-  // Define the successButton object
   const successButton = {
     label: 'Back to Home Page',
     onClick: () => nav('/Signin'),

@@ -29,9 +29,7 @@ const Rightbar = () => {
   };
 
   const handleAddComment = () => {
-    // Handle adding the comment (e.g., send it to a server or update state)
     console.log("Added comment:", comment);
-    // Clear the comment field and close it
     setComment("");
     setIsCommentFieldOpen(false);
   };

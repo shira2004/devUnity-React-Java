@@ -18,14 +18,14 @@ const Edit = () => {
   const project = location.state.project;
   const user = useSelector((state) => state.user.currentUser);
 
-  //comment 
+
   const comment = useSelector((state) => state.comment.listComments);
   const filteredComments = comment.filter((comment) => comment.project.id === project.id);
   const len = filteredComments.length;
   
   const [value, setValue] = useState(1);
 
-  //content 
+
   const content = useSelector((state) => state.content.listContents);
   const filteredContent = content.filter((content) => {
     if (content.project && project && project.id) {
@@ -34,7 +34,6 @@ const Edit = () => {
     return false;
   });
 
-  // Find the maximum numRow value
 const maxNumRow = filteredContent.reduce((max, content) => {
   return Math.max(max, content.numRow || 0);
 }, 0);

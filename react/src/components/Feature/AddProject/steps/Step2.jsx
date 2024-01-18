@@ -52,7 +52,6 @@ const AddContentStep = ({ onInputChange }) => {
       updatedErrors[index] = !enteredText || enteredText.length < minInformationLength;
       return updatedErrors;
     });
-    // Pass the entire information array to the parent component
     onInputChange('information', [...information]);
   };
 
@@ -71,7 +70,6 @@ const AddContentStep = ({ onInputChange }) => {
      const handleImageChange = (e) => {
       const file = e.target.files[0];
       if (file) {
-        // Update the image state
         setImage(file);
       onInputChange('image', file);
       }
