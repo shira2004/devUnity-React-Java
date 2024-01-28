@@ -1,6 +1,6 @@
 import React from "react";
 import './Section2.css';
-import AddImg from '/Add.png';
+import AddImg from '../../../assets/Add.png';
 import Fade from 'react-reveal/Fade';
 
 const Section2 = ({ title, description, buttonText, imageSrc, onClick  ,customStyle  }) => {

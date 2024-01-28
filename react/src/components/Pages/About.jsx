@@ -1,12 +1,12 @@
 import React from 'react';
 import Section from '../Useful/Section/Section1';
 import Section2 from '../Useful/Section/Section2';
-import Server from '/server.png';
-import feeling_proud from '/feeling_proud.png';
-import Friends_online from '/Friends_online.png';
-import Business_deal from '/Business_deal.png';
-import collaboration from '/collaboration.png';
-import Type  from '/Type.png';
+import Server from '../../assets/server.png';
+import feeling_proud from '../../assets/feeling_proud.png';
+import Friends_online from '../../assets/Friends_online.png';
+import Business_deal from '../../assets/Business_deal.png';
+import collaboration from '../../assets/collaboration.png';
+import Type  from '../../assets/Type.png';
 import { useNavigate } from 'react-router-dom';
 import ScrollToTopOnMount from '../Useful/ScrollToTopOnMount';
 

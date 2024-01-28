@@ -4,9 +4,9 @@ import Quotes from '../Body/HomePage/Quotes'
 import Video from '../Body/HomePage/Video'
 import Section from '../Useful/Section/Section1';
 import Section2 from '../Useful/Section/Section2';
-import AddImg from '/Add.png';
-import teamImage from '/team.png';
-import website from '/website.png';
+import AddImg from '../../assets/Add.png';
+import teamImage from '../../assets/team.png';
+import website from '../../assets/website.png';
 import { useNavigate } from 'react-router-dom';
 import ScrollToTopOnMount from '../Useful/ScrollToTopOnMount';
 import { useSelector } from 'react-redux';
