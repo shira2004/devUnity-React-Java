@@ -9,8 +9,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import SuccessModal from '../Pages/SuccessModal'; 
-
+import SuccessModal from '../Pages/SuccessModal';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -26,13 +25,7 @@ const style = {
 export default function Menu() {
   const [alignment, setAlignment] = useState('web');
   const [openModal, setOpenModal] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false); 
-  const [successModalContent, setSuccessModalContent] = useState({
-    text1: "",
-    imageSrc: "",
-    text2: "",
-    button: {},
-  });
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
@@ -41,35 +34,14 @@ export default function Menu() {
   const nav = useNavigate();
   const user = useSelector((state) => state.user.currentUser);
 
-  const handleAddProjectClick = () => {
-    if (user != null) {
-      nav('/addProject')
-    } else {
-      setSuccessModalContent({
-        text1: "Confirmation",
-        imageSrc: "/question-marks.gif",
-        text2: confirmationText,
-        button: {
-        label: 'Yes, I\'m sure!',
-        onClick: () => nav('/addProject'),
-        },
-      });
-    
-      setShowSuccessModal(true);
-    }
-  };
 
   const handleMyAccountClick = () => {
     if (user != null) {
       nav('/MyAccount')
     } else {
-      
-      setOpenModal(true);
-    }
-  };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
+      setShowSuccessModal(true);
+    }
   };
 
   const handleSuccessModalClose = () => {
@@ -78,8 +50,11 @@ export default function Menu() {
   };
 
   const successButton = {
-    label: 'Back to Home Page',
-    onClick: () => nav('/Signin'),
+    label: 'sign in',
+    onClick: () => {
+      handleSuccessModalClose();
+      nav('/Signin');
+    },
   };
 
   return (
@@ -103,12 +78,12 @@ export default function Menu() {
             )}
             <img src="/icons-avatar-16.png" alt="My Account" />
           </ToggleButton>
-          <ToggleButton value="ios" onClick={handleAddProjectClick}>
+          <ToggleButton value="ios" onClick={handleMyAccountClick}>
             Add project
             <img src="/icons-add-16.png" alt="Add Project" />
           </ToggleButton>
           <ToggleButton value="ios" onClick={() => nav('/SignIn')}>
-          Updates
+            Updates
             <img src="/icon-news.png" alt="Updates" />
           </ToggleButton>
           <ToggleButton value="ios" onClick={() => nav('/About')}>
@@ -119,44 +94,21 @@ export default function Menu() {
             Sign In
             <img src="/icons-sign-in-16.png" alt="Sign In" />
           </ToggleButton>
-          
+
         </ToggleButtonGroup>
       </AppBar>
 
-      {/* Modal for unauthenticated user */}
-      <Modal
-        open={openModal}
-        onClose={handleCloseModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Sign In Required
-            <img src="/sign-in.gif" alt="sign-in" />
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Please sign in to add a project.
-          </Typography>
-          <Button onClick={handleCloseModal}>Close</Button>
-          <Button onClick={() => {
-            nav('/SignIn');
-            setOpenModal(false);
-          }}>
-            Go to sign in!
-          </Button>
-        </Box>
-      </Modal>
 
-      
+
       <SuccessModal
         open={showSuccessModal}
         onClose={handleSuccessModalClose}
-        text1="Sign In Required"
+        text1="Exciting Next Step Awaits!"
         imageSrc="/sign-in.gif"
-        text2="Please sign in to add a project."
+        text2="To proceed, we invite you to register with your account. 🌟"
         button={successButton}
       />
+
     </div>
   );
 }
