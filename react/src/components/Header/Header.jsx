@@ -1,6 +1,5 @@
 import React from 'react';
 import logo from '/logo_git_r.png';
-import additionalPicture from '/account-circle.png';
 import './Header.css';
 import { useNavigate } from 'react-router-dom';
 
