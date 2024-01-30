@@ -10,10 +10,18 @@ import { format } from "date-fns";
 import Rating from '@mui/material/Rating';
 import axios from "axios";
 import SuccessModal from '../Pages/SuccessModal'; 
+
 const Edit = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [showSuccessModal, setShowSuccessModal] = useState(false); 
+  const [successModalContent, setSuccessModalContent] = useState({
+    text1: "",
+    imageSrc: "",
+    text2: "",
+    button: {},
+  });
+
 
   const project = location.state.project;
   const user = useSelector((state) => state.user.currentUser);
@@ -45,7 +53,46 @@ const maxNumRow = filteredContent.reduce((max, content) => {
     setTaskFieldVisible(true);
    
   };
+  const handleMarkAsDone=() =>{
+    console.log('clicked mark as done');
+    const confirmationText =
+    "Are you sure you want to mark the project as finished? " +
+    "This action is irreversible, but we're here to celebrate your success! 🎉";
 
+  setSuccessModalContent({
+    text1: "Confirmation",
+    imageSrc: "/question-marks.gif",
+    text2: confirmationText,
+    button: {
+      label: 'Yes, I\'m sure!',
+      onClick: () => handleMarkAsDoneConfirmed(),
+    },
+  });
+
+  setShowSuccessModal(true);
+  
+}
+
+const handleMarkAsDoneConfirmed = () => {
+  console.log('in markAsDone before dispaching ');
+  dispatch({
+    type: 'MARK_PROJECT_AS_DONE',
+    payload: {
+      id: project.id,
+    },
+  })
+  setSuccessModalContent({
+    text1: "Congratulations! 🎉",
+    imageSrc: "/celebrate.gif",
+    text2:
+      "Awesome job! You've successfully marked your project as done. 🚀" +
+      " Your hard work and dedication are truly commendable! 😊",
+    button: successButton,
+  });
+  console.log(successModalContent)
+  setShowSuccessModal(true);
+  
+}
   const handleTaskSubmit = () => {
     setTaskFieldVisible(false);
     const [title, content] = task.split(':');
@@ -60,11 +107,30 @@ const maxNumRow = filteredContent.reduce((max, content) => {
       },
     });
   };
-  const handleImageClick = (taskId) => {
+
+  const handleImageClick =(taskId)=>{
+    const confirmationText =
+    "Are you sure you want to delete this task ? " +
+    "This action is irreversible, but we're here to celebrate your success! 🎉";
+
+  setSuccessModalContent({
+    text1: "Confirmation",
+    imageSrc: "/question-marks.gif",
+    text2: confirmationText,
+    button: {
+      label: 'Yes, I\'m sure!',
+      onClick: () => handleConfirmImageClick(taskId),
+    },
+  });
+
+  setShowSuccessModal(true);
+  }
+  const handleConfirmImageClick = (taskId) => {
     dispatch({
       type: 'DELETE_CONTENT',
       payload: taskId,
     });
+    setShowSuccessModal(false);
   };
   const handleLikeClick = (comment) => {
     const userId = comment.user.id;
@@ -72,6 +138,15 @@ const maxNumRow = filteredContent.reduce((max, content) => {
       .put(`http://localhost:8585/api/users/incrementDonationTax/${userId}`)
       .then((response) => {
         console.log('DonationTax incremented successfully');
+        setSuccessModalContent({
+          text1: "Hooray! You've just marked User as incredibly helpful!",
+          imageSrc: "/megaphone.gif",
+          text2:
+            "🌍 Your recognition is invaluable! Thanks for being a shining star and fostering a positive environment. 🚀" +
+            "🤝  Your acknowledgment is a fantastic boost! 🌟",
+          button: successButton,
+        });
+        console.log(successModalContent)
         setShowSuccessModal(true);
         console.log(response.data);
 
@@ -153,10 +228,19 @@ const maxNumRow = filteredContent.reduce((max, content) => {
             
 
             {!TaskFieldVisible && (
+              <div>
               <Button variant="contained" onClick={handleAddTaskClick}>
                 Add Task
               </Button>
+              <br /><br />
+
+            <Button variant="contained" onClick={handleMarkAsDone}>
+              Mark Your project as  Done
+              </Button>
+              <br /><br />
+              </div>
             )}
+            
 
             {TaskFieldVisible && (
               <Box>
@@ -174,6 +258,8 @@ const maxNumRow = filteredContent.reduce((max, content) => {
                 </Button>
               </Box>
             )}
+          <p>mark your friend as helpful</p>
+          <br />
         <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
         {filteredComments.map((comment) => (
         <Card key={comment.id} sx={{ maxWidth: 250,  mb: 3 }}>
@@ -199,11 +285,10 @@ const maxNumRow = filteredContent.reduce((max, content) => {
       <SuccessModal
         open={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}
-        text1="Hooray! You've just marked User as incredibly helpful!"
-        imageSrc="/megaphone.gif"
-        text2="🌍 Your recognition is invaluable! Thanks for being a shining star and fostering a positive environment. 🚀
-        🤝  Your acknowledgment is a fantastic boost! 🌟"
-        button={successButton}
+        text1={successModalContent.text1}
+        imageSrc={successModalContent.imageSrc}
+        text2={successModalContent.text2}
+        button={successModalContent.button}
       />
 
     </>
