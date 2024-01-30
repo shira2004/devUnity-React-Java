@@ -27,7 +27,7 @@ public interface MapStructMapper {
         projectDTO.setCategory(p.getCategory());
         projectDTO.setDescription(p.getDescription());
         projectDTO.setDate(p.getDate());
-        projectDTO.setLevel(p.getLevel());
+        projectDTO.setStatus(p.getStatus());
         projectDTO.setUrl(p.getUrl());
         projectDTO.setViewer(p.getViewer());
         projectDTO.setId(p.getId());

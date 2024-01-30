@@ -45,15 +45,7 @@ public class UsersController {
         }
     }
 
-    @GetMapping("/getUser/{id}")
-    public ResponseEntity<Users> getUserById(@PathVariable long id) {
-        Users e = usersRepository.findById(id).orElse(null);
-        if (e != null) {
-            return new ResponseEntity<>(e, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+
 
     @GetMapping("/getUserByMail/{mail}")
     public ResponseEntity<String> getUserByMail(@PathVariable String email) {
@@ -67,8 +59,16 @@ public class UsersController {
     }
 
     @PostMapping("/createUser")
-    public ResponseEntity<Users> createUser(@RequestBody Users user) {
+    public ResponseEntity<Object> createUser(@RequestBody Users user) {
         try {
+
+            Optional<Users> existingUserOptional = usersRepository.findByEmail(user.getEmail());
+            if (existingUserOptional.isPresent()) {
+                System.out.println("user mail exist");
+                return new ResponseEntity<>("User already exists",HttpStatus.CONFLICT);
+
+            }
+
             Users newUser = usersRepository.save(user);
 
             // Send welcome email to the user
@@ -83,6 +83,22 @@ public class UsersController {
         }
     }
 
+    @PostMapping("/createUser1")
+    public ResponseEntity<Object> createUser1(@RequestBody Users user) {
+        try {
+
+            Optional<Users> existingUserOptional = usersRepository.findByEmail(user.getEmail());
+            if (existingUserOptional.isPresent()) {
+                System.out.println("user mail exist");
+                return new ResponseEntity<>("User already exists",HttpStatus.CONFLICT);
+            }
+            Users newUser = usersRepository.save(user);
+            return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();  // This will print the stack trace to the console
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @PostMapping("/signIn")
     public ResponseEntity<Users> signIn(@RequestBody Users user) {

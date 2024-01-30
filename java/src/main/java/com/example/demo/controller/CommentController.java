@@ -52,24 +52,6 @@ public class CommentController {
 
 
 
-//    @PostMapping("/postComment")
-//    public ResponseEntity<Comment> postComment(@RequestBody Comment comment) {
-//        try {
-//            // Validate input
-//            if (comment.getContent() == null || comment.getContent().isEmpty()) {
-//                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-//            }
-//
-//            comment.setDate(LocalDate.now());
-//            Comment newComment = commentRepository.save(comment);
-//
-//            return new ResponseEntity<>(newComment, HttpStatus.CREATED);
-//        } catch (Exception e) {
-//            System.out.println(e);
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-
     @PostMapping("/uploadComment")
     public ResponseEntity<Comment> uploadComment( @RequestBody Comment comment) throws IOException {
         try {
