@@ -22,8 +22,16 @@ export const projectsSlice = createSlice({
         state.listProjects[projectIndex].viewer += 1;
       }
     },
+
+    markProjectAsDone: (state, action) => {
+      const { projectId } = action.payload;
+      const projectIndex = state.listProjects.findIndex(project => project.id === projectId);
+      if (projectIndex !== -1) {
+        state.listProjects.splice(projectIndex, 1);
+      }
+    },
   },
 });
 
-export const { getProjects, addProject, incrementViewerCount } = projectsSlice.actions;
+export const { getProjects, addProject, incrementViewerCount ,markProjectAsDone  } = projectsSlice.actions;
 export default projectsSlice.reducer;

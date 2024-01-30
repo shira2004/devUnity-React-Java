@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getProjects, addProject , incrementViewerCount } from "../reducers/ProjectsReducer";
+import { getProjects, addProject , incrementViewerCount , markProjectAsDone } from "../reducers/ProjectsReducer";
 import { addContent } from "../reducers/ContentReducer";
 
 export const getProjectMidd = ({ dispatch, getState }) => next => action => {
@@ -44,14 +44,24 @@ export const getProjectMidd = ({ dispatch, getState }) => next => action => {
     axios
       .put(`http://localhost:8585/api/projects/incrementViewerCount/${action.payload.id}`)
       .then((response) => {
+        console.log(response.data);
         dispatch(incrementViewerCount({ id: action.payload.id }));
       })
       .catch((error) => {
         console.error('Error incrementing viewer count', error);
       });
+  }else if (action.type === 'MARK_PROJECT_AS_DONE') {
+    axios
+      .put(`http://localhost:8585/api/projects/changeStatus/${action.payload.id}`)
+      .then((response) => {
+        dispatch(markProjectAsDone({ id: action.payload.id }));
+        console.log(response.data);
+        console.log(response.status);
+      })
+      .catch((error) => {
+        console.error('Error mark as done ', error);
+      });
   }
-
-  
 
   return next(action);
 };
