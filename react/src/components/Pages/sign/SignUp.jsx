@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,7 +17,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Header from '../../Header/Header';
 import SuccessModal from '../SuccessModal'; 
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector } from 'react-redux';
 
 
 
@@ -72,8 +72,9 @@ function SignUp() {
         status: status ? 1 : 0,
       },
     });
-
-    setShowSuccessModal(true);
+    
+   
+   
   };
 
   const handleEmailFocus = () => {
@@ -96,6 +97,19 @@ function SignUp() {
 
   const defaultTheme = createTheme();
 
+  const userAdded = useSelector((state) => state.user.userAdded);
+
+  useEffect(() => {
+    if (userAdded===1) {
+      setShowSuccessModal(true);
+    }
+    else if(userAdded===2){
+      alert('this email address is already exist')
+      window.location.reload(false);
+      
+    }
+    
+  }, [userAdded]);
   
   return (
     <>

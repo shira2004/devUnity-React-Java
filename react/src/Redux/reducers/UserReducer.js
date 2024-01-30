@@ -1,9 +1,8 @@
-
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   currentUser: null,
-  userAdded: false,
+  userAdded: 0,
 };
 
 export const usersSlice = createSlice({
@@ -11,17 +10,20 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      console.log(action.payload);
+      console.log('in state');
       state.currentUser = action.payload;
+      
     },
-    addUser: (state, action) => {
-      state.currentUser = action.payload;
-      state.userAdded = true;
+    addUserSuccess: (state, action) => {
+      state.userAdded = 1;
     },
-
+    addUserFailure: (state) => {
+      console.log('in addUserFailure');
+      state.userAdded = 2;
+    },
   },
 });
 
-export const { setUser, addUser } = usersSlice.actions;
+export const { setUser, addUserSuccess, addUserFailure } = usersSlice.actions;
 
 export default usersSlice.reducer;
