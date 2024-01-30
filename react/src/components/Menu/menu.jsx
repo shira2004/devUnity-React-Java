@@ -96,7 +96,11 @@ export default function Menu() {
             <MyMenu />
           </ToggleButton>
           <ToggleButton value="ios" onClick={handleMyAccountClick}>
-            My account
+            {user ? (
+              `${user.firstName} ${user.lastName} `
+            ) : (
+              "My account "
+            )}
             <img src="/icons-avatar-16.png" alt="My Account" />
           </ToggleButton>
           <ToggleButton value="ios" onClick={handleAddProjectClick}>
