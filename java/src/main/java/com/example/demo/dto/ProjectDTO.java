@@ -1,27 +1,17 @@
 package com.example.demo.dto;
 
 import com.example.demo.model.Category;
-import com.example.demo.model.Comment;
-import com.example.demo.model.Content;
 import com.example.demo.model.Users;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class ProjectDTO {
-
 
     private Long id;
     private String title;
     private String Description;
 
-    //private List<Content> contents;
-    private String level;
+    private int status;
     private String url;
     private int viewer;
     private int score;
@@ -84,12 +74,12 @@ public class ProjectDTO {
 //        this.contents = contents;
 //    }
 
-    public String getLevel() {
-        return level;
+    public int getStatus() {
+        return status;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getUrl() {

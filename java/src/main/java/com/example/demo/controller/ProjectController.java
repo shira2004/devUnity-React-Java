@@ -27,7 +27,7 @@ import java.util.List;
 public class ProjectController {
     private final MapStructMapper mapper;
     private ProjectRepository projectRepository;
-//    private MapStructMapper mapper;
+
 private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\\";
     //private static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + File.separator + "images" + File.separator;
 
@@ -58,7 +58,7 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
 
 
 
-    //לא מחזיר את כל האוביקט
+
     @GetMapping("/getAllDTO")
     public ResponseEntity<List<ProjectDTO>> getProjectsDTO() {
         try {
@@ -66,11 +66,14 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
             projectRepository.findAll().forEach(e ->{
                 try {
                     projects.add(mapper.projectToDto(e));
+
                 }
                 catch (IOException ioException) {
                     ioException.printStackTrace();
                 }});
+
             return new ResponseEntity<>(projects, HttpStatus.OK);
+
         } catch (Exception e) {
             // Handle exceptions, return appropriate HTTP status code
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -97,8 +100,8 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
           p.setContents(project.getContents());
           p.setDescription(project.getDescription());
           p.setUrl(project.getUrl());
+          p.setStatus(project.getStatus());
           p.setDate(project.getDate());
-          p.setLevel(project.getLevel());
           p.setViewer(project.getViewer());
 
             projectRepository.save(p);
@@ -208,6 +211,7 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
 
     @PutMapping("/incrementViewerCount/{id}")
     public ResponseEntity<Project> incrementViewerCount(@PathVariable long id) {
+        System.out.println("im in increment ");
         Project project = projectRepository.findById(id).orElse(null);
 
         if (project != null) {
@@ -215,6 +219,21 @@ private static String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"\\images\
 
             Project updatedProject = projectRepository.save(project);
 
+            return new ResponseEntity<>(updatedProject, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @PutMapping("/changeStatus/{id}")
+    public ResponseEntity<Project> changeStatus(@PathVariable long id) {
+        Project project = projectRepository.findById(id).orElse(null);
+        System.out.println("im in change status ");
+        if (project != null) {
+            project.setStatus(1);
+            Project updatedProject = projectRepository.save(project);
+            System.out.println("Updated project status: " + updatedProject.getStatus());
             return new ResponseEntity<>(updatedProject, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

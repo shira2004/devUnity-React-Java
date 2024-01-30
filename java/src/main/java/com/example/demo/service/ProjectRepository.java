@@ -11,13 +11,7 @@ import java.util.List;
 public interface ProjectRepository extends JpaRepository<Project,Long> {
     Project findProjectByTitle (String txt);
 
-    //@Override
-//    List<Project> findProjectsByTitleContainsIgnoreCase(String title);
-
     List<Project> findProjectByScore (int score);
-
-    List<Project> findProjectByLevel (String level);
-
 
     List<Project> findProjectByCategoryId (Long categoryId);
 

@@ -20,7 +20,7 @@ public class Project {
     @JsonIgnore
     @OneToMany(mappedBy = "project")
     private List<Content> contents;
-    private String level;
+    private int  status;
     private String url;
     private int viewer;
     private int score;
@@ -44,11 +44,11 @@ public class Project {
         this.id = id;
     }
 
-    public Project(String image , Long id, String title, List<Content> contents, String level, String url,  Users user, Category category, List<Comment> commentList )  {
+    public Project(String image , Long id, String title, List<Content> contents,  String url,  Users user, Category category, List<Comment> commentList )  {
         this.id = id;
         this.title = title;
         this.contents = contents;
-        this.level = level;
+        this.status =0;
         this.url = url;
         this.viewer = 0;
         this.score = 0;
@@ -96,12 +96,12 @@ public class Project {
         this.contents = contents;
     }
 
-    public String getLevel() {
-        return level;
+    public int getStatus() {
+        return status;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getUrl() {
