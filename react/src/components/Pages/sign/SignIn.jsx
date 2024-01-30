@@ -17,7 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useDispatch, useSelector } from 'react-redux';
-import SuccessModal from '../SuccessModal'; 
+import SuccessModal from '../SuccessModal';
 
 function isEmailValid(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,20 +33,27 @@ function SignIn() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false); 
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const nav = useNavigate();
   const handlePasswordVisibility = () => {
     setShowPassword(prevShowPassword => !prevShowPassword);
   };
 
-  
+
   const successButton = {
     label: 'go to home page',
-    onClick: () => nav('/homepage'),
+    onClick: () => {
+      if (userAdded === 2) {
+        window.location.reload(false);
+      } else {
+        setShowSuccessModal(false);
+      }
+      nav('/homepage');
+    },
   };
 
   const dispatch = useDispatch();
-  
+
   const handleEmailFocus = () => {
     setEmailError(false);
   };
@@ -82,12 +89,19 @@ function SignIn() {
         password: password,
       },
     });
-    
-    setShowSuccessModal(true);
   };
 
   const defaultTheme = createTheme();
-  
+  const userAdded = useSelector((state) => state.user.userAdded);
+
+  useEffect(() => {
+    if (userAdded === 1 || userAdded === 2) {
+
+      setShowSuccessModal(true);
+    }
+  }, [userAdded]);
+
+
   return (
     <>
       <Header />
@@ -176,10 +190,16 @@ function SignIn() {
 
       <SuccessModal
         open={showSuccessModal}
-        onClose={() => setShowSuccessModal(false)}
-        text1="nice to see u again here in DevUnity!"
-        imageSrc="/success.gif"
-        text2="🚀"
+
+        onClose={() => {
+          setShowSuccessModal(false);
+          if (userAdded === 2) {
+            window.location.reload(false);
+          }
+        }}
+        text1={userAdded === 1 ? "Welcome back to DevUnity!" : "User does not exist"}
+        imageSrc={userAdded === 1 ? "/success.gif" : "error.gif"}
+        text2={userAdded === 1 ? "🚀" : "Please check your credentials and try again."}
         button={successButton}
       />
     </>

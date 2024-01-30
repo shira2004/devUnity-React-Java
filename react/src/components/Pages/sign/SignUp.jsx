@@ -73,8 +73,6 @@ function SignUp() {
       },
     });
     
-   
-   
   };
 
   const handleEmailFocus = () => {
@@ -96,7 +94,6 @@ function SignUp() {
   };
 
   const defaultTheme = createTheme();
-
   const userAdded = useSelector((state) => state.user.userAdded);
 
   useEffect(() => {
