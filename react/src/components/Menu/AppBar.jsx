@@ -15,21 +15,20 @@ export default function MyMenu() {
 
 
   const categories = useSelector((state) => state.categories.ListCategories);
-  const projects  = useSelector((state) => state.project.listProjects);
+  const projects = useSelector((state) => state.project.listProjects);
+
 
   const nav = useNavigate();
   const [open, setOpen] = useState(false);
-  const[searchQuery,setSearchQuery] = useState('')
-  
+  const [searchQuery, setSearchQuery] = useState('')
+
 
   const handleCategoryClick = (id) => {
-    try {
-      const filteredProjects = projects.filter((project) => project.category.id === id);
-      nav('/Cards',{state:filteredProjects});
-      setOpen(false);
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-    }
+    const filteredProjects = projects.filter((project) => project.category.id === id && project.status === 0);
+    console.log(filteredProjects);
+    nav('/Cards', { state: filteredProjects });
+    setOpen(false);
+
   };
 
   const handleSearchChange = (event) => {
@@ -39,13 +38,12 @@ export default function MyMenu() {
   const handleSearchIconClick = () => {
     setOpen(false);
     const filteredProjects = projects.filter((project) =>
-    project.title.toLowerCase().includes(searchQuery.toLowerCase())
+      project.status !== 1 &&
+      project.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    
-    nav('/Cards',{state:filteredProjects});
 
+    nav('/Cards', { state: filteredProjects });
   }
-
   return (
     <>
       <React.Fragment>
