@@ -63,7 +63,7 @@ const AddContentStep = ({ onInputChange }) => {
   };
 
   const isValidUrl = (url) => {
-       const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
+       const urlRegex =/^(https?:\/\/)?(www\.)?github\.com\/[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+(\/)?$/;
        return urlRegex.test(url);
      };
 

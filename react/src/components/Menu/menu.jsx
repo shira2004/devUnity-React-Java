@@ -27,6 +27,12 @@ export default function Menu() {
   const [alignment, setAlignment] = useState('web');
   const [openModal, setOpenModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false); 
+  const [successModalContent, setSuccessModalContent] = useState({
+    text1: "",
+    imageSrc: "",
+    text2: "",
+    button: {},
+  });
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
@@ -39,8 +45,17 @@ export default function Menu() {
     if (user != null) {
       nav('/addProject')
     } else {
-      
-      setOpenModal(true);
+      setSuccessModalContent({
+        text1: "Confirmation",
+        imageSrc: "/question-marks.gif",
+        text2: confirmationText,
+        button: {
+        label: 'Yes, I\'m sure!',
+        onClick: () => nav('/addProject'),
+        },
+      });
+    
+      setShowSuccessModal(true);
     }
   };
 
@@ -88,6 +103,10 @@ export default function Menu() {
             Add project
             <img src="/icons-add-16.png" alt="Add Project" />
           </ToggleButton>
+          <ToggleButton value="ios" onClick={() => nav('/SignIn')}>
+          Updates
+            <img src="/icon-news.png" alt="Updates" />
+          </ToggleButton>
           <ToggleButton value="ios" onClick={() => nav('/About')}>
             About
             <img src="/icons-about-16.png" alt="About" />
@@ -96,6 +115,7 @@ export default function Menu() {
             Sign In
             <img src="/icons-sign-in-16.png" alt="Sign In" />
           </ToggleButton>
+          
         </ToggleButtonGroup>
       </AppBar>
 
@@ -124,7 +144,7 @@ export default function Menu() {
         </Box>
       </Modal>
 
-      {/* Success modal for authenticated user */}
+      
       <SuccessModal
         open={showSuccessModal}
         onClose={handleSuccessModalClose}

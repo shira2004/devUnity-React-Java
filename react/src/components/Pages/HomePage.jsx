@@ -39,7 +39,7 @@ export default function HomePage() {
       
       nav('/addProject')
     } else {
-      // Open the modal for unauthenticated user
+      
       setOpenModal(true);
     }
   };

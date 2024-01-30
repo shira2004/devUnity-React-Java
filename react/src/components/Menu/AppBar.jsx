@@ -24,6 +24,9 @@ export default function MyMenu() {
 
 
   const handleCategoryClick = (id) => {
+    const proj = projects.filter(p => p.status === 0)
+    console.log('this is proj status 0');
+    console.log(proj);
     const filteredProjects = projects.filter((project) => project.category.id === id && project.status === 0);
     console.log(filteredProjects);
     nav('/Cards', { state: filteredProjects });
