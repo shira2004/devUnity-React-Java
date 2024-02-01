@@ -10,7 +10,6 @@ public class ProjectDTO {
     private Long id;
     private String title;
     private String Description;
-
     private int status;
     private String url;
     private int viewer;
@@ -34,12 +33,21 @@ public class ProjectDTO {
     public String getContents() {
         return contents;
     }
-
     public void setContents(String contents) {
         this.contents = contents;
     }
 
     private String contents;
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public LocalDate endDate;
 
 
     public Long getId() {

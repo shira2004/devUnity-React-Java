@@ -27,8 +27,10 @@ public class Project {
 
     //נתיב התמונה
     private String image;
-
     private LocalDate date;
+
+
+    private LocalDate endDate;
 
     @ManyToOne
     private Users user;
@@ -57,6 +59,7 @@ public class Project {
         this.commentList = commentList;
         this.date = LocalDate.now();
         this.image=image;
+        this.endDate=null;
     }
 
     public Project() {
@@ -151,5 +154,11 @@ public class Project {
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
     }
-}
+    public LocalDate getEndDate() {
+        return endDate;
+    }
 
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+}
