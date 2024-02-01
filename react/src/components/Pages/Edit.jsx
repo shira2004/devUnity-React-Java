@@ -24,7 +24,6 @@ const Edit = () => {
 
 
   const project = location.state.project;
-  const user = useSelector((state) => state.user.currentUser);
 
 
   const comment = useSelector((state) => state.comment.listComments);

@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from "react";
 import { CarouselItem } from "./CarouselItem";
 import './Carusel.css';
-import Love_it from '../Media/love_re.png';
-import code_review from '../Media/Code_review.png';
-import Dev_productivity from '../Media/Dev_productivity.png'
-import mobile_content from '../Media/mobile_content.png'
+import Love_it from '/love_re.png';
+import code_review from '/Code_review.png';
+import Dev_productivity from '/Dev_productivity.png'
+import mobile_content from '/mobile_content.png'
 
 import Header from '../../../Header/Header'
 

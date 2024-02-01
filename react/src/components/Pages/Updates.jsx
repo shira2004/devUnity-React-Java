@@ -55,7 +55,6 @@ export default function Updates() {
           {latestProjects.map((project) => (
              <ProjectCard
              project={project}
-            //  maxWidth={300}
              showLearnMoreButton={false}
            />
             ))}
