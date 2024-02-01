@@ -1,15 +1,11 @@
 import Header from '../Header/Header';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import ScrollToTopOnMount from '../Useful/ScrollToTopOnMount';
+import ProjectCard from '../Useful/projectCard';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 export default function MyAccount() {
   const projects = useSelector((state) => state.project.listProjects);
   const user = useSelector((state) => state.user.currentUser);
@@ -45,28 +41,15 @@ export default function MyAccount() {
 
           <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
             {currentProjects.map((project) => (
-              <Card key={project.id} sx={{ maxWidth: 345, margin: 2 }}>
-                <CardMedia
-                  sx={{ height: 200 }}
-                  image={`data:image/*;base64,${project.image}`}
-                  title={project.title}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {project.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {project.description}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" onClick={() => handleCardClick(project)}>
-                    edit project
-                  </Button>
-                </CardActions>
-              </Card>
+             <ProjectCard
+             project={project}
+             onCardClick={handleCardClick}
+             showLearnMoreButton={true}
+             learnMoreButtonText="Edit"
+           />
             ))}
           </Box>
+
         </>
       )}
       {prevProjects.length > 0 && (
@@ -76,21 +59,17 @@ export default function MyAccount() {
 
           <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
             {prevProjects.map((project) => (
-              <Card key={project.id} sx={{ maxWidth: 345, margin: 2 }}>
-                <img src="/medal.png" alt="my account" />
-                <CardMedia
-                  sx={{ height: 150 }}
-                  image={`data:image/*;base64,${project.image}`}
-                  title={project.title}
+              <>
+                <ProjectCard
+                  project={project}
+                  onCardClick={handleCardClick}
+                  showLearnMoreButton={false}
                 />
-                <CardContent>
-                  <Typography gutterBottom variant="h8" component="div">
-                    {project.title}
-                  </Typography>
-                </CardContent>
-              </Card>
+              </>
+
             ))}
           </Box>
+
         </>
       )}
 
