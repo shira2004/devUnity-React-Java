@@ -18,7 +18,9 @@ export default function Updates() {
   const nav = useNavigate();
 
   const handleCardClick = (project) => {
-    nav('/Details', { state: { project: project } });
+    console.log(mostActiveProjects);
+    console.log(project.user);
+     nav('/Details', { state: { project: project } });
   };
 
   useEffect(() => {
@@ -38,13 +40,13 @@ export default function Updates() {
     <>
       <ScrollToTopOnMount />
       <Header />
-      <Typography component="div">
+      <Typography component="div" style={{ fontWeight: 'bold' }}>
         <h2>🚀 Exciting Updates: Dive into the DevUnity Buzz! 🎉</h2>
         <p>
 
-          Hey DevUnity Explorers! 🌍 Ready for some exciting news from the
-          heart of our vibrant community? Buckle up because here's the latest
-          scoop on the successfully completed and popular projects that are setting DevUnity on fire!🔥
+          Hey DevUnity Explorers! 🌍 <br/>Ready for some exciting news from the
+          heart of our vibrant community? <br/>Buckle up because here's the latest
+          scoop on the successfully completed and popular projects <br/>that are setting DevUnity on fire!🔥
         </p>
       </Typography>
       <br />

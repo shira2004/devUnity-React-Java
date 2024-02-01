@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { format } from "date-fns";
 import Rating from '@mui/material/Rating';
 import SuccessModal from '../../Pages/SuccessModal'; 
+import { useNavigate } from 'react-router-dom';
+
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -33,6 +35,8 @@ const Details = () => {
     }
     return false;
   });
+
+  const nav = useNavigate();
 
   const [comment , setComment] = useState('');
   const [isCommentFieldVisible, setCommentFieldVisible] = useState(false);
@@ -146,7 +150,7 @@ const Details = () => {
 
             <CommentList id={project.id} />
 
-            {/* Option to add a new comment */}
+
             {!isCommentFieldVisible && (
               <Button variant="contained" onClick={handleAddCommentClick}>
                 Add Comment
@@ -179,7 +183,6 @@ const Details = () => {
         </Card>
       </Box>
 
-      {/* Success modal for unauthenticated user */}
       <SuccessModal
         open={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}
