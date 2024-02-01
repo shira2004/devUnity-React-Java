@@ -7,7 +7,7 @@
 body {
   margin: 0;
   font-family: 'Poppins';
- 
+  overflow-x: hidden;
   min-height: 100vh;
 }
 
@@ -62,4 +62,21 @@ div#NagishLiTrigger{
 }
 .nagishli-menu-header{
   background: linear-gradient(#fff 0%, #fff 100%);
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+
+::-webkit-scrollbar-thumb {
+  background: #617d98; 
+  border-radius: 10px;
 }

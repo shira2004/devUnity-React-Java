@@ -18,6 +18,10 @@ const style = {
   p: 4,
 };
 
+const imageStyle = {
+  paddingLeft: '12px', 
+};
+
 export default function Menu() {
   const [alignment, setAlignment] = useState('web');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -71,23 +75,23 @@ export default function Menu() {
             ) : (
               "My account "
             )}
-            <img src="/icons-avatar-16.png" alt="My Account" />
+            <img src="/icons-avatar-16.png" alt="My Account" style={imageStyle} />
           </ToggleButton>
           <ToggleButton value="ios" onClick={handleMyAccountClick}>
             Add project
-            <img src="/icons-add-16.png" alt="Add Project" />
+            <img src="/icons-add-16.png" alt="Add Project" style={imageStyle} />
           </ToggleButton>
           <ToggleButton value="ios" onClick={() => nav('/Updates')}>
             Updates
-            <img src="/icon-news.png" alt="Updates" />
+            <img src="/icon-news.png" alt="Updates"  style={imageStyle}/>
           </ToggleButton>
           <ToggleButton value="ios" onClick={() => nav('/About')}>
             About
-            <img src="/icons-about-16.png" alt="About" />
+            <img src="/icons-about-16.png" alt="About" style={imageStyle} />
           </ToggleButton>
           <ToggleButton value="ios" onClick={() => nav('/SignIn')}>
             Sign In
-            <img src="/icons-sign-in-16.png" alt="Sign In" />
+            <img src="/icons-sign-in-16.png" alt="Sign In"  style={imageStyle}/>
           </ToggleButton>
 
         </ToggleButtonGroup>

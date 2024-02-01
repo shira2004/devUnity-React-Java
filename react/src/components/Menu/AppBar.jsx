@@ -17,12 +17,21 @@ export default function MyMenu() {
   const categories = useSelector((state) => state.categories.ListCategories);
   const projects = useSelector((state) => state.project.listProjects);
 
+  const imageStyle = {
+    transition: 'filter 0.3s ease-out', 
+    
+  };
+  
+  const hoverStyle = {
+    filter: 'drop-shadow(0 0 2em #646cff)', 
+  };
+
 
   const nav = useNavigate();
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('')
-
-
+  const [isHovered, setIsHovered] = useState(false);
+  
   const handleCategoryClick = (id) => {
     const proj = projects.filter(p => p.status === 0)
     console.log('this is proj status 0');
@@ -85,7 +94,10 @@ export default function MyMenu() {
             endDecorator={<img
               src="/icons-search-32.png"
               alt="Search"
+              style={{ ...imageStyle, ...(isHovered && hoverStyle) }}
               onClick={handleSearchIconClick}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
             />}
             slotProps={{
               input: {

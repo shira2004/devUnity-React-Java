@@ -12,7 +12,6 @@ import Rating from '@mui/material/Rating';
 import SuccessModal from '../../Pages/SuccessModal'; 
 import { useNavigate } from 'react-router-dom';
 
-
 const Details = () => {
   const dispatch = useDispatch();
   const location = useLocation();

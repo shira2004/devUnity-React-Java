@@ -15,9 +15,8 @@ export default function About() {
   return (
     <>
     <ScrollToTopOnMount/>
-     <br/><br/><br/><br/><br/><br/>
-    <br/><br/><br/>
-    
+
+    <div style={{paddingTop:"200px"}} >
     <Section
   title="Empowering Innovators, Uniting Creators"
   description="At the heart of the digital realm, DevUnity stands as a beacon for innovators, creators, and developers seeking a collaborative and passionate community. More than a platform, DevUnity is an ecosystem meticulously crafted to elevate the world of open-source and creative development."
@@ -26,9 +25,9 @@ export default function About() {
   onClick={() => nav('/SignUp')}
   customStyle={{ display: 'none' }}
 />
+</div>
 
-    <br/><br/><br/><br/><br/><br/>
-    <br/>
+<div style={{paddingTop:"200px"}} >
     <Section2
   title="Our Purpose:"
   description="DevUnity was born from a vision to create a space where technological enthusiasts, developers, and visionaries could converge, collaborate, and push the boundaries of what's possible. Our mission is to empower individuals to contribute, learn, and make a positive impact on the world of coding and development."
@@ -37,9 +36,9 @@ export default function About() {
   onClick={() => nav('/AddProject')}
   customStyle={{ display: 'none' }}
 />
+</div>
 
-    <br/><br/><br/><br/><br/><br/>
-    <br/>
+<div style={{paddingTop:"200px"}} >
     <Section
         title="Key Objectives:"
         description="Fostering Collaboration: DevUnity serves as a hub for collaboration, connecting like-minded individuals with diverse talents and skills. By fostering a collaborative environment, we believe in the collective power to shape cutting-edge projects.
@@ -50,11 +49,9 @@ export default function About() {
         onClick={() => nav('/AddProject')}
         customStyle={{ display: 'none' }}
       />
+      </div>
     
-
-
-    <br/><br/><br/><br/><br/><br/>
-    <br/>
+      <div style={{paddingTop:"200px"}} >
     <Section2
         title="Our Community:"
         description="DevUnity thrives on the diversity of its community. From developers and tech enthusiasts to creatives and visionaries, our members come together to form a rich tapestry of talents. The collective drive of our community members shapes the technological landscape and drives advancements in various fields."
@@ -62,11 +59,10 @@ export default function About() {
         imageSrc={Friends_online}
         onClick={() => nav('/AddProject')}
         customStyle={{ display: 'none' }}
-
       />
+      </div>
 
-    <br/><br/><br/><br/><br/><br/>
-    <br/>
+      <div style={{paddingTop:"200px"}} >
     <Section
         title="Why DevUnity?"
         description="Connectivity: DevUnity provides a platform for individuals to connect, collaborate, and form meaningful partnerships.
@@ -79,9 +75,8 @@ export default function About() {
         onClick={() => nav('/AddProject')}
         customStyle={{ display: 'none' }}
       />
-
-    <br/><br/><br/><br/><br/><br/>
-    <br/>
+      </div>
+      <div style={{paddingTop:"200px"}} >
     <Section2
         title="Join DevUnity:"
         description="Whether you're a seasoned developer, a creative mind, or a tech enthusiast, DevUnity welcomes you to join this dynamic community. Together, let's redefine the landscape of coding and development. Welcome to DevUnity – where innovation knows no bounds!"
@@ -89,9 +84,8 @@ export default function About() {
         imageSrc={Server}
         onClick={() => nav('/AddProject')}
         customStyle={{ display: 'none' }}
-        
-
       />
+      </div>
     
     </>
     
