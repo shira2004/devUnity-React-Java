@@ -15,6 +15,7 @@ import Success from './components/Pages/SuccessPage';
 import CommentList from './components/Useful/CommentList';
 import Edit from './components/Pages/Edit';
 import '../src/index.css';
+import Updates from './components/Pages/Updates';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/Success" element={<Success />} />
         <Route path="/CommentList" element={<CommentList />} />
         <Route path="/Edit" element={<Edit />} />
+        <Route path="/Updates" element={<Updates />} />
 
       </Routes>
       <Footer />

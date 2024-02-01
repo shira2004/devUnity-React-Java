@@ -5,10 +5,6 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import MyMenu from './AppBar';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
 import SuccessModal from '../Pages/SuccessModal';
 const style = {
   position: 'absolute',
@@ -24,7 +20,6 @@ const style = {
 
 export default function Menu() {
   const [alignment, setAlignment] = useState('web');
-  const [openModal, setOpenModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleChange = (event, newAlignment) => {
@@ -82,7 +77,7 @@ export default function Menu() {
             Add project
             <img src="/icons-add-16.png" alt="Add Project" />
           </ToggleButton>
-          <ToggleButton value="ios" onClick={() => nav('/SignIn')}>
+          <ToggleButton value="ios" onClick={() => nav('/Updates')}>
             Updates
             <img src="/icon-news.png" alt="Updates" />
           </ToggleButton>

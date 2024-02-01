@@ -1,225 +1,115 @@
-import React, { useState } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
-import Header from '../Header/Header'
-import ScrollToTopOnMount from "../Useful/ScrollToTopOnMount";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import Header from '../Header/Header';
 import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import { useDispatch, useSelector } from 'react-redux';
-import { format } from "date-fns";
-import Rating from '@mui/material/Rating';
-import axios from "axios";
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
+import ScrollToTopOnMount from '../Useful/ScrollToTopOnMount';
+import { useSelector } from 'react-redux';
 
-const Updates = () => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const [showSuccessModal, setShowSuccessModal] = useState(false); 
+export default function Updates() {
+  const allProjects = useSelector((state) => state.project.listProjects);
+  const [latestProjects, setLatestProjects] = useState([]);
+  const [mostActiveProjects, setMostActiveProjects] = useState([]);
+  const nav = useNavigate();
 
-  const project = location.state.project;
-  // const user = useSelector((state) => state.user.currentUser);
-
-
-  const comment = useSelector((state) => state.comment.listComments);
-  const filteredComments = comment.filter((comment) => comment.project.id === project.id);
-  const len = filteredComments.length;
-  
-  const [value, setValue] = useState(1);
-
-
-  const content = useSelector((state) => state.content.listContents);
-  const filteredContent = content.filter((content) => {
-    if (content.project && project && project.id) {
-      return content.project.id === project.id;
-    }
-    return false;
-  });
-
-const maxNumRow = filteredContent.reduce((max, content) => {
-  return Math.max(max, content.numRow || 0);
-}, 0);
-
-  const [task , setTask] = useState('');
-  const [TaskFieldVisible, setTaskFieldVisible] = useState(false);
-
-  const handleAddTaskClick = () => {
-    console.log("hiiii");
-    setTaskFieldVisible(true);
-   
+  const handleCardClick = (project) => {
+    nav('/Details', { state: { project: project } });
   };
-  const handleMarkAsDone=() =>{
-    console.log('in markAsDone');
-      dispatch({
-        type: 'MARK_PROJECT_AS_DONE',
-        payload: {
-          id: project.id,
-        },
-      })
-}
-    
-  const handleTaskSubmit = () => {
-    setTaskFieldVisible(false);
-    const [title, content] = task.split(':');
-    const newNumRow = isNaN(maxNumRow) ? 1 : maxNumRow + 1;
-    dispatch({
-      type: 'POST_CONTENTS',
-      payload: {
-        title: title,
-        text: content,
-        numRow: newNumRow,
-        project: {id: project.id},
-      },
-    });
-  };
-  const handleImageClick = (taskId) => {
-    dispatch({
-      type: 'DELETE_CONTENT',
-      payload: taskId,
-    });
-  };
-  const handleLikeClick = (comment) => {
-    const userId = comment.user.id;
-    axios
-      .put(`http://localhost:8585/api/users/incrementDonationTax/${userId}`)
-      .then((response) => {
-        console.log('DonationTax incremented successfully');
-        setShowSuccessModal(true);
-        console.log(response.data);
 
-      })
-      .catch((error) => {
-        console.error('Error incrementing donationTax', error);
+  useEffect(() => {
+    const sortedProjects = [...allProjects]
+      .filter((project) => project.status == 1)
+      .sort((a, b) => new Date(b.endDate) - new Date(a.endDate));
+    const latestSixProjects = sortedProjects.slice(0, 6);
+    setLatestProjects(latestSixProjects);
 
-      });
-  };
-  const successButton = {
-    label: 'go to home page',
-    onClick: () => nav('/homepage'),
-  };
+    const sortedMostActiveProjects = [...allProjects]
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 6);
+    setMostActiveProjects(sortedMostActiveProjects);
+  }, [allProjects]);
 
   return (
     <>
-      <Header />
       <ScrollToTopOnMount />
+      <Header />
+      <Typography component="div">
+        <h2>🚀 Exciting Updates: Dive into the DevUnity Buzz! 🎉</h2>
+        <p>
 
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '100vh',
-        }}
-      >
-        <Card sx={{ maxWidth: 600 }}>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              {format(project.date , 'dd/MM/yy')}
-            </Typography>
+          Hey DevUnity Explorers! 🌍 Ready for some exciting news from the
+          heart of our vibrant community? Buckle up because here's the latest
+          scoop on the successfully completed and popular projects that are setting DevUnity on fire!🔥
+        </p>
+      </Typography>
+      <br />
 
-    
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              {project.user.firstName} {project.user.lastName}
-            </Typography>
-
-            <Typography variant="h5" component="div">
-              {project.title}
-            </Typography>
-
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              <Rating name="read-only" size='small' value={project.score === 0 ? 0 : (project.score) / len} readOnly />
-            </Typography>
-           
-            <Typography variant="body2">
-              {project.description}
-            </Typography>
-
-            <Typography variant="body2">
-            <img src="/github-logo.png" alt="My Account" /><br />
-              <strong>{project.url}</strong>
-            </Typography>
-            
-
-            <br/><br/><br/>
-            <Typography variant="body2">
-              <img
-                src={`data:image/*;base64,${project.image}`}
-                alt="Project Image"
-                style={{ width: '100%', height: 'auto' }}
-              />
-            </Typography>
-
-
-            {filteredContent.map((item) => (
-              <Typography key={item.id} variant="body2" sx={{ textAlign: 'left' , mb: '8px'}}>
-                    <img
-                    src="/icons-x.png"
-                    alt="x"
-                    onClick={() => handleImageClick(item.id)}
-                    style={{ cursor: 'pointer' }} 
-                     />
-                <strong>{item.title}</strong>  {item.text}
-              </Typography>
-            ))}
-
-            
-
-            {!TaskFieldVisible && (
-              <div>
-              <Button variant="contained" onClick={handleAddTaskClick} >
-                Add Task
-              </Button>
-              <br /><br />
-
-            <Button variant="contained" onClick={handleMarkAsDone}>
-              Mark Your project as  Done
-              </Button>
-              <br /><br />
-              </div>
-            )}
-            
-
-            {TaskFieldVisible && (
-              <Box>
-                <TextField
-                  id="task"
-                  label="Enter your new task"
-                  multiline
-                  fullWidth
-                  variant="outlined"
-                  onChange={(e)=>setTask(e.target.value)} 
+      {latestProjects.length > 0 && (
+        <>
+          <p>🛠 Latest Successfully Completed Projects</p>
+          <img src="/icon-line.png" alt="icon-line" />
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+            {latestProjects.map((project) => (
+              <Card key={project.id} sx={{ maxWidth: 345, margin: 2 }}>
+                <img src="/medal.png" alt="medal" />
+                <CardMedia
+                  sx={{ height: 150 }}
+                  image={`data:image/*;base64,${project.image}`}
+                  title={project.title}
                 />
-               
-                <Button variant="contained" onClick={handleTaskSubmit}>
-                  add task
-                </Button>
-              </Box>
-            )}
-          <p>mark your friend as helpful</p>
-          <br />
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-        {filteredComments.map((comment) => (
-        <Card key={comment.id} sx={{ maxWidth: 250,  mb: 3 }}>
-          <CardContent>
-        
+                <CardContent>
+                  <Typography gutterBottom variant="h8" component="div">
+                    {project.title}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </Box>
+        </>
+      )}
+      {mostActiveProjects.length > 0 && (
+        <>
+          <p>🔥 Hot and Trending: Most Active Projects</p>
+          <img src="/icon-line.png" alt="icon-line" />
 
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              <img src="/icons8-help-50.png" alt="Add Project" onClick={() => handleLikeClick(comment)}/>
-              {comment.user.firstName} {comment.user.lastName} has contributed to {comment.user.donationTax}
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              
-              <Rating name="read-only" size='small' value={parseInt(comment.score)} readOnly />
-            </Typography>
-
-          </CardContent>
-        </Card>
-      ))}
-      </Box>
-          </CardContent>
-        </Card>
-      </Box>
-    
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+            {mostActiveProjects.map((project) => (
+              <Card key={project.id} sx={{ maxWidth: 345, margin: 2 }}>
+                <CardMedia
+                  sx={{ height: 200 }}
+                  image={`data:image/*;base64,${project.image}`}
+                  title={project.title}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {project.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {project.description}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" onClick={() => handleCardClick(project)}>
+                    Learn More
+                  </Button>
+                </CardActions>
+              </Card>
+            ))}
+          </Box>
+        </>
+      )}
+      <Typography component="div">
+        <p>
+          Stay tuned for more updates, contributions, and epic collaborations!
+          🚀 DevUnity is where innovation meets fun – join us in shaping the
+          future of creative development. 🎨✨
+        </p>
+      </Typography>
     </>
   );
-};
-
-export default Updates;
+}
