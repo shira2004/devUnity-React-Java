@@ -21,9 +21,14 @@ export const usersSlice = createSlice({
       console.log('in addUserFailure');
       state.userAdded = 2;
     },
+
+    addUserFailure2: (state) => {
+      console.log('in addUserFailure');
+      state.userAdded = 3;
+    },
   },
 });
 
-export const { setUser, addUserSuccess, addUserFailure } = usersSlice.actions;
+export const { setUser, addUserSuccess, addUserFailure ,addUserFailure2 } = usersSlice.actions;
 
 export default usersSlice.reducer;

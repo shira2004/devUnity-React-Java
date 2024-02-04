@@ -23,12 +23,12 @@ export default function Updates() {
     const sortedProjects = [...allProjects]
       .filter((project) => project.status == 1)
       .sort((a, b) => new Date(b.endDate) - new Date(a.endDate));
-    const latestSixProjects = sortedProjects.slice(0, 6);
+    const latestSixProjects = sortedProjects.slice(0, 3);
     setLatestProjects(latestSixProjects);
 
     const sortedMostActiveProjects = [...allProjects]
       .sort((a, b) => b.score - a.score)
-      .slice(0, 6);
+      .slice(0, 3);
     setMostActiveProjects(sortedMostActiveProjects);
   }, [allProjects]);
 
@@ -39,7 +39,6 @@ export default function Updates() {
       <Typography component="div" style={{ fontWeight: 'bold' }}>
         <h2>🚀 Exciting Updates: Dive into the DevUnity Buzz! 🎉</h2>
         <p>
-
           Hey DevUnity Explorers! 🌍 <br/>Ready for some exciting news from the
           heart of our vibrant community? <br/>Buckle up because here's the latest
           scoop on the successfully completed and popular projects <br/>that are setting DevUnity on fire!🔥
@@ -79,8 +78,8 @@ export default function Updates() {
       )}
       <Typography component="div">
         <p>
-          Stay tuned for more updates, contributions, and epic collaborations!
-          🚀 DevUnity is where innovation meets fun – join us in shaping the
+          Stay tuned for more updates, contributions, and epic collaborations!<br />
+          🚀 DevUnity is where innovation meets fun <br/> join us in shaping the
           future of creative development. 🎨✨
         </p>
       </Typography>

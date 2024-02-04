@@ -97,15 +97,9 @@ function SignUp() {
   const userAdded = useSelector((state) => state.user.userAdded);
 
   useEffect(() => {
-    if (userAdded===1) {
+    if (userAdded === 1 || userAdded === 2|| userAdded === 3) {
       setShowSuccessModal(true);
     }
-    else if(userAdded===2){
-      alert('this email address is already exist')
-      window.location.reload(false);
-      
-    }
-    
   }, [userAdded]);
   
   return (
@@ -224,12 +218,22 @@ function SignUp() {
       </ThemeProvider>
        
 
-       <SuccessModal
+      <SuccessModal
         open={showSuccessModal}
-        onClose={() => setShowSuccessModal(false)}
-        text1="Congratulations! 🎉 You have successfully signed up for DevUnity"
-        imageSrc="/success.gif"
-        text2="Welcome to our community of developers and innovators. Start exploring and sharing your projects, collaborate with other members, and let your creativity shine! Happy coding! 🚀"
+
+        onClose={() => {
+          setShowSuccessModal(false);
+          if (userAdded === 2) {
+            window.location.reload(false);
+          }
+        }}
+        text1={userAdded === 1 ? "Congratulations! 🎉 You have successfully signed up for DevUnity" :
+              userAdded === 2 ? "Error: Email already exists. Please use a different email or sign in if you already have an account." :
+                                "Error: No Internet Connection. Please check your internet connection and try again."}
+        imageSrc={userAdded === 1 ? "/success.gif" :userAdded === 2 ? "error.gif" : "internet.gif"}
+        text2= {userAdded === 1 ? "Welcome to our community of developers and innovators. Start exploring and sharing your projects, collaborate with other members, and let your creativity shine! Happy coding! 🚀" :
+                userAdded === 2 ? "Please check your credentials and try again." :
+                 "Please check your internet connection and try again."}
         button={successButton}
       />
     </>

@@ -6,17 +6,7 @@ import MyMenu from './AppBar';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import SuccessModal from '../Pages/SuccessModal';
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+
 
 const imageStyle = {
   paddingLeft: '12px', 
@@ -37,6 +27,15 @@ export default function Menu() {
   const handleMyAccountClick = () => {
     if (user != null) {
       nav('/MyAccount')
+    } else {
+
+      setShowSuccessModal(true);
+    }
+  };
+
+  const handleAddProjectClick = () => {
+    if (user != null) {
+      nav('/AddProject')
     } else {
 
       setShowSuccessModal(true);
@@ -70,14 +69,10 @@ export default function Menu() {
             <MyMenu />
           </ToggleButton>
           <ToggleButton value="ios" onClick={handleMyAccountClick}>
-            {user ? (
-              `${user.firstName} ${user.lastName} `
-            ) : (
-              "My account "
-            )}
+              My account 
             <img src="/icons-avatar-16.png" alt="My Account" style={imageStyle} />
           </ToggleButton>
-          <ToggleButton value="ios" onClick={handleMyAccountClick}>
+          <ToggleButton value="ios" onClick={handleAddProjectClick}>
             Add project
             <img src="/icons-add-16.png" alt="Add Project" style={imageStyle} />
           </ToggleButton>
@@ -90,7 +85,12 @@ export default function Menu() {
             <img src="/icons-about-16.png" alt="About" style={imageStyle} />
           </ToggleButton>
           <ToggleButton value="ios" onClick={() => nav('/SignIn')}>
-            Sign In
+          {user ? (
+              `${user.firstName} ${user.lastName} `
+            ) : (
+              " Sign In"
+            )}
+           
             <img src="/icons-sign-in-16.png" alt="Sign In"  style={imageStyle}/>
           </ToggleButton>
 
