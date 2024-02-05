@@ -22,16 +22,12 @@ const Edit = () => {
     button: {},
   });
 
-
   const project = location.state.project;
-
 
   const comment = useSelector((state) => state.comment.listComments);
   const filteredComments = comment.filter((comment) => comment.project.id === project.id);
   const len = filteredComments.length;
   
-  const [value, setValue] = useState(1);
-
 
   const content = useSelector((state) => state.content.listContents);
   const filteredContent = content.filter((content) => {
@@ -92,20 +88,31 @@ const handleMarkAsDoneConfirmed = () => {
   setShowSuccessModal(true);
   
 }
-  const handleTaskSubmit = () => {
-    setTaskFieldVisible(false);
-    const [title, content] = task.split(':');
-    const newNumRow = isNaN(maxNumRow) ? 1 : maxNumRow + 1;
-    dispatch({
-      type: 'POST_CONTENTS',
-      payload: {
-        title: title,
-        text: content,
-        numRow: newNumRow,
-        project: {id: project.id},
-      },
-    });
-  };
+const handleTaskSubmit = () => {
+  setTaskFieldVisible(false);
+  const indexOfColon = task.indexOf(':');
+  let title, content;
+
+  if (indexOfColon !== -1) {
+    title = task.substring(0, indexOfColon).trim();
+    content = task.substring(indexOfColon + 1).trim();
+  } else {
+    title = task.trim();
+    content = '';
+  }
+
+  const newNumRow = isNaN(maxNumRow) ? 1 : maxNumRow + 1;
+
+  dispatch({
+    type: 'POST_CONTENTS',
+    payload: {
+      title: title,
+      text: content,
+      numRow: newNumRow,
+      project: { id: project.id },
+    },
+  });
+};
 
   const handleImageClick =(taskId)=>{
     const confirmationText =
@@ -131,30 +138,7 @@ const handleMarkAsDoneConfirmed = () => {
     });
     setShowSuccessModal(false);
   };
-  const handleLikeClick = (comment) => {
-    const userId = comment.user.id;
-    axios
-      .put(`http://localhost:8585/api/users/incrementDonationTax/${userId}`)
-      .then((response) => {
-        console.log('DonationTax incremented successfully');
-        setSuccessModalContent({
-          text1: "Hooray! You've just marked User as incredibly helpful!",
-          imageSrc: "/megaphone.gif",
-          text2:
-            "🌍 Your recognition is invaluable! Thanks for being a shining star and fostering a positive environment. 🚀" +
-            "🤝  Your acknowledgment is a fantastic boost! 🌟",
-          button: successButton,
-        });
-        console.log(successModalContent)
-        setShowSuccessModal(true);
-        console.log(response.data);
-
-      })
-      .catch((error) => {
-        console.error('Error incrementing donationTax', error);
-
-      });
-  };
+ 
   const successButton = {
     label: 'go to home page',
     onClick: () => nav('/homepage'),

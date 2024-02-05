@@ -21,7 +21,16 @@ export const getProjectMidd = ({ dispatch, getState }) => next => action => {
         dispatch(addProject(response.data));
   
         action.payload.content.map((item, index) => {
-          const [title, content] = item.split(':', 2); // Split on the first ':' only
+          const indexOfColon = item.indexOf(':');
+          let title, content;
+        
+          if (indexOfColon !== -1) {
+            title = item.substring(0, indexOfColon).trim();
+            content = item.substring(indexOfColon + 1).trim();
+          } else {
+            title = item.trim();
+            content = '';
+          }
           const objectToSend = {
             title: title,
             text: content,

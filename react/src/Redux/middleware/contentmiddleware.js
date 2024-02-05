@@ -15,7 +15,6 @@ export const getContentMidd = ({ dispatch, getState }) => next =>  action => {
     }
   else if(action.type === 'POST_CONTENTS') {
     const newTask = action.payload;
-
     axios.post('http://localhost:8585/api/content/postContent', newTask)
       .then((response) => {
         dispatch(addContent(response.data));  
