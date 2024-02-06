@@ -12,7 +12,7 @@ import MyAccount from './components/Pages/MyAccount';
 import HorizontalLinearStepper from './components/Feature/AddProject/steps/managerSteps';
 import Details from './components/Pages/Blog/blog';
 import CommentList from './components/Useful/CommentList';
-import Edit from './components/Pages/Edit';
+import Edit from './components/Pages/Edit/Edit';
 import '../src/index.css';
 import Updates from './components/Pages/Updates';
 

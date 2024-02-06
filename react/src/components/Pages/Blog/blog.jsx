@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import Rating from '@mui/material/Rating';
 import SuccessModal from '../../Pages/SuccessModal'; 
 import { useNavigate } from 'react-router-dom';
+import ProjectInfoComponent from "../Edit/ProjectInfoComponent";
 
 
 const Details = () => {
@@ -82,41 +83,7 @@ const Details = () => {
       >
         <Card sx={{ maxWidth: 600 }}>
           <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              {format(project.date , 'dd/MM/yy')}
-            </Typography>
-
-    
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              {project.user.firstName} {project.user.lastName}
-            </Typography>
-
-            <Typography variant="h5" component="div">
-              {project.title}
-            </Typography>
-
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              <Rating name="read-only" size='small' value={project.score === 0 ? 0 : (project.score) / len} readOnly />
-            </Typography>
-
-            <Typography variant="body2">
-              {project.description}
-            </Typography>
-
-            <Typography variant="body2">
-            <img src="/github-logo.png" alt="My Account" /><br />
-              <strong>{project.url}</strong>
-            </Typography>
-            
-
-            <br/><br/><br/>
-            <Typography variant="body2">
-              <img
-                src={`data:image/*;base64,${project.image}`}
-                alt="Project Image"
-                style={{ width: '100%', height: 'auto' }}
-              />
-            </Typography>
+            <ProjectInfoComponent project={project} len={len} />
 
             <h4> Project tasks</h4>
           <img src="/icon-line.png" alt="my account" />
