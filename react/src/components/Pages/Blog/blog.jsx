@@ -118,7 +118,7 @@ const Details = () => {
               />
             </Typography>
 
-            <h4> project tasks</h4>
+            <h4> Project tasks</h4>
           <img src="/icon-line.png" alt="my account" />
             <br/>
             {filteredContent.map((item) => (
