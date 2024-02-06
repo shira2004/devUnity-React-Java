@@ -12,6 +12,7 @@ import Rating from '@mui/material/Rating';
 import SuccessModal from '../../Pages/SuccessModal'; 
 import { useNavigate } from 'react-router-dom';
 
+
 const Details = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -68,8 +69,8 @@ const Details = () => {
 
   return (
     <>
-      <Header />
       <ScrollToTopOnMount />
+      <Header />
 
       <Box
         sx={{
@@ -117,6 +118,9 @@ const Details = () => {
               />
             </Typography>
 
+            <h4> project tasks</h4>
+          <img src="/icon-line.png" alt="my account" />
+            <br/>
             {filteredContent.map((item) => (
               <Typography key={item.id} variant="body2" sx={{ textAlign: 'left' , mb: '8px'}}>
                 <strong>{item.title}</strong>  {item.text}
