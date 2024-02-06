@@ -159,10 +159,7 @@ function SignIn() {
                   ),
                 }}
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+              
               <Button
                 type="submit"
                 fullWidth
@@ -173,9 +170,7 @@ function SignIn() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
+                  
                 </Grid>
                 <Grid item>
                   <Link variant="body2" onClick={() => nav('/SignUp')}>
