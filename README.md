@@ -25,19 +25,30 @@ We welcome contributions from the community to improve and enhance DevUnity. If 
    - Backend:
      ```bash
      # Navigate to backend directory
+     ```bash
      cd backend/
+       ```
+    
      # Install dependencies
+      ```bash
      mvn install
+        ```
      # Run the Spring Boot application
+      ```bash
      mvn spring-boot:run
      ```
    - Frontend:
-     ```bash
+     
      # Navigate to frontend directory
+     ```bash
      cd frontend/
+       ```
      # Install dependencies
+     ```bash
      npm install
+       ```
      # Start the React development server
+      ```bash
      npm start
      ```
 3. **Pick an issue**  or propose your own ideas.
